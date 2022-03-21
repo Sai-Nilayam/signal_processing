@@ -1,1 +1,7 @@
-This is to create a Text to Speech app. 
+This is to create a Text to Speech system.
+
+1. Word Concatenation - Completed. - tts_1
+2. Name Entity pronunciation - Completed. - tts_2
+3. Vocal Style and Tone Transfer - Completed. - tts_3
+4. Beautifying the Speech using Generative Modelling. - On Progress - tts_4
+5. Conversational Voice Generation using Seq-Seq Modelling. - Pending - tts_5 

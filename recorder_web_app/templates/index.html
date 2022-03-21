@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <title>Signal Processing</title>
+
+    <!-- Attaching the JavaScript file to this html page. -->
+    <script src="static/index.js"></script>
+  </head>
+  <body>
+    <!-- Self added codes. -->
+    <!-- For Header. -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3 mx-0 my-0 px-4 py-4" style="background-color: gray;">
+          <h6>Analytics</h6>
+          <ol>
+            <li><a href="#" style="color: white">Employee Attrition Predictor</a></li>
+          </ol>
+        </div>
+        <div class="col-lg-3 mx-0 my-0 px-4 py-4" style="background-color: teal;">
+          <h6>Computer Vision</h6>
+          <ol>
+            <li><a href="#" style="color: white">Face Verifier</a></li>
+          </ol>
+        </div>
+         <div class="col-lg-3 mx-0 my-0 px-4 py-4" style="background-color: orange;">
+          <h6>Natural Language Processing</h6>
+          <ol>
+            <li><a href="#" style="color: white">Utterance to Intent Classifier</a></li>
+          </ol>
+        </div>
+         <div class="col-lg-3 mx-0 my-0 px-4 py-4" style="background-color: mediumseagreen;">
+          <h5>Signal Processing</h5>
+          <ol>
+            <li><a href="#" style="color: white">Word Concatination</a></li>
+            <li><a href="#" style="color: white">Name Entity Pronunciation</a></li>
+            <li><a href="#" style="color: white">Vocal Tone and Style Transfer</a></li>
+            <li><a href="#" style="color: white">Speech Beautifier</a></li>
+            <li><a href="#" style="color: white">Conversational Speech</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+     </div>
+    <!-- For System 1. -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: _coral;">
+          <h3>Word Concatination</h3>
+          <p>Here we will be recording each and every word in a particular Tone and Style , save them all per word, so that we will be concatenating them later to create audio form of any combination of words (sentences).</p>
+          <br>
+          <h5>Procedure For Recording</h5>
+          <ol>
+            <li>
+              Choose a particular Voice (A Voice with a perticular Tone and Style i.e a particular style by a particular speaker) and stick to it thorugh out the entire recording process here.
+            </li>
+            <li>
+              Copy and paste all of your texts in the box (Put all Texts). Click on find Unique Word Count. This will just show all the unique words in the from the large text corpus. 
+            </li>
+            <li>
+              Then click on start Recording Process. This will pop up 8 unique words at a time as a phrase. Then click on the Record Button and say the phrase like a phrase so that the pronunciation of each word would be in a correct vocal style flow. It's important to keep a gap in between two words while doing the recording so that the each words could be cropped up by the backend programme. Keep in mind to use a absolutely noise less microphone for the system to work properly.
+            </li>
+            <li>
+              Once you complete the phrase click on Stop Recording. This will show you all the 8 words distinctly. Play thema all and listen to them. Also if the number of words found from the recorded clip is 8 then it will pop us a success message. If everything has done perfectly then click on done to record the next phrase (another 8 words).  
+            </li>
+          </ol>
+          <br>
+          <select id="select_voice" name="select_voice" class="form-select" aria-label="Default select example">
+            <option selected>Select a Voice</option>
+            <option value="voice_0_0">Assuring_Male (voice_0_0)</option>
+            <option value="voice_0_1">Assuring_Female (voice_0_1)</option>
+
+            <option value="voice_1_0">Informing_Male (voice_1_0)</option>
+            <option value="voice_1_1">Informing_Female (voice_1_1)</option>
+          </select>
+          <br>
+          <div class="input-group">
+            <span class="input-group-text">Put all Texts here</span>
+            <textarea id="all_texts" name="all_texts" class="form-control" aria-label="With textarea" style="height: 200px"></textarea>
+          </div>
+          <br>
+          <button id="analyse" name="analyse" onclick="analyse()" type="button" class="btn btn-dark">Analyse</button>
+          <br><br>
+          <p>Total Numbar of Unique Words: <b id="unique_word_count">248</b>, Number of Takes: <b id="no_of_takes">24</b>, Estimated Recording Time: <b id="estimated_recording_time">8 Minutes</b></p>
+          <br>
+          <div class="input-group mb-2" style="width: _">
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Select a Cropping Amp. Threshold</option>
+              <option value="1">2</option>
+              <option value="1">4</option>
+              <option value="1">6</option>
+              <option value="1">8</option>
+              <option value="1">10</option>
+              <option value="1">12</option>
+              <option value="1">14</option>
+              <option value="1">16</option>
+            </select>
+            <span class="input-group-text" id="basic-addon1">Take Number</span>
+            <input type="text" class="form-control" placeholder="" aria-label="Username" value="4 / 24" aria-describedby="basic-addon1">
+            <button type="button" class="btn btn-outline-dark">
+              Go <i class="bi bi-arrow-right-short"></i>
+            </button>
+          </div>
+          <br>
+          <p class="text-center" style="font-size: 24px">d m i finance me ap ka swagat hai</p>
+          <br>
+          <div class="col-md-12 text-center">
+            <div class="spinner-grow text-primary" role="status">
+              <span class="sr-only"></span>
+            </div>
+            <br><br>
+            <button type="button" class="btn btn-outline-primary">
+              <i class="bi bi-mic"></i> Start Recording
+            </button>
+          </div>
+          <br>
+          <p class="text-center">Please Wait . . </p>
+          <p class="text-center text-success">Success . . !</p>
+          <br>
+          <p class="text-center">
+            <button type="button" class="btn btn-outline-info mx-2">
+              1 <i class="bi bi-play"></i>
+            </button>
+            <button type="button" class="btn btn-outline-info mx-2">
+              2 <i class="bi bi-play"></i>
+            </button>
+            <button type="button" class="btn btn-outline-info mx-2">
+              3 <i class="bi bi-play"></i>
+            </button>
+            <button type="button" class="btn btn-outline-info mx-2">
+              4 <i class="bi bi-play"></i>
+            </button>
+            <button type="button" class="btn btn-outline-info mx-2">
+              5 <i class="bi bi-play"></i>
+            </button>
+            <button type="button" class="btn btn-outline-info mx-2">
+              6 <i class="bi bi-play"></i>
+            </button>
+            <button type="button" class="btn btn-outline-info mx-2">
+              7 <i class="bi bi-play"></i>
+            </button>
+            <button type="button" class="btn btn-outline-info mx-2">
+              8 <i class="bi bi-play"></i>
+            </button>
+          </p>
+          <br>
+          <div class="col-md-12 text-center">
+            <button type="button" class="btn btn-outline-secondary mx-2">Retake</button>
+            <button type="button" class="btn btn-outline-success mx-2">Done</button>
+          </div>
+          
+          <br><br><br><br>
+        </div>
+        <div class="col-lg-4 mx-0 my-4 px-4 py-4" style="background-color: _green;">
+          <h5>Watchout Explanation Video</h5>
+          <iframe width="100%" height="250dp" src="https://www.youtube.com/embed/_xLgXIhebxA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <br><br>
+          <h4>Testing</h4>
+          <select class="form-select" aria-label="Default select example">
+            <option selected>Select a Voice</option>
+            <option value="1">Assuring_Male (voice_0_0)</option>
+            <option value="1">Assuring_Female (voice_0_1)</option>
+
+            <option value="2">Informing_Male (voice_1_0)</option>
+            <option value="2">Informing_Female (voice_1_1)</option>
+          </select>
+          <br>
+          <div class="input-group">
+            <span class="input-group-text">Put all Texts here</span>
+            <textarea class="form-control" aria-label="With textarea" style="height: 200px" value="d m i finance me {ankush} apka swagat hai"></textarea>
+          </div>
+          <br>
+          <button type="button" class="btn btn-outline-info mx-2">
+              Play <i class="bi bi-play"></i>
+          </button>
+          <img src="static/sound_play.gif" height="40px" width="40px" class="rounded float" alt="sound_play">
+          <br><br><br><br>
+          <h6>API Usage Guide</h6>
+          <br>
+          <h6>Python</h6>
+          <pre style="background-color: rgb(228, 228, 228); padding: 20px 20px 20px 20px; border-radius: 5px 5px 5px 5px">
+import requests
+
+# End point to the TTS system_1.
+# url = 'http://127.0.0.1:8000/tts_1/'
+
+data = {
+    'phrase': 'd m i finance me {Ankush} ap ka swagat hai.',
+    'voice': 'assuring_male_voice_0_1'
+}
+
+response = requests.post(url, data=data)
+
+print(response)
+print(response.content)
+          </pre>
+          <br>
+          <h6>C++</h6>
+          <pre style="background-color: rgb(228, 228, 228); padding: 20px 20px 20px 20px; border-radius: 5px 5px 5px 5px;">
+Demo Codes
+          </pre>
+        </div>
+      </div>
+    </div>
+    <!-- For System 2. -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: _grey;">
+          <h3>Name Entity Pronunciation</h3>
+          <p>Here we will be recording differnt sounds at character level so as to concat them to produce pronunciation of Name Entities. Here the recording part is only focused on recording Vyanjana Varnas. The Swaravarna are predefined here to test out the pronunciation task.</p>
+          <br>
+          <h5>Procedure For Recording</h5>
+          <ol>
+            <li>
+              Play the Metronome Button.
+            </li>
+            <li>
+              Then read out all the words on Metronome. Then stop recording. That's it. With this step all the Vyanjana Varnas are going to be cropped exaclty as per the Metronome.
+            </li>
+          </ol>
+          <br>
+          <button type="button" class="btn btn-outline-info mx-2">
+              Play Metronome <i class="bi bi-play"></i>
+          </button>
+          <i class="bi bi-circle-fill mx-2" style="font-size: 20px; color: black;"></i>
+          <i class="bi bi-circle-fill mx-2" style="font-size: 10px; color: grey"></i>
+          <i class="bi bi-circle-fill mx-2" style="font-size: 10px; color: grey"></i>
+          <i class="bi bi-circle-fill mx-2" style="font-size: 10px; color: grey"></i>
+          <br><br>
+          <p class="text-center" style="font-size: 20px">kak khakh gag ghagh</p>
+          <p class="text-center" style="font-size: 20px">chach chhachh jaj jhajh</p>
+          <p class="text-center" style="font-size: 20px">tat thath dad dhadh nan</p>
+          <p class="text-center" style="font-size: 20px">pap phaph bab bhabh mam</p>
+          <p class="text-center" style="font-size: 20px">yay rar lal waw shash sas hah</p>
+
+          <br>
+          <div class="col-md-12 text-center">
+            <div class="spinner-grow text-primary" role="status">
+              <span class="sr-only"></span>
+            </div>
+            <br><br>
+            <button type="button" class="btn btn-outline-primary">
+              <i class="bi bi-mic"></i> Start Recording
+            </button>
+          </div>
+          <br><br><br><br>
+        </div>
+        <div class="col-lg-4 mx-0 my-4 px-4 py-4" style="background-color: teal;">
+          Column
+          <br><br><br><br>
+          <br><br><br><br>
+        </div>
+      </div>
+    </div>
+     </div>
+    <!-- For System 3. -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: _grey;">
+          <h3>Vocal Tone and Style Transfer</h3>
+          <p>Here we are recording differnt Swara Varna sounds of a particular style of a particular speaker. The idea is to only record out the differnt Swaravarna sounds and put them in right way to create voice of similar kind.</p>
+          <br>
+          <h5>Procedure For Recording</h5>
+          <ol>
+            <li>
+              Choose a particular Voice (A Voice with a perticular Tone and Style i.e a particular style by a particular speaker) with which you would like to match the pronunciation and stick to it thorugh out the entire recording process here.
+            </li>
+            <li>
+              Select the Voice type from which the voice and tone needed to be transfered. Upload and listen to the Sample audio to build up the flow to pronounce the words and then turn on the mic and pronounce the sample words with a gap within each with a highly noise less microphone. Once the recording process is complete stop the recording.
+            </li>
+            <li>
+              If all the Swaravarnas are cropped in 3 segments exactly there would be a success message. Then we need to manually see if the 3 Swaravarna chunks are properly done or not by playing the three Swaravarna Sounds. If everything is done properly then click on done else do a retake. 
+            </li>
+          </ol>
+          <br>
+          <select class="form-select" aria-label="Default select example">
+            <option selected>Select a Voice</option>
+            <option value="1">Assuring_Male (voice_0_0)</option>
+            <option value="1">Assuring_Female (voice_0_1)</option>
+
+            <option value="2">Informing_Male (voice_1_1)</option>
+            <option value="2">Informing_Female (voice_1_2)</option>
+          </select>
+          <br>
+          <div class="input-group mb-2" style="width: _">
+            <input type="file" class="form-control" placeholder="" aria-label="Username" value="4 / 24" aria-describedby="basic-addon1">
+            <button type="button" class="btn btn-outline-info mx-2">
+              Play <i class="bi bi-play"></i>
+            </button>
+          </div>
+          <br>
+          <p class="text-center" style="font-size: 24px">
+            Example: d m i finance me {kakakak} ap ka swagat hai
+            <br>
+            {kakakak} {kaakaakaak} {kikikik} {kukukuk} {kekekek} {kokokok}
+          </p>
+          <br>
+          <div class="input-group mb-2" style="width: _">
+            <span class="input-group-text" id="basic-addon1">Take Number</span>
+            <input type="text" class="form-control" placeholder="" aria-label="Username" value="1 / 6" aria-describedby="basic-addon1">
+            <button type="button" class="btn btn-outline-dark">
+              Go <i class="bi bi-arrow-right-short"></i>
+            </button>
+          </div>
+          <br>
+          <p class="text-center" style="font-size: 24px">Say: kakakak</p>
+          <br>
+          <div class="col-md-12 text-center">
+            <div class="spinner-grow text-primary" role="status">
+              <span class="sr-only"></span>
+            </div>
+            <br><br>
+            <button type="button" class="btn btn-outline-primary">
+              <i class="bi bi-mic"></i> Start Recording
+            </button>
+          </div>
+          <br>
+          <p class="text-center">Please Wait . . </p>
+          <p class="text-center text-success">Success . . !</p>
+          <br>
+          <p class="text-center">
+            <button type="button" class="btn btn-outline-info mx-2">
+              1 <i class="bi bi-play"></i>
+            </button>
+            <button type="button" class="btn btn-outline-info mx-2">
+              2 <i class="bi bi-play"></i>
+            </button>
+            <button type="button" class="btn btn-outline-info mx-2">
+              3 <i class="bi bi-play"></i>
+            </button>
+          </p>
+          <br>
+          <div class="col-md-12 text-center">
+            <button type="button" class="btn btn-outline-secondary mx-2">Retake</button>
+            <button type="button" class="btn btn-outline-success mx-2">Done</button>
+          </div>
+          <br><br><br><br>
+        </div>
+        <div class="col-lg-4 mx-0 my-4 px-4 py-4" style="background-color: teal;">
+          Column
+          <br><br><br><br>
+          <br><br><br><br>
+        </div>
+      </div>
+    </div>
+    <!-- For system 4. -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: grey;">
+          <h3>Speech Beautifier</h3>
+          <p>- - -</p>
+          <br>
+          <h5>Usage Guide</h5>
+          <ol>
+            <li>
+              - - -
+          </ol>
+          <br><br><br><br>
+        </div>
+        <div class="col-lg-4 mx-0 my-4 px-4 py-4" style="background-color: teal;">
+          Column
+          <br><br><br><br>
+          <br><br><br><br>
+        </div>
+      </div>
+    </div>
+    <!-- For System 5. -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: grey;">
+          <h3>Conversational Speech</h3>
+          <p>- - -</p>
+          <br>
+          <br><br><br><br>
+        </div>
+        <div class="col-lg-4 mx-0 my-4 px-4 py-4" style="background-color: teal;">
+          Column
+          <br><br><br><br>
+          <br><br><br><br>
+        </div>
+      </div>
+    </div>
+    <!-- For System 5. -->
+    <div class="container-fluid" style="background-color: _black">
+      <p class="text-center" style="color: grey;">© Simpragma | All rights reserved 2022</p>
+    </div>
+    <!-- Self added codes. -->
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

@@ -1,0 +1,8 @@
+The 'h' sound is not here. We need to take a starting and ending 'h' sound. 
+vve - means vyanjana varna ending sounds. 
+vvs - means vyanjana varna starting sounds. 
+sv_sme - menas swaravarna starting middle and ending sounds. 
+
+the production idea 
+--------
+instead of going with the dummy words it is better go with original word (name) pronunciations to crop all the different sounds. 
