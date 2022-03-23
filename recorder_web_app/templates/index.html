@@ -15,6 +15,9 @@
 
     <!-- Attaching the JavaScript file to this html page. -->
     <script src="static/index.js"></script>
+
+    <!-- Attaching a logo -->
+    <link rel="icon" href="static/logo.png" type="image/x-icon">           
   </head>
   <body>
     <!-- Self added codes. -->
@@ -91,72 +94,92 @@
           <br>
           <button id="analyse" name="analyse" onclick="analyse()" type="button" class="btn btn-dark">Analyse</button>
           <br><br>
-          <p>Total Numbar of Unique Words: <b id="unique_word_count">248</b>, Number of Takes: <b id="no_of_takes">24</b>, Estimated Recording Time: <b id="estimated_recording_time">8 Minutes</b></p>
+          <p>Total Numbar of Unique Words: <b id="unique_word_count">- -</b>, Number of Takes: <b id="no_of_takes">- -</b>, Estimated Recording Time: <b id="estimated_recording_time">- -</b><b> Minute(s)</b></p>
           <br>
           <div class="input-group mb-2" style="width: _">
-            <select class="form-select" aria-label="Default select example">
+            <select id="crop_amp_threshold" name="crop_amp_threshold" class="form-select" aria-label="Default select example">
               <option selected>Select a Cropping Amp. Threshold</option>
-              <option value="1">2</option>
-              <option value="1">4</option>
-              <option value="1">6</option>
-              <option value="1">8</option>
-              <option value="1">10</option>
-              <option value="1">12</option>
-              <option value="1">14</option>
-              <option value="1">16</option>
+              <option value="2">2</option>
+              <option value="4">4</option>
+              <option value="6">6</option>
+              <option value="8">8</option>
+              <option value="10">10</option>
+              <option value="12">12</option>
+              <option value="14">14</option>
+              <option value="16">16</option>
             </select>
             <span class="input-group-text" id="basic-addon1">Take Number</span>
-            <input type="text" class="form-control" placeholder="" aria-label="Username" value="4 / 24" aria-describedby="basic-addon1">
-            <button type="button" class="btn btn-outline-dark">
+            <input id="take_no" name="take_no" type="text" class="form-control" placeholder="" aria-label="Username" value="" aria-describedby="basic-addon1">
+            <span id="total_no_of_takes" class="input-group-text" id="basic-addon1">/ 24</span>
+            <button id="get_take_words" name="get_take_words" onclick="get_take_words()" type="button" class="btn btn-outline-dark">
               Go <i class="bi bi-arrow-right-short"></i>
             </button>
           </div>
           <br>
-          <p class="text-center" style="font-size: 24px">d m i finance me ap ka swagat hai</p>
+          <p id="take_words" name="take_words" class="text-center" style="font-size: 24px">word_0 word_1 word_2 word_3 word_4 word_5 word_6 word_7</p>
           <br>
           <div class="col-md-12 text-center">
-            <div class="spinner-grow text-primary" role="status">
+            <div id="rec_animation" class="spinner-grow text-danger" role="status" style="visibility: hidden">
               <span class="sr-only"></span>
             </div>
             <br><br>
-            <button type="button" class="btn btn-outline-primary">
+            <button id="start_rec" name="start_rec" onclick="start_rec()" type="button" class="btn btn-outline-primary" style="display: _;">
               <i class="bi bi-mic"></i> Start Recording
             </button>
+            <button id="stop_rec" name="stop_rec" onclick="stop_rec()" type="button" class="btn btn-outline-danger" style="display: none">
+              <i class="bi bi-stop-btn"></i> Stop Recording
+            </button>
           </div>
+          <!-- Just trying with some different ideas -->
+          <!-- <input id="audio_system_1" type="file" src=""> -->
+          <p id="please_wait" name="please_wait" class="text-center" style="visibility: hidden;">Please Wait . . </p>
+          <p id="processing_status" name="processing_status" class="text-center" style="visibility: hidden;">Success . . !</p>
           <br>
-          <p class="text-center">Please Wait . . </p>
-          <p class="text-center text-success">Success . . !</p>
-          <br>
-          <p class="text-center">
-            <button type="button" class="btn btn-outline-info mx-2">
+          <p id="word_clips" name="word_clips" class="text-center" style="visibility: hidden">
+            <button id="clip_0" name="clip_0" onclick="clip_0()" type="button" class="btn btn-outline-info mx-2 my-2">
               1 <i class="bi bi-play"></i>
             </button>
-            <button type="button" class="btn btn-outline-info mx-2">
+            <img id="clip_0_animation" name="clip_0_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            
+            <button id="clip_1" name="clip_1" onclick="clip_1()" type="button" class="btn btn-outline-info mx-2">
               2 <i class="bi bi-play"></i>
             </button>
-            <button type="button" class="btn btn-outline-info mx-2">
+            <img id="clip_1_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            
+            <button id="clip_2" name="clip_2" onclick="clip_2()" type="button" class="btn btn-outline-info mx-2">
               3 <i class="bi bi-play"></i>
             </button>
-            <button type="button" class="btn btn-outline-info mx-2">
+            <img id="clip_2_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            
+            <button id="clip_3" name="clip_3" onclick="clip_3()" type="button" class="btn btn-outline-info mx-2 my-2">
               4 <i class="bi bi-play"></i>
             </button>
-            <button type="button" class="btn btn-outline-info mx-2">
+            <img id="clip_3_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            
+            <button id="clip_4" name="clip_4" onclick="clip_4()" type="button" class="btn btn-outline-info mx-2 my-4">
               5 <i class="bi bi-play"></i>
             </button>
-            <button type="button" class="btn btn-outline-info mx-2">
+            <img id="clip_4_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            
+            <button id="clip_5" name="clip_5" onclick="clip_5()" type="button" class="btn btn-outline-info mx-2 my-2">
               6 <i class="bi bi-play"></i>
             </button>
-            <button type="button" class="btn btn-outline-info mx-2">
+            <img id="clip_5_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            
+            <button id="clip_6" name="clip_6" onclick="clip_6()" type="button" class="btn btn-outline-info mx-2 my-2">
               7 <i class="bi bi-play"></i>
             </button>
-            <button type="button" class="btn btn-outline-info mx-2">
+            <img id="clip_6_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            
+            <button id="clip_7" name="clip_7" onclick="clip_7()" type="button" class="btn btn-outline-info mx-2">
               8 <i class="bi bi-play"></i>
             </button>
+            <img id="clip_7_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
           </p>
           <br>
-          <div class="col-md-12 text-center">
-            <button type="button" class="btn btn-outline-secondary mx-2">Retake</button>
-            <button type="button" class="btn btn-outline-success mx-2">Done</button>
+          <div id="post_operations" name="post_operations" class="col-md-12 text-center" style="visibility: hidden">
+            <button id="retake" name="retake" onclick="retake()" type="button" class="btn btn-outline-secondary mx-2">Retake</button>
+            <button onclick="done()" type="button" class="btn btn-outline-success mx-2">Done</button>
           </div>
           
           <br><br><br><br>
@@ -202,7 +225,7 @@ data = {
 response = requests.post(url, data=data)
 
 print(response)
-print(response.content)
+print(response.byte)
           </pre>
           <br>
           <h6>C++</h6>
@@ -245,7 +268,7 @@ Demo Codes
 
           <br>
           <div class="col-md-12 text-center">
-            <div class="spinner-grow text-primary" role="status">
+            <div class="spinner-grow text-danger" role="status">
               <span class="sr-only"></span>
             </div>
             <br><br>
@@ -316,7 +339,7 @@ Demo Codes
           <p class="text-center" style="font-size: 24px">Say: kakakak</p>
           <br>
           <div class="col-md-12 text-center">
-            <div class="spinner-grow text-primary" role="status">
+            <div class="spinner-grow text-danger" role="status">
               <span class="sr-only"></span>
             </div>
             <br><br>
@@ -392,7 +415,7 @@ Demo Codes
     </div>
     <!-- For System 5. -->
     <div class="container-fluid" style="background-color: _black">
-      <p class="text-center" style="color: grey;">© Simpragma | All rights reserved 2022</p>
+      <p class="text-center" style="color: grey;">© Latent AI | All rights reserved 2022</p>
     </div>
     <!-- Self added codes. -->
 
