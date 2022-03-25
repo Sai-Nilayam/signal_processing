@@ -47,10 +47,10 @@ def get_unique_words():
 	# form so that we could execute these all when needed. 
 	unique_words_str = ''
 	for word in unique_words_list:
-		unique_words_str = unique_words_str + ' ' + word
+		unique_words_str = unique_words_str + ' ' + word.strip()
 	unique_words_str = unique_words_str.strip()
 
-	f = open('static/system_1/{}/unique_words.txt'.format(voice), 'w')
+	f = open('static/system_1/{}/inst_unique_words.txt'.format(voice), 'w')
 	f.write(unique_words_str)
 	f.close()
 
@@ -86,7 +86,7 @@ def get_take_words():
 
 	# Now we need to get all the unique words from the unique_words.txt file and
 	# make a list out of that.
-	f = open('static/system_1/{}/unique_words.txt'.format(voice), 'r')
+	f = open('static/system_1/{}/inst_unique_words.txt'.format(voice), 'r')
 	content = f.read()
 	f.close()
 
@@ -133,8 +133,11 @@ def process_audio():
 	# Now it's time to split it.
 	intervals = librosa.effects.split(ar, top_db=int(crop_amp_threshold))
 
+	# As we need to have access to the take words.
+	take_words_arr = words.split(' ')
+
 	# Send failed message if the no of cropped words are not queals to 8.
-	if len(intervals) != 8:
+	if len(intervals) != len(take_words_arr):
 		# For internal testing.
 		print(intervals)
 
@@ -149,9 +152,7 @@ def process_audio():
 		return response_json
 
 	# Now that we have intervals we need to crop the audio files and save them
-	# in the inst_word folder. 
-	# But before that we need to have access to the take words.
-	take_words_arr = words.split(' ')
+	# in the inst_word folder.
 
 	for i in range(len(intervals)):
 	    inst_interval = intervals[i]
@@ -201,5 +202,60 @@ def done():
 
 	return 'done'
 
+# Now we need to create a funciton for Testing the TTS 1.
+@app.route('/system_1/testing_play', methods=['POST'])
+def testing_play():
+	testing_voice = request.form.get('testing_voice')
+	testing_words = request.form.get('testing_words')
+
+	print(testing_voice)
+	print(testing_words)
+
+	# Now the first thing is to spllit all the words and put them all in an
+	# array.
+	testing_words_arr = testing_words.split(' ')
+	print(testing_words_arr)
+
+	# Now that we have all the words now what we need to do is that, we need to 
+	# put all the words together and create a audio clip by taking the 
+	# respective audio files from the words folder. 
+
+	# Instantiating the final voice array. 
+	final_voice = np.array([])
+
+	# Trying for building up the final output voice. If a few words are not 
+	# found then return a failed message.
+	try:
+		for word in testing_words_arr:
+			# Getting the audio clip i.e the audio array from the words folder.
+			inst_file_name = word + '.wav'
+			inst_ar, inst_sr = librosa.load('static/system_1/{}/words/{}'.format(testing_voice, inst_file_name))
+			final_voice = np.concatenate([final_voice, inst_ar])
+	except:
+		response = {
+			'processing_status': 'failed'
+		}
+
+		response_json = json.dumps(response)
+
+		return response_json
+
+	# Finally saving the final voice as a wav file in testing_words folder.
+	sf.write('static/system_1/{}/testing_words/{}'.format(testing_voice, 'final_output.wav'), final_voice, inst_sr, 'PCM_24')
+
+	# Now what are the things we need to return. 
+	# All we need to return a success message.
+	# Preparing the json object
+	response = {
+		'processing_status': 'success'
+	}
+
+	response_json = json.dumps(response)
+
+	return response_json
+
+
+
 if __name__ == '__main__':
-	app.run(debug=True, port=8000)
+	# app.run(debug=True, port=8000)
+	app.run(debug=True, host='0.0.0.0')

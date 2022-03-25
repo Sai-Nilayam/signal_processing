@@ -18,7 +18,7 @@ function analyse() {
 		document.getElementById("unique_word_count").innerHTML = response_json.unique_word_count;
 		document.getElementById("no_of_takes").innerHTML = response_json.no_of_takes;
 		document.getElementById("estimated_recording_time").innerHTML = response_json.estimated_recording_time; 
-		document.getElementById("total_no_of_takes").innerHTML = response_json.no_of_takes;  
+		document.getElementById("total_no_of_takes").innerHTML = "/" + " " + response_json.no_of_takes;  
 	}
 
  	xhttp.open("POST", url);
@@ -84,7 +84,7 @@ function start_rec() {
 		    // and then creating an audio url for that blob.
 		    mediaRecorder.addEventListener("stop", () => {
 		      audioBlob = new Blob(audioChunks, {type: "audio/ogg"});
-		      // audioUrl = URL.createObjectURL(audioBlob);
+		      audioUrl = URL.createObjectURL(audioBlob);
 		    });
 
 	  	});
@@ -103,10 +103,12 @@ function stop_rec() {
 
 	// Playing the Audio. Before doing anything to the audio, we need to set a Time out so that 
 	// it would get some time to do some sort of pre-processing and making ready the audio file.
-	// setTimeout(() => {
- //     	audio = new Audio(audioUrl);
- //    	audio.play();
- //    }, 200);
+
+	// It is important to play the audio after geing recorded instantly so that the user would knwo the take he has just given.
+	setTimeout(() => {
+     	audio = new Audio(audioUrl);
+    	audio.play();
+    }, 200);
 
  	// We don't actually need to play the audio here. Instead we need to send the audio file 
  	// to the server. Here are the codes to send the audio file to the server.
@@ -122,6 +124,7 @@ function stop_rec() {
 			document.getElementById("processing_status").innerHTML = "Processing failed. Please try out with different Cropping Amp. Thresholds or use a more noise less microphone.";
 			document.getElementById("processing_status").style.color = "#ff4f42";
 			document.getElementById("processing_status").style.visibility = "visible";
+			document.getElementById("done").style.display = "none";
 			document.getElementById("post_operations").style.visibility = "visible";
 		};
 
@@ -130,6 +133,7 @@ function stop_rec() {
 			document.getElementById("processing_status").innerHTML = "Success . . !";
 			document.getElementById("processing_status").style.color = "#00c76a";
 			document.getElementById("processing_status").style.visibility = "visible";
+			document.getElementById("done").style.display = "inline-block";
 			document.getElementById("post_operations").style.visibility = "visible";
 			document.getElementById("word_clips").style.visibility = "visible";
 		}
@@ -297,4 +301,43 @@ function done() {
 
 	xhttp.send(form_data)
 }
+
+// Now here we need to write a function for testing play.
+function testing_play() {
+	url = '/system_1/testing_play'
+
+ 	xhttp = new XMLHttpRequest();
+ 	xhttp.onload = function() {
+		response_text = this.responseText;
+		response_json = JSON.parse(response_text);
+
+		if (response_json.processing_status == "success") {
+			clip_url = "http://127.0.0.1:8000/static/system_1/voice_0_0/testing_words/final_output.wav"
+		 	audio = new Audio(clip_url);
+
+		 	audio.onended = function() {
+		 		document.getElementById("testing_play_animation").style.visibility = "hidden";
+		 	}
+
+		 	document.getElementById("testing_play_animation").style.visibility = "visible";
+			audio.play()	
+		};
+
+		if (response_json.processing_status == "failed") {
+			alert("A few words are not recorded. Please use the Word Concatination Recording Section for recording those words.")
+		};
+	}
+
+ 	xhttp.open("POST", url);
+ 	// Preparing the data
+ 	testing_voice = document.getElementById("testing_voice").value;
+ 	testing_words = document.getElementById("testing_words").value;
+ 	
+ 	form_data = new FormData()
+ 	form_data.append('testing_voice', testing_voice)
+ 	form_data.append('testing_words', testing_words)
+
+	xhttp.send(form_data)
+}
+
 
