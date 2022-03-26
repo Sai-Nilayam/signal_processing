@@ -132,7 +132,7 @@ def process_audio():
 
 	# Now it's time to split it.
 	intervals = librosa.effects.split(ar, top_db=int(crop_amp_threshold))
-
+				
 	# As we need to have access to the take words.
 	take_words_arr = words.split(' ')
 
