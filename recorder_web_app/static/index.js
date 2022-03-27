@@ -137,7 +137,6 @@ function stop_rec() {
 			document.getElementById("post_operations").style.visibility = "visible";
 			document.getElementById("word_clips").style.visibility = "visible";
 		}
-
 	}
 
  	xhttp.open("POST", url);
@@ -145,12 +144,14 @@ function stop_rec() {
  	voice = document.getElementById("select_voice").value;
  	words = document.getElementById("take_words").innerHTML;
  	crop_amp_threshold = document.getElementById("crop_amp_threshold").value;
+ 	analysis_time_gap = document.getElementById("analysis_time_gap").value;
 
  	form_data = new FormData()
 
  	form_data.append('voice', voice);
  	form_data.append('words', words);
  	form_data.append('crop_amp_threshold', crop_amp_threshold);
+ 	form_data.append('analysis_time_gap', analysis_time_gap);
 
  	setTimeout(() => {
  		// Creating an audio file from audio blog. This takes time so in the time_out scope.
@@ -178,99 +179,251 @@ function retake() {
 
 // Now here writing a bunch of functions to play the clip audios.
 function clip_0() {
-	clip_url = "http://127.0.0.1:8000/static/system_1/voice_0_0/inst_words/0.wav"
- 	audio = new Audio(clip_url);
+	url = '/system_1/send_clip_url'
 
- 	audio.onended = function() {
- 		document.getElementById("clip_0_animation").style.visibility = "hidden";
- 	}
+ 	xhttp = new XMLHttpRequest();
+ 	xhttp.onload = function() {
+		response_text = this.responseText;
+		response_json = JSON.parse(response_text);
+		clip_url = response_json.file_url;
 
- 	document.getElementById("clip_0_animation").style.visibility = "visible";
-	audio.play()	
+		audio = new Audio(clip_url);
+
+	 	audio.onended = function() {
+	 		document.getElementById("clip_0_animation").style.visibility = "hidden";
+	 	}
+
+	 	document.getElementById("clip_0_animation").style.visibility = "visible";
+		audio.play()
+	}
+
+ 	xhttp.open("POST", url);
+ 	// Preparing the data
+ 	voice = document.getElementById("select_voice").value;
+ 	clip_no = "0";
+ 	
+ 	form_data = new FormData()
+ 	form_data.append('voice', voice)
+ 	form_data.append('clip_no', clip_no)
+ 	
+	xhttp.send(form_data)
 }
 
 function clip_1() {
-	clip_url = "http://127.0.0.1:8000/static/system_1/voice_0_0/inst_words/1.wav"
- 	audio = new Audio(clip_url);
+	url = '/system_1/send_clip_url'
 
- 	audio.onended = function() {
- 		document.getElementById("clip_1_animation").style.visibility = "hidden";
- 	}
+ 	xhttp = new XMLHttpRequest();
+ 	xhttp.onload = function() {
+		response_text = this.responseText;
+		response_json = JSON.parse(response_text);
+		clip_url = response_json.file_url;
 
- 	document.getElementById("clip_1_animation").style.visibility = "visible";
-	audio.play()	
+		audio = new Audio(clip_url);
+
+	 	audio.onended = function() {
+	 		document.getElementById("clip_1_animation").style.visibility = "hidden";
+	 	}
+
+	 	document.getElementById("clip_1_animation").style.visibility = "visible";
+		audio.play()
+	}
+
+ 	xhttp.open("POST", url);
+ 	// Preparing the data
+ 	voice = document.getElementById("select_voice").value;
+ 	clip_no = "1";
+ 	
+ 	form_data = new FormData()
+ 	form_data.append('voice', voice)
+ 	form_data.append('clip_no', clip_no)
+ 	
+	xhttp.send(form_data)
 }
 
 function clip_2() {
-	clip_url = "http://127.0.0.1:8000/static/system_1/voice_0_0/inst_words/2.wav"
- 	audio = new Audio(clip_url);
+	url = '/system_1/send_clip_url'
 
- 	audio.onended = function() {
- 		document.getElementById("clip_2_animation").style.visibility = "hidden";
- 	}
+ 	xhttp = new XMLHttpRequest();
+ 	xhttp.onload = function() {
+		response_text = this.responseText;
+		response_json = JSON.parse(response_text);
+		clip_url = response_json.file_url;
 
- 	document.getElementById("clip_2_animation").style.visibility = "visible";
-	audio.play()	
+		audio = new Audio(clip_url);
+
+	 	audio.onended = function() {
+	 		document.getElementById("clip_2_animation").style.visibility = "hidden";
+	 	}
+
+	 	document.getElementById("clip_2_animation").style.visibility = "visible";
+		audio.play()
+	}
+
+ 	xhttp.open("POST", url);
+ 	// Preparing the data
+ 	voice = document.getElementById("select_voice").value;
+ 	clip_no = "2";
+ 	
+ 	form_data = new FormData()
+ 	form_data.append('voice', voice)
+ 	form_data.append('clip_no', clip_no)
+ 	
+	xhttp.send(form_data)	
 }
 
 function clip_3() {
-	clip_url = "http://127.0.0.1:8000/static/system_1/voice_0_0/inst_words/3.wav"
- 	audio = new Audio(clip_url);
+	url = '/system_1/send_clip_url'
 
- 	audio.onended = function() {
- 		document.getElementById("clip_3_animation").style.visibility = "hidden";
- 	}
+ 	xhttp = new XMLHttpRequest();
+ 	xhttp.onload = function() {
+		response_text = this.responseText;
+		response_json = JSON.parse(response_text);
+		clip_url = response_json.file_url;
 
- 	document.getElementById("clip_3_animation").style.visibility = "visible";
-	audio.play()	
+		audio = new Audio(clip_url);
+
+	 	audio.onended = function() {
+	 		document.getElementById("clip_3_animation").style.visibility = "hidden";
+	 	}
+
+	 	document.getElementById("clip_3_animation").style.visibility = "visible";
+		audio.play()
+	}
+
+ 	xhttp.open("POST", url);
+ 	// Preparing the data
+ 	voice = document.getElementById("select_voice").value;
+ 	clip_no = "3";
+ 	
+ 	form_data = new FormData()
+ 	form_data.append('voice', voice)
+ 	form_data.append('clip_no', clip_no)
+ 	
+	xhttp.send(form_data)
 }
 
 function clip_4() {
-	clip_url = "http://127.0.0.1:8000/static/system_1/voice_0_0/inst_words/4.wav"
- 	audio = new Audio(clip_url);
+	url = '/system_1/send_clip_url'
 
- 	audio.onended = function() {
- 		document.getElementById("clip_4_animation").style.visibility = "hidden";
- 	}
+ 	xhttp = new XMLHttpRequest();
+ 	xhttp.onload = function() {
+		response_text = this.responseText;
+		response_json = JSON.parse(response_text);
+		clip_url = response_json.file_url;
 
- 	document.getElementById("clip_4_animation").style.visibility = "visible";
-	audio.play()	
+		audio = new Audio(clip_url);
+
+	 	audio.onended = function() {
+	 		document.getElementById("clip_4_animation").style.visibility = "hidden";
+	 	}
+
+	 	document.getElementById("clip_4_animation").style.visibility = "visible";
+		audio.play()
+	}
+
+ 	xhttp.open("POST", url);
+ 	// Preparing the data
+ 	voice = document.getElementById("select_voice").value;
+ 	clip_no = "4";
+ 	
+ 	form_data = new FormData()
+ 	form_data.append('voice', voice)
+ 	form_data.append('clip_no', clip_no)
+ 	
+	xhttp.send(form_data)
 }
 
 function clip_5() {
-	clip_url = "http://127.0.0.1:8000/static/system_1/voice_0_0/inst_words/5.wav"
- 	audio = new Audio(clip_url);
+	url = '/system_1/send_clip_url'
 
- 	audio.onended = function() {
- 		document.getElementById("clip_5_animation").style.visibility = "hidden";
- 	}
+ 	xhttp = new XMLHttpRequest();
+ 	xhttp.onload = function() {
+		response_text = this.responseText;
+		response_json = JSON.parse(response_text);
+		clip_url = response_json.file_url;
 
- 	document.getElementById("clip_5_animation").style.visibility = "visible";
-	audio.play()	
+		audio = new Audio(clip_url);
+
+	 	audio.onended = function() {
+	 		document.getElementById("clip_5_animation").style.visibility = "hidden";
+	 	}
+
+	 	document.getElementById("clip_5_animation").style.visibility = "visible";
+		audio.play()
+	}
+
+ 	xhttp.open("POST", url);
+ 	// Preparing the data
+ 	voice = document.getElementById("select_voice").value;
+ 	clip_no = "5";
+ 	
+ 	form_data = new FormData()
+ 	form_data.append('voice', voice)
+ 	form_data.append('clip_no', clip_no)
+ 	
+	xhttp.send(form_data)	
 }
 
 function clip_6() {
-	clip_url = "http://127.0.0.1:8000/static/system_1/voice_0_0/inst_words/6.wav"
- 	audio = new Audio(clip_url);
+	url = '/system_1/send_clip_url'
 
- 	audio.onended = function() {
- 		document.getElementById("clip_6_animation").style.visibility = "hidden";
- 	}
+ 	xhttp = new XMLHttpRequest();
+ 	xhttp.onload = function() {
+		response_text = this.responseText;
+		response_json = JSON.parse(response_text);
+		clip_url = response_json.file_url;
 
- 	document.getElementById("clip_6_animation").style.visibility = "visible";
-	audio.play()	
+		audio = new Audio(clip_url);
+
+	 	audio.onended = function() {
+	 		document.getElementById("clip_6_animation").style.visibility = "hidden";
+	 	}
+
+	 	document.getElementById("clip_6_animation").style.visibility = "visible";
+		audio.play()
+	}
+
+ 	xhttp.open("POST", url);
+ 	// Preparing the data
+ 	voice = document.getElementById("select_voice").value;
+ 	clip_no = "6";
+ 	
+ 	form_data = new FormData()
+ 	form_data.append('voice', voice)
+ 	form_data.append('clip_no', clip_no)
+ 	
+	xhttp.send(form_data)	
 }
 
 function clip_7() {
-	clip_url = "http://127.0.0.1:8000/static/system_1/voice_0_0/inst_words/7.wav"
- 	audio = new Audio(clip_url);
+	url = '/system_1/send_clip_url'
 
- 	audio.onended = function() {
- 		document.getElementById("clip_7_animation").style.visibility = "hidden";
- 	}
+ 	xhttp = new XMLHttpRequest();
+ 	xhttp.onload = function() {
+		response_text = this.responseText;
+		response_json = JSON.parse(response_text);
+		clip_url = response_json.file_url;
 
- 	document.getElementById("clip_7_animation").style.visibility = "visible";
-	audio.play()	
+		audio = new Audio(clip_url);
+
+	 	audio.onended = function() {
+	 		document.getElementById("clip_7_animation").style.visibility = "hidden";
+	 	}
+
+	 	document.getElementById("clip_7_animation").style.visibility = "visible";
+		audio.play()
+	}
+
+ 	xhttp.open("POST", url);
+ 	// Preparing the data
+ 	voice = document.getElementById("select_voice").value;
+ 	clip_no = "7";
+ 	
+ 	form_data = new FormData()
+ 	form_data.append('voice', voice)
+ 	form_data.append('clip_no', clip_no)
+ 	
+	xhttp.send(form_data)	
 }
 
 // Now writing the function for done.
@@ -287,7 +440,6 @@ function done() {
 		current_take_no = parseInt(current_take_no)
 		document.getElementById("take_no").value = current_take_no + 1;
 		document.getElementById("get_take_words").click();
-
 	}
 
  	xhttp.open("POST", url);
@@ -312,15 +464,35 @@ function testing_play() {
 		response_json = JSON.parse(response_text);
 
 		if (response_json.processing_status == "success") {
-			clip_url = "http://127.0.0.1:8000/static/system_1/voice_0_0/testing_words/final_output.wav"
-		 	audio = new Audio(clip_url);
+			// Here there should be a slight change.
+			// In order to get he updated url for creating the Audio object we need to request to a backend endpoint.
+			// We are going to give the name of the backend function as get_final_output
+			url = '/system_1/get_final_output_url'
 
-		 	audio.onended = function() {
-		 		document.getElementById("testing_play_animation").style.visibility = "hidden";
-		 	}
+		 	xhttp = new XMLHttpRequest();
+		 	xhttp.onload = function() {
+				response_text = this.responseText;
+				response_json = JSON.parse(response_text);
+				clip_url = response_json.file_url;
 
-		 	document.getElementById("testing_play_animation").style.visibility = "visible";
-			audio.play()	
+				audio = new Audio(clip_url);
+
+			 	audio.onended = function() {
+			 		document.getElementById("testing_play_animation").style.visibility = "hidden";
+			 	}
+
+			 	document.getElementById("testing_play_animation").style.visibility = "visible";
+				audio.play()
+			}
+
+		 	xhttp.open("POST", url);
+		 	// Preparing the data
+		 	testing_voice = document.getElementById("testing_voice").value;
+		 	
+		 	form_data = new FormData()
+		 	form_data.append('testing_voice', testing_voice)
+		 	
+			xhttp.send(form_data)
 		};
 
 		if (response_json.processing_status == "failed") {
@@ -338,6 +510,28 @@ function testing_play() {
  	form_data.append('testing_words', testing_words)
 
 	xhttp.send(form_data)
+}
+
+// Here is the function call to the backend to clear all data in the backend generated by app use so that user could start a 
+// recording process with a fresh backend folder structure with no previous garbage.  
+function reset_backend() {
+	url = '/system_1/reset_backend'
+
+ 	xhttp = new XMLHttpRequest();
+ 	xhttp.onload = function() {
+		response_text = this.responseText;
+		response_json = JSON.parse(response_text);
+
+		if (response_json.processing_status == 'success') {
+			alert('The backend has been reset. Now you could start with a fresh backend for your testing.')
+		}
+
+	}
+
+ 	xhttp.open("POST", url);
+ 	// No data Preparation neede here.
+
+	xhttp.send()
 }
 
 

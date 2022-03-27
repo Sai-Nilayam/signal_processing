@@ -4,6 +4,8 @@ import librosa
 import numpy as np
 import soundfile as sf
 import os
+import shutil
+import datetime
 
 app = Flask(__name__)
 
@@ -114,6 +116,7 @@ def process_audio():
 	voice = request.form.get('voice')
 	words = request.form.get('words')
 	crop_amp_threshold = request.form.get('crop_amp_threshold')
+	analysis_time_gap = request.form.get('analysis_time_gap')
 	audio = request.files['audio']
 	
 	# Now that we have all the data we require now it's time to process the 
@@ -131,7 +134,7 @@ def process_audio():
 	ar, sr = librosa.load('static/system_1/{}/audio_take_inst.mp3'.format(voice))
 
 	# Now it's time to split it.
-	intervals = librosa.effects.split(ar, top_db=int(crop_amp_threshold))
+	intervals = librosa.effects.split(ar, top_db=int(crop_amp_threshold), frame_length=int(int(analysis_time_gap)*0.001*22500))
 				
 	# As we need to have access to the take words.
 	take_words_arr = words.split(' ')
@@ -151,21 +154,52 @@ def process_audio():
 
 		return response_json
 
+	# Before saving the new final_output we need to delete the previous one.
+	# Here for simplicity we are going to delete the entire folder and save the new file in 
+	# proper direcotry structure.
+	# Removing the folder testing_words and recreate it.
+	inst_folder_name = 'inst_words'
+	inst_url = 'static/system_1/{}/{}'.format(voice, inst_folder_name)
+	shutil.rmtree(inst_url)
+	os.mkdir(inst_url)
+
 	# Now that we have intervals we need to crop the audio files and save them
 	# in the inst_word folder.
-
 	for i in range(len(intervals)):
 	    inst_interval = intervals[i]
 	    inst_audio = ar[inst_interval[0] : inst_interval[1]]
 	    inst_file_name = take_words_arr[i]
 	    # Only use this when you are saving audio clips.
-	    sf.write('static/system_1/{}/inst_words/{}.wav'.format(voice, i), inst_audio, sr, 'PCM_24')
+	    sf.write('static/system_1/{}/inst_words/{}_{}.wav'.format(voice, i, str(datetime.datetime.now())) , inst_audio, sr, 'PCM_24')
 
 	# Now what are the things we need to return. 
 	# All we need to return a success message.
 	# Preparing the json object
 	response = {
 		'processing_status': 'success'
+	}
+
+	response_json = json.dumps(response)
+
+	return response_json
+
+# Here will be the clip url sending endpoint.
+@app.route('/system_1/send_clip_url', methods=['POST'])
+def send_clip_url():
+	voice = request.form.get('voice')
+	clip_no = request.form.get('clip_no')
+
+	# Listing all the files in inst_words folder.
+	files = os.listdir('static/system_1/{}/inst_words/'.format(voice))
+	files.sort()
+
+	# Making up the clip url.
+	clip_url = '/static/system_1/{}/inst_words/{}'.format(voice, str(files[int(clip_no)]))
+	print(clip_no)
+
+	# Preparing the json object
+	response = {
+		'file_url': clip_url,
 	}
 
 	response_json = json.dumps(response)
@@ -240,12 +274,100 @@ def testing_play():
 
 		return response_json
 
+	# Before saving the new final_output we need to delete the previous one.
+	# Here for simplicity we are going to delete the entire folder and save the new file in 
+	# proper direcotry structure.
+	# Removing the folder testing_words and recreate it.
+	inst_folder_name = 'testing_words'
+	inst_url = 'static/system_1/{}/{}'.format(testing_voice, inst_folder_name)
+	shutil.rmtree(inst_url)
+	os.mkdir(inst_url)
+
 	# Finally saving the final voice as a wav file in testing_words folder.
-	sf.write('static/system_1/{}/testing_words/{}'.format(testing_voice, 'final_output.wav'), final_voice, inst_sr, 'PCM_24')
+	final_output_name = 'final_output' + '_' + str(datetime.datetime.now()) + '.wav'
+	sf.write('static/system_1/{}/testing_words/{}'.format(testing_voice, final_output_name), final_voice, inst_sr, 'PCM_24')
 
 	# Now what are the things we need to return. 
 	# All we need to return a success message.
 	# Preparing the json object
+	response = {
+		'processing_status': 'success',
+	}
+
+	response_json = json.dumps(response)
+
+	return response_json
+
+@app.route('/system_1/get_final_output_url', methods=['POST'])
+def get_final_output():
+	testing_voice = request.form.get('testing_voice')
+
+	# List all the files in the testing_words folder.
+	files = os.listdir('static/system_1/{}/testing_words'.format(testing_voice))
+	clip_url = '/static/system_1/{}/testing_words/'.format(testing_voice) + str(files[0])
+
+	# Preparing the json object
+	response = {
+		'file_url': clip_url,
+	}
+
+	response_json = json.dumps(response)
+
+	return response_json
+
+# Now here we are writing a function for resetting the backend i.e to delete all
+# the data in the backend due to app use. This include clearing the 
+# inst_unique_words.txt, unique_words.txt, audio_take_inst.mp3, inst_words 
+# folder and words folder. This function does not require any information from 
+# the frontend.
+@app.route('/system_1/reset_backend', methods=['POST'])
+def reset_backend():
+	voices_list = ['voice_0_0', 'voice_0_1', 'voice_1_0', 'voice_1_1']
+
+	for voice in voices_list:
+		print(voice)
+
+		# Removing the inst_unique_words.txt file.
+		inst_file_name = 'inst_unique_words.txt'
+		inst_url = 'static/system_1/{}/{}'.format(voice, inst_file_name)
+		os.remove(inst_url)
+		f = open(inst_url, 'w')
+		f.close()
+
+		# Removing unique_words.txt
+		inst_file_name = 'unique_words.txt'
+		inst_url = 'static/system_1/{}/{}'.format(voice, inst_file_name)
+		os.remove(inst_url)
+		f = open(inst_url, 'w')
+		f.close()
+
+
+		# Removing unique_words.txt
+		inst_file_name = 'audio_take_inst.mp3'
+		inst_url = 'static/system_1/{}/{}'.format(voice, inst_file_name)
+		os.remove(inst_url)
+		f = open(inst_url, 'w')
+		f.close()
+
+		# Removing the folder inst_words and recreate it here there.
+		inst_folder_name = 'inst_words'
+		inst_url = 'static/system_1/{}/{}'.format(voice, inst_folder_name)
+		shutil.rmtree(inst_url)
+		os.mkdir(inst_url)
+
+		# Removing the folder words and recreate it.
+		inst_folder_name = 'words'
+		inst_url = 'static/system_1/{}/{}'.format(voice, inst_folder_name)
+		shutil.rmtree(inst_url)
+		os.mkdir(inst_url)
+
+		# Removing the folder testing_words and recreate it.
+		inst_folder_name = 'testing_words'
+		inst_url = 'static/system_1/{}/{}'.format(voice, inst_folder_name)
+		shutil.rmtree(inst_url)
+		os.mkdir(inst_url)
+
+	# Sending a success message to the frontend as json.
 	response = {
 		'processing_status': 'success'
 	}
@@ -253,7 +375,6 @@ def testing_play():
 	response_json = json.dumps(response)
 
 	return response_json
-
 
 
 if __name__ == '__main__':

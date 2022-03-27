@@ -78,6 +78,9 @@
             </li>
           </ol>
           <br>
+          <button id="reset_backend" name="reset_backend" onclick="reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
+          <p class="text-danger">This button deletes all the data stored in the backend due to app use. This is for testing purpose. Think twice before using this button</p>
+          <br>
           <select id="select_voice" name="select_voice" class="form-select" aria-label="Default select example">
             <option selected>Select a Voice</option>
             <option value="voice_0_0">Assuring_Male (voice_0_0)</option>
@@ -113,7 +116,31 @@
               <option value="24">24</option>
               <option value="26">26</option>
               <option value="28">28</option>
+              <option value="28">30</option>
+              <option value="28">32</option>
             </select>
+            <select id="analysis_time_gap" name="analysis_time_gap" class="form-select" aria-label="Default select example">
+              <option selected>Select an Sample Analysis Time Gap </option>
+              <option value="32">32</option>
+              <option value="64">64</option>
+              <option value="96">96</option>
+              <option value="128">128</option>
+              <option value="160">160</option>
+              <option value="192">192</option>
+              <option value="224">224</option>
+              <option value="256">256</option>
+              <option value="288">288</option>
+              <option value="320">320</option>
+              <option value="352">352</option>
+              <option value="384">384</option>
+              <option value="416">416</option>
+              <option value="448">448</option>
+              <option value="480">480</option>
+              <option value="512">512</option>
+            </select>
+          </div>
+          <br>
+          <div class="input-group mb-2" style="width: _">
             <span class="input-group-text" id="basic-addon1">Take Number</span>
             <input id="take_no" name="take_no" type="text" class="form-control" placeholder="" aria-label="Username" value="" aria-describedby="basic-addon1">
             <span id="total_no_of_takes" class="input-group-text" id="basic-addon1">/ 24</span>
