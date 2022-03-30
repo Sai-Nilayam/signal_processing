@@ -376,6 +376,9 @@ def reset_backend():
 
 	return response_json
 
+# From here we would be working on writing backend APIs for the system 2 i.e Name Entinty pronunciation.
+
+
 
 if __name__ == '__main__':
 	# app.run(debug=True, port=8000)

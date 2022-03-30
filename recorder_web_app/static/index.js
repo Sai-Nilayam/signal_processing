@@ -1,9 +1,3 @@
-function test() {
-	alert('This is for testing.')
-}
-
-// test()
-
 // Now here we are going to put all the logics
 // The first thing to do is to take data from the select_voice and all_texts field and send it to the backend. 
 // In return we are going to get the Number of Unique Words in the text, Number of Takes and Estimated Recording Time.
@@ -533,5 +527,10 @@ function reset_backend() {
 
 	xhttp.send()
 }
+
+// From here we are going to start working for system_2.
+// In system 2 we would be doing class based code organised so that our functions of system 2 would be put together in a class itself
+// and it won't create conflict to the system 1 functions. 
+
 
 
