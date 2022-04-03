@@ -2,8 +2,13 @@ server {
 listen 80;
 server_name 127.0.0.1;
 
+location /static {
+  alias /home/sainilayam/personal/dev/project_16/recorder_web_app/static/;  
+}
+
 location / {
   include proxy_params;
-  proxy_pass http://unix:/home/sainilayam/personal/dev/project_16/recorder_web_app/app.sock;
+  proxy_pass http://unix:/home/sainilayam/personal/dev/project_16/recorder_web_app/dev.sock;
     }
-}         
+}
+

@@ -6,6 +6,14 @@ import soundfile as sf
 import os
 import shutil
 import datetime
+import traceback
+import audio2numpy as a2n
+from pydub import AudioSegment
+import getpass
+import sys
+import magic
+import time
+# import tensorflow as tf
 
 app = Flask(__name__)
 
@@ -113,12 +121,30 @@ def get_take_words():
 # into word chunks and return all the audio chunks.
 @app.route('/system_1/process_audio', methods=['POST'])
 def process_audio():
+	# The first step here is to remove the log.txt file and recreate it again with proper permissions.
+	inst_file_name = 'log.txt'
+	inst_url = 'static/{}'.format(inst_file_name)
+	os.remove(inst_url)
+	f = open(inst_url, 'w')
+	f.close()
+	# log
+	f = open('static/log.txt', 'a'); f.write('\nlog.txt deleted and recreated for latest log write. \n'); f.close()
+
+	# log
+	f = open('static/log.txt', 'a'); f.write('user {} is running the python script. \n'.format(getpass.getuser())); f.close()
+	f = open('static/log.txt', 'a'); f.write('python version: {}, python exe path: {}, librosa version: {} \n'.format(sys.version, sys.executable, librosa.__version__)); f.close()
+	f = open('static/log.txt', 'a'); f.write('all paths: {} \n'.format(sys.path)); f.close()
+
+	f = open('static/log.txt', 'a'); f.write('process_audio function logic started. \n'); f.close()
+
 	voice = request.form.get('voice')
 	words = request.form.get('words')
 	crop_amp_threshold = request.form.get('crop_amp_threshold')
 	analysis_time_gap = request.form.get('analysis_time_gap')
 	audio = request.files['audio']
-	
+	# log
+	f = open('static/log.txt', 'a'); f.write('data received at server. \n'); f.close()
+
 	# Now that we have all the data we require now it's time to process the 
 	# audio file, split it into 8 different words. If the split array count is
 	# 8 then there will be further steps done. Else, Just return a response 
@@ -127,17 +153,43 @@ def process_audio():
 	# in within inst folder of system_1.
 
 	# First take the audio file and save it to the inst_words folder.
-	audio.save('static/system_1/{}/audio_take_inst.mp3'.format(voice))
+	audio.save('static/system_1/{}/audio_take_inst.wav'.format(voice))
+	os.chmod('static/system_1/{}/audio_take_inst.wav'.format(voice), 0o777)
+	# log
+	f = open('static/log.txt', 'a'); f.write('audio_take_inst.wav saved with 777 permisson. \n'); f.close()
+
+	# Finding the file type of the file audio_take_inst.wav.
+	file_type = magic.from_file('static/system_1/{}/audio_take_inst.wav'.format(voice), mime=True)
+	# log
+	f = open('static/log.txt', 'a'); f.write('audio_take_inst.wav file format: {}. \n'.format(file_type)); f.close()
 
 	# Now the next thing is that we would be importing that back to python 
 	# environment and spit it using the librosa codes.
-	ar, sr = librosa.load('static/system_1/{}/audio_take_inst.mp3'.format(voice))
+	try:
+		# Using Librosa to load the mp3 file.
+		ar, sr = librosa.load('static/system_1/{}/audio_take_inst.wav'.format(voice))
+		# Using a2n to load the mp3 file.
+		# ar, sr = a2n.audio_from_file('static/system_1/{}/audio_take_inst.mp3'.format(voice))
+		# Using pydub to load the mp3 file.
+		# wav_file = AudioSegment.from_file('static/system_1/{}/audio_take_inst.wav'.format(voice))
+		# ar = wav_file.get_array_of_samples()
+		# ar = np.array(ar, dtype=float)
+		# print(ar.shape)
+		# print(ar)
+		# log
+		f = open('static/log.txt', 'a'); f.write('audio_take_inst imported to python env. \n'); f.close()
+	except:
+		f = open('static/log.txt', 'a'); traceback.print_exc(file=f); f.close()
 
 	# Now it's time to split it.
 	intervals = librosa.effects.split(ar, top_db=int(crop_amp_threshold), frame_length=int(int(analysis_time_gap)*0.001*22500))
+	# log
+	f = open('static/log.txt', 'a'); f.write('audio splitting process done. \n'); f.close()
 				
 	# As we need to have access to the take words.
 	take_words_arr = words.split(' ')
+	# log
+	f = open('static/log.txt', 'a'); f.write('words splitted into array. \n'); f.close()
 
 	# Send failed message if the no of cropped words are not queals to 8.
 	if len(intervals) != len(take_words_arr):
@@ -151,6 +203,8 @@ def process_audio():
 		}
 
 		response_json = json.dumps(response)
+		# log
+		f = open('static/log.txt', 'a'); f.write('failed response sent from server. \n'); f.close()
 
 		return response_json
 
@@ -162,6 +216,10 @@ def process_audio():
 	inst_url = 'static/system_1/{}/{}'.format(voice, inst_folder_name)
 	shutil.rmtree(inst_url)
 	os.mkdir(inst_url)
+	os.chmod(inst_url, 0o777)
+
+	# log
+	f = open('static/log.txt', 'a'); f.write('inst word folder deleted entirely and recreated with 777 permisson. \n'); f.close()
 
 	# Now that we have intervals we need to crop the audio files and save them
 	# in the inst_word folder.
@@ -171,6 +229,8 @@ def process_audio():
 	    inst_file_name = take_words_arr[i]
 	    # Only use this when you are saving audio clips.
 	    sf.write('static/system_1/{}/inst_words/{}_{}.wav'.format(voice, i, str(datetime.datetime.now())) , inst_audio, sr, 'PCM_24')
+	# log
+	f = open('static/log.txt', 'a'); f.write('all cropped clips save in inst_words folder. \n'); f.close()
 
 	# Now what are the things we need to return. 
 	# All we need to return a success message.
@@ -180,6 +240,8 @@ def process_audio():
 	}
 
 	response_json = json.dumps(response)
+	# log
+	f = open('static/log.txt', 'a'); f.write('success response sent from server. \n'); f.close()
 
 	return response_json
 
@@ -282,6 +344,7 @@ def testing_play():
 	inst_url = 'static/system_1/{}/{}'.format(testing_voice, inst_folder_name)
 	shutil.rmtree(inst_url)
 	os.mkdir(inst_url)
+	os.chmod(inst_url, 0o777)
 
 	# Finally saving the final voice as a wav file in testing_words folder.
 	final_output_name = 'final_output' + '_' + str(datetime.datetime.now()) + '.wav'
@@ -342,7 +405,14 @@ def reset_backend():
 		f.close()
 
 
-		# Removing unique_words.txt
+		# Removing audio_take_inst.wav and recreate it.
+		inst_file_name = 'audio_take_inst.wav'
+		inst_url = 'static/system_1/{}/{}'.format(voice, inst_file_name)
+		os.remove(inst_url)
+		f = open(inst_url, 'w')
+		f.close()
+
+		# Removing audio_take_inst.mp3 and recreate it.
 		inst_file_name = 'audio_take_inst.mp3'
 		inst_url = 'static/system_1/{}/{}'.format(voice, inst_file_name)
 		os.remove(inst_url)
@@ -354,18 +424,21 @@ def reset_backend():
 		inst_url = 'static/system_1/{}/{}'.format(voice, inst_folder_name)
 		shutil.rmtree(inst_url)
 		os.mkdir(inst_url)
+		os.chmod(inst_url, 0o777)
 
 		# Removing the folder words and recreate it.
 		inst_folder_name = 'words'
 		inst_url = 'static/system_1/{}/{}'.format(voice, inst_folder_name)
 		shutil.rmtree(inst_url)
 		os.mkdir(inst_url)
+		os.chmod(inst_url, 0o777)
 
 		# Removing the folder testing_words and recreate it.
 		inst_folder_name = 'testing_words'
 		inst_url = 'static/system_1/{}/{}'.format(voice, inst_folder_name)
 		shutil.rmtree(inst_url)
 		os.mkdir(inst_url)
+		os.chmod(inst_url, 0o777)
 
 	# Sending a success message to the frontend as json.
 	response = {

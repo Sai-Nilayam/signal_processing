@@ -1,0 +1,53 @@
+[2022-04-03 16:02:13 +0530] [13783] [INFO] Starting gunicorn 20.1.0
+[2022-04-03 16:02:13 +0530] [13783] [INFO] Listening at: http://0.0.0.0:5000 (13783)
+[2022-04-03 16:02:13 +0530] [13783] [INFO] Using worker: sync
+[2022-04-03 16:02:13 +0530] [13796] [INFO] Booting worker with pid: 13796
+[2022-04-03 16:02:21 +0530] [13783] [INFO] Handling signal: hup
+[2022-04-03 16:02:21 +0530] [13783] [INFO] Hang up: Master
+[2022-04-03 16:02:21 +0530] [13783] [WARNING] Worker with pid 13796 was terminated due to signal 1
+[2022-04-03 16:02:21 +0530] [13837] [INFO] Booting worker with pid: 13837
+/home/sainilayam/personal/dev/venvs/tf/lib/python3.8/site-packages/librosa/core/audio.py:165: UserWarning: PySoundFile failed. Trying audioread instead.
+  warnings.warn("PySoundFile failed. Trying audioread instead.")
+/home/sainilayam/personal/dev/venvs/tf/lib/python3.8/site-packages/librosa/core/audio.py:165: UserWarning: PySoundFile failed. Trying audioread instead.
+  warnings.warn("PySoundFile failed. Trying audioread instead.")
+[2022-04-03 16:02:49,875] ERROR in app: Exception on /system_1/send_clip_url [POST]
+Traceback (most recent call last):
+  File "/home/sainilayam/personal/dev/venvs/tf/lib/python3.8/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/sainilayam/personal/dev/venvs/tf/lib/python3.8/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/sainilayam/personal/dev/venvs/tf/lib/python3.8/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/sainilayam/personal/dev/venvs/tf/lib/python3.8/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/home/sainilayam/Desktop/dev/project_16/recorder_web_app/app.py", line 259, in send_clip_url
+    clip_url = '/static/system_1/{}/inst_words/{}'.format(voice, str(files[int(clip_no)]))
+IndexError: list index out of range
+[2022-04-03 16:02:50,484] ERROR in app: Exception on /system_1/send_clip_url [POST]
+Traceback (most recent call last):
+  File "/home/sainilayam/personal/dev/venvs/tf/lib/python3.8/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/sainilayam/personal/dev/venvs/tf/lib/python3.8/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/sainilayam/personal/dev/venvs/tf/lib/python3.8/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/sainilayam/personal/dev/venvs/tf/lib/python3.8/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/home/sainilayam/Desktop/dev/project_16/recorder_web_app/app.py", line 259, in send_clip_url
+    clip_url = '/static/system_1/{}/inst_words/{}'.format(voice, str(files[int(clip_no)]))
+IndexError: list index out of range
+[2022-04-03 16:36:16 +0530] [2801] [INFO] Starting gunicorn 20.1.0
+[2022-04-03 16:36:16 +0530] [2801] [INFO] Listening at: http://0.0.0.0:5000 (2801)
+[2022-04-03 16:36:16 +0530] [2801] [INFO] Using worker: sync
+[2022-04-03 16:36:16 +0530] [2814] [INFO] Booting worker with pid: 2814
+[2022-04-03 18:49:29 +0530] [2801] [CRITICAL] WORKER TIMEOUT (pid:2814)
+[2022-04-03 18:49:29 +0530] [2814] [INFO] Worker exiting (pid: 2814)
+voice_0_0
+voice_0_1
+voice_1_0
+voice_1_1
+[2022-04-03 18:49:30 +0530] [4389] [INFO] Booting worker with pid: 4389
+[2022-04-03 18:49:40 +0530] [2801] [INFO] Handling signal: hup
+[2022-04-03 18:49:40 +0530] [2801] [INFO] Hang up: Master
+[2022-04-03 18:49:40 +0530] [4511] [INFO] Booting worker with pid: 4511
+[2022-04-03 18:49:40 +0530] [2801] [WARNING] Worker with pid 4389 was terminated due to signal 1

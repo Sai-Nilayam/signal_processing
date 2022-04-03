@@ -5,6 +5,7 @@ argon2-cffi==21.3.0
 argon2-cffi-bindings==21.2.0
 astunparse==1.6.3
 attrs==21.4.0
+audio2numpy==0.1.2
 audioread==2.1.9
 auto-py-to-exe==2.14.0
 backcall==0.2.0
@@ -23,6 +24,8 @@ defusedxml==0.7.1
 Eel==0.12.4
 entrypoints==0.3
 et-xmlfile==1.1.0
+ffmpeg==1.4
+ffmpeg-python==0.2.0
 Flask==2.0.2
 Flask-SQLAlchemy==2.5.1
 flatbuffers==2.0
@@ -91,14 +94,17 @@ ptyprocess==0.7.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.21
+pydub==0.25.1
 Pygments==2.11.1
 pyinstaller==4.7
 pyinstaller-hooks-contrib==2021.5
 pyparsing==3.0.6
 pyrsistent==0.18.0
 pyrubberband==0.3.0
+pysndfile==1.4.4
 PySoundFile==0.9.0.post1
 python-dateutil==2.8.2
+python-magic==0.4.25
 pytz==2021.3
 pyzmq==22.3.0
 regex==2021.11.10

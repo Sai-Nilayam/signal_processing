@@ -77,7 +77,7 @@ function start_rec() {
 		    // Converting the mdedia recorder object to a blob object with the event listener stop
 		    // and then creating an audio url for that blob.
 		    mediaRecorder.addEventListener("stop", () => {
-		      audioBlob = new Blob(audioChunks, {type: "audio/ogg"});
+		      audioBlob = new Blob(audioChunks, {type: "audio/wav"});
 		      audioUrl = URL.createObjectURL(audioBlob);
 		    });
 
@@ -149,14 +149,16 @@ function stop_rec() {
 
  	setTimeout(() => {
  		// Creating an audio file from audio blog. This takes time so in the time_out scope.
-     	audio_file = new File([audioBlob], "audio.mp3"); 
+     	audio_file = new File([audioBlob], "audio.wav"); 
     }, 200);
 
     setTimeout(() => {
 	 	// Appending the file object to the form data after being created. The creation takes some time. 
-		form_data.append('audio', audio_file);
+		// form_data.append('audio', audio_file);
+		form_data.append('audio', audioBlob);
+		// alert(audioBlob);
 		// Sending the form data after every required elelment is added to the form data.
-		xhttp.send(form_data)
+		xhttp.send(form_data);
     }, 400);
  		
 }

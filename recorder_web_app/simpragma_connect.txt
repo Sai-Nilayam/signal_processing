@@ -1,0 +1,1 @@
+sudo ssh -i LightsailDefaultKey-ap-south-1.pem ubuntu@3.110.7.60

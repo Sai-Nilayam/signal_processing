@@ -1,0 +1,5 @@
+sudo systemctl disable dev
+sudo systemctl stop dev
+sudo systemctl start dev
+sudo systemctl enable dev
+sudo systemctl restart nginx
