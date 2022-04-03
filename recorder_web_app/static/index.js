@@ -19,6 +19,11 @@ function analyse() {
  	// Preparing the data
  	voice = document.getElementById("select_voice").value;
  	all_texts = document.getElementById("all_texts").value;
+
+ 	// Now here we would be putting promts for vacant fields.
+ 	if (voice == "Select a Voice" || all_texts == "") {
+ 		alert("Please select a voice and put some texts in respective fields.")
+ 	}
  	
  	form_data = new FormData()
  	form_data.append('voice', voice)
@@ -43,6 +48,11 @@ function get_take_words() {
  	// Preparing the data
  	voice = document.getElementById("select_voice").value;
  	take_no = document.getElementById("take_no").value;
+
+ 	// Now here we would be putting promts for vacant fields.
+ 	if (voice == "Select a Voice" || take_no == "") {
+ 		alert("Please select a voice and put a take number in respective fields.")
+ 	}
  	
  	form_data = new FormData()
  	form_data.append('voice', voice)
@@ -53,6 +63,17 @@ function get_take_words() {
 
 // Now we need to add some functionality for the start recording button.
 function start_rec() {
+	voice = document.getElementById("select_voice").value;
+ 	words = document.getElementById("take_words").innerHTML;
+ 	crop_amp_threshold = document.getElementById("crop_amp_threshold").value;
+ 	analysis_time_gap = document.getElementById("analysis_time_gap").value;
+
+	// Now here we would be putting promts for vacant fields.
+ 	if (voice == "Select a Voice" || words == "word_0 word_1 word_2 word_3 word_4 word_5 word_6 word_7" || crop_amp_threshold == "Select a Cropping Amp. Threshold" || analysis_time_gap == "Select a Sample Analysis Time Gap") {
+ 		alert("Please select a voice, get a take, select a Cropping Amp. Threshold and select a Analysis Time Gap in respective fields. The optimal value for Cropping Amp. Threshold is 4 and Analysis Time Gap is 64 if you are using a Studio quality Microphone. In a normal recording set up the optimal values are 16 and 256.")
+ 		return;
+ 	}
+
 	// alert('test')
 	document.getElementById("rec_animation").style.visibility = "visible";
 	document.getElementById("start_rec").style.display = "none";
@@ -115,7 +136,7 @@ function stop_rec() {
 		// alert(response_json.processing_status)
 		if (response_json.processing_status == "failed") {
 			document.getElementById("please_wait").style.visibility = "hidden";
-			document.getElementById("processing_status").innerHTML = "Processing failed. Please try out with different Cropping Amp. Thresholds or use a more noise less microphone.";
+			document.getElementById("processing_status").innerHTML = "Processing failed. Please try out with different Cropping Amp. Threshold and Analysis Time Gap or use a more noise less microphone.";
 			document.getElementById("processing_status").style.color = "#ff4f42";
 			document.getElementById("processing_status").style.visibility = "visible";
 			document.getElementById("done").style.display = "none";
@@ -124,8 +145,8 @@ function stop_rec() {
 
 		if (response_json.processing_status == "success") {
 			document.getElementById("please_wait").style.visibility = "hidden";
-			document.getElementById("processing_status").innerHTML = "Success . . !";
-			document.getElementById("processing_status").style.color = "#00c76a";
+			document.getElementById("processing_status").innerHTML = "Success . . ! Please listen to all the clips below and verify that all the words have been cropped successfully and click on done. Else do a retake.";
+			document.getElementById("processing_status").style.color = "#f58742";
 			document.getElementById("processing_status").style.visibility = "visible";
 			document.getElementById("done").style.display = "inline-block";
 			document.getElementById("post_operations").style.visibility = "visible";
@@ -181,6 +202,13 @@ function clip_0() {
  	xhttp.onload = function() {
 		response_text = this.responseText;
 		response_json = JSON.parse(response_text);
+
+		// Alert word does not exist when the response is failed.
+		if (response_json.file_url == "not_available") {
+			alert("Word does not exist.");
+			return;
+		}
+
 		clip_url = response_json.file_url;
 
 		audio = new Audio(clip_url);
@@ -212,6 +240,13 @@ function clip_1() {
  	xhttp.onload = function() {
 		response_text = this.responseText;
 		response_json = JSON.parse(response_text);
+
+		// Alert word does not exist when the response is failed.
+		if (response_json.file_url == "not_available") {
+			alert("Word does not exist.");
+			return;
+		}
+
 		clip_url = response_json.file_url;
 
 		audio = new Audio(clip_url);
@@ -243,6 +278,13 @@ function clip_2() {
  	xhttp.onload = function() {
 		response_text = this.responseText;
 		response_json = JSON.parse(response_text);
+
+		// Alert word does not exist when the response is failed.
+		if (response_json.file_url == "not_available") {
+			alert("Word does not exist.");
+			return;
+		}
+
 		clip_url = response_json.file_url;
 
 		audio = new Audio(clip_url);
@@ -274,6 +316,13 @@ function clip_3() {
  	xhttp.onload = function() {
 		response_text = this.responseText;
 		response_json = JSON.parse(response_text);
+
+		// Alert word does not exist when the response is failed.
+		if (response_json.file_url == "not_available") {
+			alert("Word does not exist.");
+			return;
+		}
+
 		clip_url = response_json.file_url;
 
 		audio = new Audio(clip_url);
@@ -305,6 +354,13 @@ function clip_4() {
  	xhttp.onload = function() {
 		response_text = this.responseText;
 		response_json = JSON.parse(response_text);
+
+		// Alert word does not exist when the response is failed.
+		if (response_json.file_url == "not_available") {
+			alert("Word does not exist.");
+			return;
+		}
+
 		clip_url = response_json.file_url;
 
 		audio = new Audio(clip_url);
@@ -336,6 +392,13 @@ function clip_5() {
  	xhttp.onload = function() {
 		response_text = this.responseText;
 		response_json = JSON.parse(response_text);
+
+		// Alert word does not exist when the response is failed.
+		if (response_json.file_url == "not_available") {
+			alert("Word does not exist.");
+			return;
+		}
+
 		clip_url = response_json.file_url;
 
 		audio = new Audio(clip_url);
@@ -367,6 +430,13 @@ function clip_6() {
  	xhttp.onload = function() {
 		response_text = this.responseText;
 		response_json = JSON.parse(response_text);
+
+		// Alert word does not exist when the response is failed.
+		if (response_json.file_url == "not_available") {
+			alert("Word does not exist.");
+			return;
+		}
+
 		clip_url = response_json.file_url;
 
 		audio = new Audio(clip_url);
@@ -398,6 +468,13 @@ function clip_7() {
  	xhttp.onload = function() {
 		response_text = this.responseText;
 		response_json = JSON.parse(response_text);
+
+		// Alert word does not exist when the response is failed.
+		if (response_json.file_url == "not_available") {
+			alert("Word does not exist.");
+			return;
+		}
+
 		clip_url = response_json.file_url;
 
 		audio = new Audio(clip_url);
@@ -500,6 +577,12 @@ function testing_play() {
  	// Preparing the data
  	testing_voice = document.getElementById("testing_voice").value;
  	testing_words = document.getElementById("testing_words").value;
+
+ 	// Now here we would be putting promts for vacant fields.
+ 	if (testing_voice == "Select a Voice" || testing_words == "") {
+ 		alert("Please select a voice and put some texts in respective fields.");
+ 		return;
+ 	}
  	
  	form_data = new FormData()
  	form_data.append('testing_voice', testing_voice)

@@ -255,6 +255,17 @@ def send_clip_url():
 	files = os.listdir('static/system_1/{}/inst_words/'.format(voice))
 	files.sort()
 
+	# # Failed Response (not available) if the clip number is greater than the number of files present in the inst_word folder.
+	if not (int(clip_no) < (len(files))):
+		# Preparing the json object
+		response = {
+			'file_url': 'not_available',
+		}
+
+		response_json = json.dumps(response)
+
+		return response_json
+
 	# Making up the clip url.
 	clip_url = '/static/system_1/{}/inst_words/{}'.format(voice, str(files[int(clip_no)]))
 	print(clip_no)

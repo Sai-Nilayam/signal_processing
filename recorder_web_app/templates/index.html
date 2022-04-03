@@ -24,32 +24,32 @@
     <!-- For Header. -->
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-3 mx-0 my-0 px-4 py-4" style="background-color: gray;">
-          <h6>Analytics</h6>
+        <div class="col-lg-3 mx-0 my-0 px-4 py-4" style="background-color: #cccccc;">
+          <h6 style="color: _white">Analytics</h6>
           <ol>
-            <li><a href="#" style="color: white">Employee Attrition Predictor</a></li>
+            <li><a href="#" style="color: black;">Employee Attrition Predictor</a></li>
           </ol>
         </div>
         <div class="col-lg-3 mx-0 my-0 px-4 py-4" style="background-color: teal;">
-          <h6>Computer Vision</h6>
+          <h6 style="color: _white">Computer Vision</h6>
           <ol>
-            <li><a href="#" style="color: white">Face Verifier</a></li>
+            <li><a href="#" style="color: black;">Face Verifier</a></li>
           </ol>
         </div>
          <div class="col-lg-3 mx-0 my-0 px-4 py-4" style="background-color: orange;">
-          <h6>Natural Language Processing</h6>
+          <h6 style="color: _white">Natural Language Processing</h6>
           <ol>
-            <li><a href="#" style="color: white">Utterance to Intent Classifier</a></li>
+            <li><a href="#" style="color: black;">Utterance to Intent Classifier</a></li>
           </ol>
         </div>
          <div class="col-lg-3 mx-0 my-0 px-4 py-4" style="background-color: mediumseagreen;">
-          <h5>Signal Processing</h5>
+          <h5 style="color: _white">Signal Processing</h5>
           <ol>
-            <li><a href="#" style="color: white">Word Concatination</a></li>
-            <li><a href="#" style="color: white">Name Entity Pronunciation</a></li>
-            <li><a href="#" style="color: white">Vocal Tone and Style Transfer</a></li>
-            <li><a href="#" style="color: white">Speech Beautifier</a></li>
-            <li><a href="#" style="color: white">Conversational Speech</a></li>
+            <li><a href="#" style="color: black;">Word Concatination</a></li>
+            <li><a href="#" style="color: black;">Name Entity Pronunciation</a></li>
+            <li><a href="#" style="color: black;">Vocal Tone and Style Transfer</a></li>
+            <li><a href="#" style="color: black;">Intended Speech Capture</a></li>
+            <li><a href="#" style="color: black;">Conversational Speech</a></li>
           </ol>
         </div>
       </div>
@@ -68,13 +68,13 @@
               Choose a particular Voice (A Voice with a perticular Tone and Style i.e a particular style by a particular speaker) and stick to it thorugh out the entire recording process here.
             </li>
             <li>
-              Copy and paste all of your texts in the box (Put all Texts). Click on find Unique Word Count. This will just show all the unique words in the from the large text corpus. 
+              Select a voice. Copy and paste all of your texts in the box (Put all Texts). Click on Analyse. This will just show total number of unique words in the text corpus, number of takes required for the recording and estimated time to record all the takes. 
             </li>
             <li>
-              Then click on start Recording Process. This will pop up 8 unique words at a time as a phrase. Then click on the Record Button and say the phrase like a phrase so that the pronunciation of each word would be in a correct vocal style flow. It's important to keep a gap in between two words while doing the recording so that the each words could be cropped up by the backend programme. Keep in mind to use a absolutely noise less microphone for the system to work properly.
+              Then Select a Cropping Amp. Threshold and Analysis Time Gap. Put a take number (start with 0) and click on Go. This will show you 8 uniques words. Read all the words in a flow as per the voice first. It's important to keep atleast a 0.5 second gap between each words but preserving the flow while doing recording. Click on Start Recording button to start recording. Keep in mind to use a very good quality microphone with almost 0 noise. After speaking all the words click on Stop Recording button to stop recording.
             </li>
             <li>
-              Once you complete the phrase click on Stop Recording. This will show you all the 8 words distinctly. Play thema all and listen to them. Also if the number of words found from the recorded clip is 8 then it will pop us a success message. If everything has done perfectly then click on done to record the next phrase (another 8 words).  
+              If everything went find you would get a success message else do a retake. The success message is not enough. You should be listening to all the words by playing them from the poped up play buttons verifying that all the words are properly cropped. If done properly, click on Done to submit the take. Else do a retake.  
             </li>
           </ol>
           <br>
@@ -298,6 +298,7 @@ Demo Codes
           <p class="text-center" style="font-size: 20px">tat thath dad dhadh nan</p>
           <p class="text-center" style="font-size: 20px">pap phaph bab bhabh mam</p>
           <p class="text-center" style="font-size: 20px">yay rar lal waw shash sas hah</p>
+          <p class="text-center" style="font-size: 20px">a aa i u e o</p>
 
           <br>
           <div class="col-md-12 text-center">
@@ -356,9 +357,9 @@ Demo Codes
           </div>
           <br>
           <p class="text-center" style="font-size: 24px">
-            Example: d m i finance me {kakakak} ap ka swagat hai
+            Example: d m i finance me {kakakakakakakakak} ap ka swagat hai
             <br>
-            {kakakak} {kaakaakaak} {kikikik} {kukukuk} {kekekek} {kokokok}
+            {kakakakakakakakak} {kaakaakaakaakaakaakaakaak} {kikikikikikikikik} {kukukukukukukukuk} {kekekekekekekekek} {kokokokokokokokok}
           </p>
           <br>
           <div class="input-group mb-2" style="width: _">
@@ -369,7 +370,7 @@ Demo Codes
             </button>
           </div>
           <br>
-          <p class="text-center" style="font-size: 24px">Say: kakakak</p>
+          <p class="text-center" style="font-size: 24px">Say: kakakakakakakakak</p>
           <br>
           <div class="col-md-12 text-center">
             <div class="spinner-grow text-danger" role="status">
@@ -413,7 +414,7 @@ Demo Codes
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: grey;">
-          <h3>Speech Beautifier</h3>
+          <h3>Intended Speech Capture</h3>
           <p>- - -</p>
           <br>
           <h5>Usage Guide</h5>
@@ -447,8 +448,11 @@ Demo Codes
       </div>
     </div>
     <!-- For System 5. -->
-    <div class="container-fluid" style="background-color: _black">
-      <p class="text-center" style="color: grey;">© Simpragma | All rights reserved 2022</p>
+    <div class="container-fluid" style="background-color: #292929">
+      <br>
+      <p class="text-center" style="color: #e3e3e3;">Credits: -, -, -, -, -</p>
+      <p class="text-center" style="color: #858585;">© Simpragma | All rights reserved 2022</p>
+      <br>
     </div>
     <!-- Self added codes. -->
 
