@@ -14,7 +14,8 @@
     <title>Signal Processing</title>
 
     <!-- Attaching the JavaScript file to this html page. -->
-    <script src="static/index.js"></script>
+    <script src="static/index_system_1.js"></script>
+    <script src="static/index_system_2.js"></script>
 
     <!-- Attaching a logo -->
     <link rel="icon" href="static/logo.png" type="image/x-icon">           
@@ -79,7 +80,7 @@
           </ol>
           <br>
           <button id="reset_backend" name="reset_backend" onclick="reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
-          <p class="text-danger">This button deletes all the data stored in the backend due to app use. This is for testing purpose. Think twice before using this button</p>
+          <p class="text-danger">This button deletes all the data stored in the backend due to app use. This is for testing purpose. Think twice before using this button.</p>
           <br>
           <select id="select_voice" name="select_voice" class="form-select" aria-label="Default select example">
             <option selected>Select a Voice</option>
@@ -281,17 +282,63 @@ Demo Codes
               Play the Metronome Button.
             </li>
             <li>
-              Then read out all the words on Metronome. Then stop recording. That's it. With this step all the Vyanjana Varnas are going to be cropped exaclty as per the Metronome. This way the voice is going to be in rythm so that 
+              Then read out all the words on Metronome. Then stop recording. That's it. With this step all the Vyanjana Varna chuncks are going to be cropped exaclty as per the Metronome and both the starting Vyanjana Varna sounds and ending Vyanjan Varna sounds would be splitted up.
             </li>
           </ol>
           <br>
-          <button type="button" class="btn btn-outline-info mx-2">
+          <button id="system_2_play_metronome" name="system_2_play_metronome" onclick="system_2_play_metronome()" type="button" class="btn btn-outline-success">
               Play Metronome <i class="bi bi-play"></i>
           </button>
-          <i class="bi bi-circle-fill mx-2" style="font-size: 20px; color: black;"></i>
-          <i class="bi bi-circle-fill mx-2" style="font-size: 10px; color: grey"></i>
-          <i class="bi bi-circle-fill mx-2" style="font-size: 10px; color: grey"></i>
-          <i class="bi bi-circle-fill mx-2" style="font-size: 10px; color: grey"></i>
+          <button id="system_2_stop_metronome" name="system_2_stop_metronome" onclick="system_2_stop_metronome()" type="button" class="btn btn-outline-danger" style="display: none">
+              Stop Metronome <i class="bi bi-stop"></i>
+          </button>
+          <span id="metronome_number" name="metronome_number" style="margin-left: 20px; margin-right: 5px; font-size: 20px;">0</span>
+          <i id="tik_1" name="tik_1" class="bi bi-circle-fill mx-2" style="font-size: 24px; color: #ededed; border: 1 px solid black;"></i>
+          <i id="tik_2" name="tik_2" class="bi bi-circle-fill mx-2" style="font-size: 12px; color: #ededed"></i>
+          <i id="tik_3" name="tik_3" class="bi bi-circle-fill mx-2" style="font-size: 12px; color: #ededed"></i>
+          <i id="tik_4" name="tik_4" class="bi bi-circle-fill mx-2" style="font-size: 12px; color: #ededed"></i>
+          <span id="metronome_number" name="metronome_number" style="margin-left: 20px; margin-right: 5px">4/4</span>
+          <br><br>
+          <div class="input-group mb-2" style="width: _">
+            <select id="system_2_crop_amp_threshold" name="system_2_crop_amp_threshold" class="form-select" aria-label="Default select example">
+              <option selected>Select a Cropping Amp. Threshold</option>
+              <option value="2">2</option>
+              <option value="4">4</option>
+              <option value="6">6</option>
+              <option value="8">8</option>
+              <option value="10">10</option>
+              <option value="12">12</option>
+              <option value="14">14</option>
+              <option value="16">16</option>
+              <option value="18">18</option>
+              <option value="20">20</option>
+              <option value="22">22</option>
+              <option value="24">24</option>
+              <option value="26">26</option>
+              <option value="28">28</option>
+              <option value="28">30</option>
+              <option value="28">32</option>
+            </select>
+            <select id="system_2_analysis_time_gap" name="system_2_analysis_time_gap" class="form-select" aria-label="Default select example">
+              <option selected>Select a Sample Analysis Time Gap </option>
+              <option value="32">32</option>
+              <option value="64">64</option>
+              <option value="96">96</option>
+              <option value="128">128</option>
+              <option value="160">160</option>
+              <option value="192">192</option>
+              <option value="224">224</option>
+              <option value="256">256</option>
+              <option value="288">288</option>
+              <option value="320">320</option>
+              <option value="352">352</option>
+              <option value="384">384</option>
+              <option value="416">416</option>
+              <option value="448">448</option>
+              <option value="480">480</option>
+              <option value="512">512</option>
+            </select>
+          </div>
           <br><br>
           <p class="text-center" style="font-size: 20px">kak khakh gag ghagh</p>
           <p class="text-center" style="font-size: 20px">chach chhachh jaj jhajh</p>
@@ -299,7 +346,6 @@ Demo Codes
           <p class="text-center" style="font-size: 20px">pap phaph bab bhabh mam</p>
           <p class="text-center" style="font-size: 20px">yay rar lal waw shash sas hah</p>
           <p class="text-center" style="font-size: 20px">a aa i u e o</p>
-
           <br>
           <div class="col-md-12 text-center">
             <div class="spinner-grow text-danger" role="status">
@@ -309,6 +355,20 @@ Demo Codes
             <button type="button" class="btn btn-outline-primary">
               <i class="bi bi-mic"></i> Start Recording
             </button>
+          </div>
+          <p id="system_2_please_wait" name="system_2_please_wait" class="text-center" style="visibility: _hidden;">Please Wait . . </p>
+          <p id="system_2_processing_status" name="system_2_processing_status" class="text-center" style="visibility: _hidden;">Success . . !</p>
+          <br>
+          <!-- <div style="margin: 0 auto; display: block;"> -->
+            <audio controls style="margin: 0 auto; display: block;">
+              <source src="/static/system_1/voice_0_0/audio_take_inst.wav" type="audio/ogg">
+              Your browser does not support the audio tag.
+            </audio>
+          <!-- </div> -->
+          <br>
+          <div id="system_2_post_operations" name="system_2_post_operations" class="col-md-12 text-center" style="visibility: _hidden">
+            <button id="system_2_retake" name="system_2_retake" onclick="retake()" type="button" class="btn btn-outline-secondary mx-2">Retake</button>
+            <button id="system_2_done" name="system_2_done" onclick="done()" type="button" class="btn btn-outline-success mx-2">Done</button>
           </div>
           <br><br><br><br>
         </div>
@@ -358,7 +418,7 @@ Demo Codes
           <br>
           <p class="text-center" style="font-size: 24px">
             Example: d m i finance me {kakakakakakakakak} ap ka swagat hai
-            <br>
+            <br><br>
             {kakakakakakakakak} {kaakaakaakaakaakaakaakaak} {kikikikikikikikik} {kukukukukukukukuk} {kekekekekekekekek} {kokokokokokokokok}
           </p>
           <br>

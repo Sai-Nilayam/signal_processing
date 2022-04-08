@@ -3,7 +3,7 @@ log.txt deleted and recreated for latest log write.
 user sainilayam is running the python script. 
 python version: 3.8.10 (default, Mar 15 2022, 12:22:08) 
 [GCC 9.4.0], python exe path: /home/sainilayam/personal/dev/venvs/tf/bin/python, librosa version: 0.8.1 
-all paths: ['/home/sainilayam/personal/dev/project_16/recorder_web_app', '/home/sainilayam/personal/dev/venvs/tf/bin', '/usr/lib/python38.zip', '/usr/lib/python3.8', '/usr/lib/python3.8/lib-dynload', '/home/sainilayam/personal/dev/venvs/tf/lib/python3.8/site-packages'] 
+all paths: ['/home/sainilayam/personal/dev/project_16/recorder_web_app', '/usr/lib/python38.zip', '/usr/lib/python3.8', '/usr/lib/python3.8/lib-dynload', '/home/sainilayam/personal/dev/venvs/tf/lib/python3.8/site-packages'] 
 process_audio function logic started. 
 data received at server. 
 audio_take_inst.wav saved with 777 permisson. 
