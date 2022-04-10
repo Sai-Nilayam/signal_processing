@@ -11,4 +11,6 @@ audio_take_inst.wav file format: audio/ogg.
 audio_take_inst imported to python env. 
 audio splitting process done. 
 words splitted into array. 
-failed response sent from server. 
+inst word folder deleted entirely and recreated with 777 permisson. 
+all cropped clips save in inst_words folder. 
+success response sent from server. 

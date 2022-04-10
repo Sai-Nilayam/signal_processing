@@ -461,7 +461,42 @@ def reset_backend():
 	return response_json
 
 # From here we would be working on writing backend APIs for the system 2 i.e Name Entinty pronunciation.
+@app.route('/system_2/process_audio', methods=['POST'])
+def system_2_process_audio():
+	# Now here we need to write all the backend logics.
+	characters = request.form.get('characters')
+	crop_amp_threshold = request.form.get('crop_amp_threshold')
+	analysis_time_gap = request.form.get('analysis_time_gap')
+	audio = request.files['audio']
 
+	# Now the next thing to do is to save the file at the right location.
+	audio.save('static/system_2/audio_take_inst.wav')
+
+	# Now here are the steps to follow.
+	# 1. 1st we will import that audio back to Python's environment.
+	# 2. We are going to detect the first sound.
+	# 3. from the 1st sound we would go up to 24 each after 2 seconds. We would collect all those Vyanjana Varnas.
+	# 4. We are going to strip those and split it in the middle and save them all as per their name.
+	# 5. Then we will go up to the last 6 sounds by normal way.
+	# 6. We would finaly stip those Swaravarna sounds and save them in the same folder.
+	# 7. We sould create finally a clip of auido saying k.. ..k kak kaak .. for all Vyanjana Varans.
+
+	# Importing the audio file to the Python's env.
+	ar, sr = librosa.load('static/system_2/audio_take_inst.wav')
+	# Printing out the Sample Rate.
+	print(sr)
+
+	# Fidning the time at where the first sound detected. 
+	
+
+
+	response = {
+		'processing_status': 'success'
+	}
+
+	response_json = json.dumps(response)
+
+	return response_json
 
 
 if __name__ == '__main__':
