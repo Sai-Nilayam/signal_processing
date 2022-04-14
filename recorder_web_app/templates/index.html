@@ -80,7 +80,7 @@
           </ol>
           <br>
           <button id="reset_backend" name="reset_backend" onclick="reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
-          <p class="text-danger">This button deletes all the data stored in the backend due to app use. This is for testing purpose. Think twice before using this button.</p>
+          <p class="text-danger">This button deletes all the data stored in the backend for System_1 - Word Concatenation, due to app use. This is for testing purpose. Think twice before using this button.</p>
           <br>
           <select id="select_voice" name="select_voice" class="form-select" aria-label="Default select example">
             <option selected>Select a Voice</option>
@@ -287,8 +287,8 @@ Demo Codes
             </li>
           </ol>
           <br>
-          <button id="system_2_reset_backend" name="system_2_reset_backend" onclick="reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
-          <p class="text-danger">This button deletes all the data stored in the backend due to app use. This is for testing purpose. Think twice before using this button.</p>
+          <button id="system_2_reset_backend" name="system_2_reset_backend" onclick="system_2_reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
+          <p class="text-danger">This button deletes all the data stored in the backend for System_2 - Name Entity pronunciation, due to app use. This is for testing purpose. Think twice before using this button.</p>
           <br>
           <div class="input-group mb-2" style="width: _">
             <select id="system_2_crop_amp_threshold" name="system_2_crop_amp_threshold" class="form-select" aria-label="Default select example">
@@ -311,7 +311,7 @@ Demo Codes
               <option value="28">32</option>
             </select>
             <select id="system_2_analysis_time_gap" name="system_2_analysis_time_gap" class="form-select" aria-label="Default select example">
-              <option selected>Select a Sample Analysis Time Gap </option>
+              <option selected>Select a Sample Analysis Time Gap</option>
               <option value="32">32</option>
               <option value="64">64</option>
               <option value="96">96</option>
@@ -328,6 +328,17 @@ Demo Codes
               <option value="448">448</option>
               <option value="480">480</option>
               <option value="512">512</option>
+            </select>
+            <select id="system_2_fine_analysis_time_gap" name="system_2_fine_analysis_time_gap" class="form-select" aria-label="Default select example">
+              <option selected>Select a Fine Sample Analysis Time Gap</option>
+              <option value="32">32</option>
+              <option value="64">64</option>
+              <option value="96">96</option>
+              <option value="128">128</option>
+              <option value="160">160</option>
+              <option value="192">192</option>
+              <option value="224">224</option>
+              <option value="256">256</option>
             </select>
           </div>
           <br>
@@ -361,8 +372,6 @@ Demo Codes
             pp phph bb bhbh mm
             <br>
             yy rr ll ww shsh ss hh
-            <br>
-            a aa i u e o
           </p>
           <br>
           <div class="col-md-12 text-center">
@@ -403,7 +412,7 @@ Demo Codes
             <textarea id="system_2_testing_characters" name="system_2_testing_characters" class="form-control" aria-label="With textarea" style="height: 150px"></textarea>
           </div>
           <br>
-          <button id="system_2_testing_play" name="system_2_testing_play" onclick="testing_play()" type="button" class="btn btn-outline-info mx-2">
+          <button id="system_2_testing_play" name="system_2_testing_play" onclick="system_2_testing_play()" type="button" class="btn btn-outline-info mx-2">
               Play <i class="bi bi-play"></i>
           </button>
           <img id="system_2_testing_play_animation" name="system_2_testing_play_animation" src="static/sound_play.gif" height="40px" width="40px" class="rounded float" alt="sound_play" style="visibility: hidden">

@@ -602,7 +602,7 @@ function reset_backend() {
 		response_json = JSON.parse(response_text);
 
 		if (response_json.processing_status == 'success') {
-			alert('The backend has been reset. Now you could start with a fresh backend for your testing.')
+			alert('The backend folder structure for System_1 - Word Concatenation has been reset. Now you could start with a fresh backend for your testing.')
 		}
 
 	}

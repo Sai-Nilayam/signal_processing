@@ -106,10 +106,11 @@ function system_2_start_recording() {
 	characters = document.getElementById("system_2_characters").innerText;
  	crop_amp_threshold = document.getElementById("system_2_crop_amp_threshold").value;
  	analysis_time_gap = document.getElementById("system_2_analysis_time_gap").value;
+ 	fine_analysis_time_gap = document.getElementById("system_2_fine_analysis_time_gap").value;
 
  	// Now here we would be putting promts for vacant fields.
- 	// if (is_on_metronome == false || crop_amp_threshold == "Select a Cropping Amp. Threshold" || analysis_time_gap == "Select a Sample Analysis Time Gap") {
- 	// 	alert("Please select a Cropping Amp. Threshold and select an Analysis Time Gap in respective fields. The optimal value for Cropping Amp. Threshold is 4 and Analysis Time Gap is 64 if you are using a Studio quality Microphone. In a normal recording set up the optimal values are 16 and 128. Also turn on the metronome before doing any recording as it's important to utter the charcter chunks on the metronome rythm.")
+ 	// if (is_on_metronome == false || crop_amp_threshold == "Select a Cropping Amp. Threshold" || analysis_time_gap == "Select a Sample Analysis Time Gap" || fine_analysis_time_gap == "Select a Fine Sample Analysis Time Gap") {
+ 	// 	alert("Please select a Cropping Amp. Threshold, Analysis Time Gap and Fine Analysis Time Gap in respective fields. The optimal values are 4, 128 and 64 respectively if you are using a Studio quality Microphone. In a normal recording set up the optimal values are 16, 256, 128 respectively. Also turn on the metronome before doing any recording as it's important to utter the charcter chunks on the metronome rythm.")
  	// 	return;
  	// }
 
@@ -171,14 +172,14 @@ function system_2_stop_recording() {
 		response_text = this.responseText;
 		response_json = JSON.parse(response_text);
 		// alert(response_json.processing_status)
-		if (response_json.processing_status == "failed") {
-			document.getElementById("system_2_please_wait").style.visibility = "hidden";
-			document.getElementById("system_2_processing_status").innerHTML = "Processing failed. Please try out with different Cropping Amp. Threshold and Analysis Time Gap or use a more noise less microphone.";
-			document.getElementById("system_2_processing_status").style.color = "#ff4f42";
-			document.getElementById("system_2_processing_status").style.visibility = "visible";
-			document.getElementById("system_2_done").style.display = "none";
-			document.getElementById("system_2_post_operations").style.visibility = "visible";
-		};
+		// if (response_json.processing_status == "failed") {
+		// 	document.getElementById("system_2_please_wait").style.visibility = "hidden";
+		// 	document.getElementById("system_2_processing_status").innerHTML = "Processing failed. Please try out with different Cropping Amp. Threshold and Analysis Time Gap or use a more noise less microphone.";
+		// 	document.getElementById("system_2_processing_status").style.color = "#ff4f42";
+		// 	document.getElementById("system_2_processing_status").style.visibility = "visible";
+		// 	document.getElementById("system_2_done").style.display = "none";
+		// 	document.getElementById("system_2_post_operations").style.visibility = "visible";
+		// };
 
 		if (response_json.processing_status == "success") {
 			document.getElementById("system_2_please_wait").style.visibility = "hidden";
@@ -187,6 +188,7 @@ function system_2_stop_recording() {
 			document.getElementById("system_2_processing_status").style.visibility = "visible";
 			document.getElementById("system_2_done").style.display = "inline-block";
 			document.getElementById("system_2_post_operations").style.visibility = "visible";
+			document.getElementById("system_2_audio_clip").src = response_json.clip_url;
 			document.getElementById("system_2_audio_clip").style.visibility = "visible";
 		}
 	}
@@ -196,12 +198,14 @@ function system_2_stop_recording() {
  	characters = document.getElementById("system_2_characters").innerText;
  	crop_amp_threshold = document.getElementById("system_2_crop_amp_threshold").value;
  	analysis_time_gap = document.getElementById("system_2_analysis_time_gap").value;
+ 	fine_analysis_time_gap = document.getElementById("system_2_fine_analysis_time_gap").value;
 
  	form_data = new FormData()
 
  	form_data.append('characters', characters);
  	form_data.append('crop_amp_threshold', crop_amp_threshold);
  	form_data.append('analysis_time_gap', analysis_time_gap);
+ 	form_data.append('fine_analysis_time_gap', fine_analysis_time_gap);
 
  	setTimeout(() => {
  		// Creating an audio file from audio blog. This takes time so in the time_out scope.
@@ -227,3 +231,46 @@ function system_2_retake() {
 	document.getElementById("system_2_start_recording").style.display = "inline-block";
 	document.getElementById("system_2_start_recording").style.visibility = "visible";
 }	
+
+// Writing a function for done.
+function system_2_done() {
+	url = '/system_2/done'
+
+ 	xhttp = new XMLHttpRequest();
+ 	xhttp.onload = function() {
+ 		document.getElementById("system_2_processing_status").style.visibility = "hidden";
+ 		document.getElementById("system_2_post_operations").style.visibility = "hidden";
+		document.getElementById("system_2_audio_clip").style.visibility = "hidden";
+		document.getElementById("system_2_stop_recording").style.display = "none";
+		document.getElementById("system_2_start_recording").style.display = "inline-block";
+		document.getElementById("system_2_start_recording").style.visibility = "hidden";
+ 		document.getElementById("system_2_processing_status").style.color = '#00b324';
+		document.getElementById("system_2_processing_status").innerHTML = "Please test a name entity in with testing field.";
+		document.getElementById("system_2_processing_status").style.visibility = "visible";
+	}
+
+ 	xhttp.open("POST", url);
+	xhttp.send(form_data)
+}	
+
+
+// Writing a function to reset backend.
+function system_2_reset_backend() {
+	url = '/system_2/reset_backend'
+
+ 	xhttp = new XMLHttpRequest();
+ 	xhttp.onload = function() {
+		response_text = this.responseText;
+		response_json = JSON.parse(response_text);
+
+		if (response_json.processing_status == 'success') {
+			alert('The backend folder structure for System_2 - Name Entity Pronounciation has been reset. Now you could start with a fresh backend for your testing.')
+		}
+
+	}
+
+ 	xhttp.open("POST", url);
+ 	// No data Preparation neede here.
+
+	xhttp.send()
+}
