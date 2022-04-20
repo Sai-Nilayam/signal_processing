@@ -109,10 +109,10 @@ function system_2_start_recording() {
  	fine_analysis_time_gap = document.getElementById("system_2_fine_analysis_time_gap").value;
 
  	// Now here we would be putting promts for vacant fields.
- 	// if (is_on_metronome == false || crop_amp_threshold == "Select a Cropping Amp. Threshold" || analysis_time_gap == "Select a Sample Analysis Time Gap" || fine_analysis_time_gap == "Select a Fine Sample Analysis Time Gap") {
- 	// 	alert("Please select a Cropping Amp. Threshold, Analysis Time Gap and Fine Analysis Time Gap in respective fields. The optimal values are 4, 128 and 64 respectively if you are using a Studio quality Microphone. In a normal recording set up the optimal values are 16, 256, 128 respectively. Also turn on the metronome before doing any recording as it's important to utter the charcter chunks on the metronome rythm.")
- 	// 	return;
- 	// }
+ 	if (is_on_metronome == false || crop_amp_threshold == "Select a Cropping Amp. Threshold" || analysis_time_gap == "Select a Sample Analysis Time Gap" || fine_analysis_time_gap == "Select a Fine Sample Analysis Time Gap") {
+ 		alert("Please select a Cropping Amp. Threshold, Analysis Time Gap and Fine Analysis Time Gap in respective fields. The optimal values are 4, 128 and 64 respectively if you are using a Studio quality Microphone. In a normal recording set up the optimal values are 16, 256, 128 respectively. Also turn on the metronome before doing any recording as it's important to utter the charcter chunks on the metronome rythm.")
+ 		return;
+ 	}
 
  	document.getElementById("system_2_recording_animation").style.visibility = "visible";
 	document.getElementById("system_2_start_recording").style.display = "none";

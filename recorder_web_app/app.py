@@ -167,7 +167,7 @@ def process_audio():
 	# environment and spit it using the librosa codes.
 	try:
 		# Using Librosa to load the mp3 file.
-		ar, sr = librosa.load('static/system_1/{}/audio_take_inst.wav'.format(voice))
+		ar, sr = librosa.load('static/system_1/{}/audio_take_inst.wav'.format(voice), sr=None)
 		# Using a2n to load the mp3 file.
 		# ar, sr = a2n.audio_from_file('static/system_1/{}/audio_take_inst.mp3'.format(voice))
 		# Using pydub to load the mp3 file.
@@ -298,7 +298,7 @@ def done():
 
 	for i in range(len(files)):
 		inst_file_name = files[i]
-		ar, sr = librosa.load('static/system_1/{}/inst_words/{}'.format(voice, inst_file_name))
+		ar, sr = librosa.load('static/system_1/{}/inst_words/{}'.format(voice, inst_file_name), sr=None)
 
 		# Getting the real file name from the word arr.
 		real_file_name = words_arr[i]
@@ -336,7 +336,7 @@ def testing_play():
 		for word in testing_words_arr:
 			# Getting the audio clip i.e the audio array from the words folder.
 			inst_file_name = word + '.wav'
-			inst_ar, inst_sr = librosa.load('static/system_1/{}/words/{}'.format(testing_voice, inst_file_name))
+			inst_ar, inst_sr = librosa.load('static/system_1/{}/words/{}'.format(testing_voice, inst_file_name), sr=None)
 			final_voice = np.concatenate([final_voice, inst_ar])
 	except:
 		response = {
@@ -474,10 +474,11 @@ def system_2_process_audio():
 	audio.save('static/system_2/audio_take_inst.wav')	
 
 	# Importing the audio file to the Python's env.
-	ar, sr = librosa.load('static/system_2/audio_take_inst.wav')
+	ar, sr = librosa.load('static/system_2/audio_take_inst.wav', sr=None)
+	print(sr)
 
 	# Detecting the first_index.
-	ar_inst, sr_inst = librosa.load('static/system_2/audio_take_inst.wav', duration=8.0)
+	ar_inst, sr_inst = librosa.load('static/system_2/audio_take_inst.wav', sr=None, duration=8.0)
 	intervals_inst = librosa.effects.split(ar_inst, top_db=int(crop_amp_threshold), frame_length=int(int(analysis_time_gap)*0.001*int(sr_inst)))
 	first_index = intervals_inst[0][0] - (0.2*sr_inst)
 
@@ -510,6 +511,7 @@ def system_2_process_audio():
 		
 		intervals_inst = librosa.effects.split(audio_chunk_inst, top_db=int(crop_amp_threshold), frame_length=int(int(fine_analysis_time_gap)*0.001*int(sr)))
 		inst_stripped_chunk = audio_chunk_inst[intervals_inst[0][0]:intervals_inst[0][1]]
+		
 		# For writing the inst_stripped_chunk.
 		sf.write('static/system_2/inst_character_chunks/{}.wav'.format(character_chunks[2*i].split('_')[0]), inst_stripped_chunk, int(sr*1.0), 'PCM_24')
 
@@ -538,14 +540,14 @@ def system_2_process_audio():
 		for j in range(len(swaravarna_sounds)):
 			inst_swaravarna = swaravarna_sounds[j]
 			# Now creating the sound clip chunk.
-			inst_s_ar, inst_sr = librosa.load('static/system_2/inst_character_sounds/{}.wav'.format(inst_s))
+			inst_s_ar, inst_sr = librosa.load('static/system_2/inst_character_sounds/{}.wav'.format(inst_s), sr=None)
 			final_clip = np.concatenate([final_clip, inst_s_ar])
-			inst_sv_ar, inst_sr = librosa.load('static/system_2/swaravarna_sounds/{}.wav'.format(inst_swaravarna))
+			inst_sv_ar, inst_sr = librosa.load('static/system_2/swaravarna_sounds/{}.wav'.format(inst_swaravarna), sr=None)
 			final_clip = np.concatenate([final_clip, inst_sv_ar])
-			inst_e_ar, inst_sr = librosa.load('static/system_2/inst_character_sounds/{}.wav'.format(inst_e))
-			final_clip = np.concatenate([final_clip, inst_e_ar])
-			# Then we need to add one fourth second gap some gap.
-			final_clip = np.concatenate([final_clip, [0 for i in range(22050//4)]])
+			inst_e_ar, inst_sr = librosa.load('static/system_2/inst_character_sounds/{}.wav'.format(inst_e), sr=None)
+			# final_clip = np.concatenate([final_clip, inst_e_ar])
+			# Then we need to add half second gap some gap.
+			final_clip = np.concatenate([final_clip, [0 for i in range(sr//2)]])
 
 	# Now we need to save the final clip audio in the backend with some data time attached to it. 
 	final_output_name = 'final_clip' + '_' + str(datetime.datetime.now()) + '.wav'
@@ -615,7 +617,134 @@ def system_2_reset_backend():
 
 	response_json = json.dumps(response)
 
-	return response_json 
+	return response_json
+
+# From here we will start writing functions for System 3.
+@app.route('/system_3/process_audio', methods=['POST'])
+def system_3_process_audio():
+	# Now here we need to write all the backend logics.
+	voice = request.form.get('voice')
+	characters = request.form.get('characters')
+	crop_amp_threshold = request.form.get('crop_amp_threshold')
+	analysis_time_gap = request.form.get('analysis_time_gap')
+	fine_analysis_time_gap = request.form.get('fine_analysis_time_gap')
+	audio = request.files['audio']
+
+	# Now the next thing to do is to save the file at the right location.
+	# audio.save('static/system_3/{}/audio_take_inst.wav'.format(voice))	
+
+	# Importing the audio file to the Python's env.
+	ar, sr = librosa.load('static/system_3/{}/audio_take_inst.wav'.format(voice), sr=None)
+	print(sr)
+
+	# Now it's time to split the audio.
+	intervals = librosa.effects.split(ar, top_db=int(crop_amp_threshold), frame_length=int(int(analysis_time_gap)*0.001*int(sr)))
+
+	if len(intervals) != 3:
+		response = {
+		'processing_status': 'failed'
+		}
+
+		response_json = json.dumps(response)
+
+		return response_json
+
+	# Now before doing anykind of saving we need to delete that folder and recreate it again. 
+	# Removing the folder testing_words and recreate it.
+	inst_folder_name = 'inst_sv'
+	inst_url = 'static/system_3/{}/{}'.format(voice, inst_folder_name)
+	shutil.rmtree(inst_url)
+	os.mkdir(inst_url)
+	os.chmod(inst_url, 0o777)
+	
+	# First take the characters and find for what character.
+	for i in range(3):
+		inst_character_sound = ar[intervals[i][0] : intervals[i][1]]
+
+		# Applying fine cropping.
+		inst_intervals = librosa.effects.split(inst_character_sound, top_db=int(crop_amp_threshold), frame_length=int(int(fine_analysis_time_gap)*0.001*int(sr)))
+		inst_character_sound = inst_character_sound[inst_intervals[0][0] : inst_intervals[0][1]]
+
+		inst_name = str(i) + '_' + str(datetime.datetime.now()) + '.wav'
+		sf.write('static/system_3/{}/inst_sv/{}'.format(voice, inst_name), inst_character_sound, sr, 'PCM_24')
+
+	# Sending a success message to the frontend as json. We could also send an failed message from here.
+	# But that is not required from here.
+	response = {
+		'processing_status': 'success'
+	}
+
+	response_json = json.dumps(response)
+
+	return response_json
+
+# Here will be the clip url sending endpoint.
+@app.route('/system_3/send_clip_url', methods=['POST'])
+def system_3_send_clip_url():
+	voice = request.form.get('voice')
+	clip_no = request.form.get('clip_no')
+
+	# Listing all the files in inst_words folder.
+	files = os.listdir('static/system_3/{}/inst_sv/'.format(voice))
+	files.sort()
+
+	# # Failed Response (not available) if the clip number is greater than the number of files present in the inst_word folder.
+	if not (int(clip_no) < (len(files))):
+		# Preparing the json object
+		response = {
+			'file_url': 'not_available',
+		}
+
+		response_json = json.dumps(response)
+
+		return response_json
+
+	# Making up the clip url.
+	clip_url = '/static/system_3/{}/inst_sv/{}'.format(voice, str(files[int(clip_no)]))
+	print(clip_no)
+
+	# Preparing the json object
+	response = {
+		'file_url': clip_url,
+	}
+
+	response_json = json.dumps(response)
+
+	return response_json
+
+@app.route('/system_3/done', methods=['POST'])
+def system_3_done():
+	voice = request.form.get('voice')
+	characters = request.form.get('characters')
+
+	character = characters[0]
+	suffix_list = ['_s', '_m', '_e']
+
+	files = os.listdir('static/system_3/{}/inst_sv/'.format(voice))
+	files.sort()
+
+	for i in range(len(files)):
+		ar, sr = librosa.load('static/system_3/{}/inst_sv/{}'.format(voice, files[i]), sr=None)
+		inst_name = character + suffix_list[i] + '.wav'
+		sf.write('static/system_3/{}/sv/{}'.format(voice, inst_name), ar, sr, 'PCM_24')
+
+	# Removing the folder testing_words and recreate it.
+	inst_folder_name = 'inst_sv'
+	inst_url = 'static/system_3/{}/{}'.format(voice, inst_folder_name)
+	shutil.rmtree(inst_url)
+	os.mkdir(inst_url)
+	os.chmod(inst_url, 0o777)
+
+	return 'done'
+
+@app.route('/system_3/testing_play', methods=['POST'])
+def system_3_testing_play():
+	voice = request.form.get('testing_voice')
+	characters = request.form.get('testing_characters')
+
+	# Now here we need to write the function for name spelling to pronunciation characters. 
+
+	return 'done'
 
 if __name__ == '__main__':
 	# app.run(debug=True, port=8000)

@@ -1,0 +1,22 @@
+TTS System 1
+--------
+Pros
+--------
+1. High quality clear voices - no robotic noise.
+2. Correct fluctuations and correct flow like natural human speaking flow thanks to the 8 simultanious word utterance that enforce the speaker to speak in a flow.
+3. Faster to record a large number of words as the way the app is designed. 
+4. The app is useful in absolutely easy bug free recording.
+5. Is applicable for any regional, national and international languages where it is hard to find a big enough dataset and not just for Hindi and English.
+6. Reusability - Once recorded a word in a perticular voice is reusable for all time.
+7. Mobile in nature as it is a web app - Even it's possible to use the app for recording even in Android and IOS phones as phones are having a very good quality mics integrated in them. 
+8. Significantly less computational time that is to say, for our clients having thousands of calls in a minute, the app APIs will perform well in real time. 
+9. It's possible to use it as a service with some subscription charges to others too as it is deployed over internet.
+10. Useful in creating datasets for Speech to text training.
+11. It is faster over internet as it uses file compressions so that the files are less of size as well as the advantage of Nginx web server that is overally twice faster for serving static files as compared to Apache. Also the app is designed is such a way that it doesn't use a database insted file system making it even more faster.
+12. Could be integrated with a Vocal Tone transfer system so that even if the older voice artist is no more available still a new voice artist's could take his/her place and that would make the system independent of voice artist.
+
+Cons
+--------
+1. We need to record each individual word in different styles of voices like assuring voice, informing voice etc.
+2. Requires high quality microphone.
+

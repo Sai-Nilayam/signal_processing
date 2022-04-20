@@ -9,10 +9,10 @@ function analyse() {
 		response_text = this.responseText;
 		response_json = JSON.parse(response_text);
 
-		document.getElementById("unique_word_count").innerHTML = response_json.unique_word_count;
-		document.getElementById("no_of_takes").innerHTML = response_json.no_of_takes;
-		document.getElementById("estimated_recording_time").innerHTML = response_json.estimated_recording_time; 
-		document.getElementById("total_no_of_takes").innerHTML = "/" + " " + response_json.no_of_takes;  
+		document.getElementById("unique_word_count").innerHTML = " " + response_json.unique_word_count + " ";
+		document.getElementById("no_of_takes").innerHTML = " " + response_json.no_of_takes + " ";
+		document.getElementById("estimated_recording_time").innerHTML = " " + response_json.estimated_recording_time + " "; 
+		document.getElementById("total_no_of_takes").innerHTML = "/" + " " + response_json.no_of_takes + " ";  
 	}
 
  	xhttp.open("POST", url);
@@ -608,7 +608,7 @@ function reset_backend() {
 	}
 
  	xhttp.open("POST", url);
- 	// No data Preparation neede here.
+ 	// No data Preparation needed here.
 
 	xhttp.send()
 }
