@@ -718,7 +718,11 @@ def system_3_done():
 	voice = request.form.get('voice')
 	characters = request.form.get('characters')
 
-	character = characters[0]
+	if characters[0:2] == 'aa':
+		character = 'aa'
+	else:
+		character = characters[0]
+		
 	suffix_list = ['_s', '_m', '_e']
 
 	files = os.listdir('static/system_3/{}/inst_sv/'.format(voice))

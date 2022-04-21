@@ -34,7 +34,14 @@ function system_3_play_demo_clip() {
 
 // For getting different take characters
 function system_3_get_take_sv() {
+	voice = document.getElementById("system_3_select_voice").value;
 	take_no = document.getElementById("system_3_take_no").value;
+
+	if (voice == "Select a Voice" || take_no == "") {
+		alert("Please select a voice and put a take number in respective fields.");
+		return;
+	}
+
 	if (take_no == 0) {
 		take_sv = "a a a";
 	} else if (take_no == 1) {
@@ -404,7 +411,7 @@ function system_3_reset_backend() {
 		response_json = JSON.parse(response_text);
 
 		if (response_json.processing_status == 'success') {
-			alert('The backend folder structure for System_3 - Name Entity Pronounciation has been reset. Now you could start with a fresh backend for your testing.')
+			alert('The backend folder structure for System_3 - Vocal Tone and Style Transfer has been reset. Now you could start with a fresh backend for your testing.')
 		}
 
 	}
