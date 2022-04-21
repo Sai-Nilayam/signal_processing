@@ -343,7 +343,7 @@ function system_3_testing_play() {
 			// Here there should be a slight change.
 			// In order to get he updated url for creating the Audio object we need to request to a backend endpoint.
 			// We are going to give the name of the backend function as get_final_output
-			url = '/system_1/get_final_output_url'
+			url = '/system_3/get_final_output_url'
 
 		 	xhttp = new XMLHttpRequest();
 		 	xhttp.onload = function() {
@@ -354,16 +354,16 @@ function system_3_testing_play() {
 				audio = new Audio(clip_url);
 
 			 	audio.onended = function() {
-			 		document.getElementById("testing_play_animation").style.visibility = "hidden";
+			 		document.getElementById("system_3_testing_play_animation").style.visibility = "hidden";
 			 	}
 
-			 	document.getElementById("testing_play_animation").style.visibility = "visible";
+			 	document.getElementById("system_3_testing_play_animation").style.visibility = "visible";
 				audio.play()
 			}
 
 		 	xhttp.open("POST", url);
 		 	// Preparing the data
-		 	testing_voice = document.getElementById("testing_voice").value;
+		 	testing_voice = document.getElementById("system_3_testing_voice").value;
 		 	
 		 	form_data = new FormData()
 		 	form_data.append('testing_voice', testing_voice)
@@ -372,7 +372,7 @@ function system_3_testing_play() {
 		};
 
 		if (response_json.processing_status == "failed") {
-			alert("A few words are not recorded. Please use the Word Concatination Recording Section for recording those words.")
+			alert("A few Swaravarna Sounds are not recorded. Please use the Vocal Tone and Style Transfer Recording Section for recording those sounds.")
 		};
 	}
 
@@ -392,4 +392,25 @@ function system_3_testing_play() {
  	form_data.append('testing_characters', testing_characters)
 
 	xhttp.send(form_data)
+}
+
+// Writing a function to reset backend.
+function system_3_reset_backend() {
+	url = '/system_3/reset_backend'
+
+ 	xhttp = new XMLHttpRequest();
+ 	xhttp.onload = function() {
+		response_text = this.responseText;
+		response_json = JSON.parse(response_text);
+
+		if (response_json.processing_status == 'success') {
+			alert('The backend folder structure for System_3 - Name Entity Pronounciation has been reset. Now you could start with a fresh backend for your testing.')
+		}
+
+	}
+
+ 	xhttp.open("POST", url);
+ 	// No data Preparation neede here.
+
+	xhttp.send()
 }

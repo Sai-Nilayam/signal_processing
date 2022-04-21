@@ -14,6 +14,7 @@ import sys
 import magic
 import time
 # import tensorflow as tf
+from formatter import formatter
 
 app = Flask(__name__)
 
@@ -631,7 +632,7 @@ def system_3_process_audio():
 	audio = request.files['audio']
 
 	# Now the next thing to do is to save the file at the right location.
-	# audio.save('static/system_3/{}/audio_take_inst.wav'.format(voice))	
+	audio.save('static/system_3/{}/audio_take_inst.wav'.format(voice))	
 
 	# Importing the audio file to the Python's env.
 	ar, sr = librosa.load('static/system_3/{}/audio_take_inst.wav'.format(voice), sr=None)
@@ -742,10 +743,120 @@ def system_3_testing_play():
 	voice = request.form.get('testing_voice')
 	characters = request.form.get('testing_characters')
 
-	# Now here we need to write the function for name spelling to pronunciation characters.s
-	 
+	# Formatting the characters to pronunciable format. 
+	formatted_ar = formatter(characters)
+	print('\n' + characters)
+	print(formatted_ar)
 
-	return 'done'
+	all_sv_sounds = [
+		'a_s', 'a_m', 'a_e', 'aa_s', 'aa_m', 'aa_e', 'i_s', 'i_m', 'i_e',
+		'u_s', 'u_m', 'u_e', 'e_s', 'e_m', 'e_e', 'o_s', 'o_m', 'o_e'
+	]
+
+	final_pronunciation = np.array([])
+
+	# Now we need to concatenate the character sounds
+	# But here we will try this and say failed if something goes wrong. 
+	try:
+		for i in range(len(formatted_ar)):
+			inst_character = formatted_ar[i]
+
+			# check if it's SV or VV.
+			if inst_character in all_sv_sounds:
+				inst_ar, inst_sr = librosa.load('static/system_3/{}/sv/{}.wav'.format(voice, inst_character), sr=48000)
+				final_pronunciation = np.concatenate([final_pronunciation, inst_ar])
+			else:
+				inst_ar, inst_sr = librosa.load('static/system_3/{}/vv/{}.wav'.format(voice, inst_character), sr=48000)
+				final_pronunciation = np.concatenate([final_pronunciation, inst_ar])
+	except:
+		response = {
+			'processing_status': 'failed',
+		}
+
+		response_json = json.dumps(response)
+
+		return response_json
+
+	# Now before putting the test characters in the folder we need to delete it and recreate it. 
+	# Removing the folder testing_words and recreate it.
+	inst_folder_name = 'testing_characters'
+	inst_url = 'static/system_3/{}/{}'.format(voice, inst_folder_name)
+	shutil.rmtree(inst_url)
+	os.mkdir(inst_url)
+	os.chmod(inst_url, 0o777)
+
+	# Creating the time attached name.
+	file_name = 'testing_characters' + '_' + str(datetime.datetime.now()) + '.wav'
+	# Saving the final pronuciation.
+	sf.write('static/system_3/{}/testing_characters/{}'.format(voice, file_name), final_pronunciation, inst_sr, 'PCM_24')
+
+	response = {
+		'processing_status': 'success',
+	}
+
+	response_json = json.dumps(response)
+
+	return response_json
+
+@app.route('/system_3/get_final_output_url', methods=['POST'])
+def system_3_get_final_output():
+	print('test')
+	testing_voice = request.form.get('testing_voice')
+
+	# List all the files in the testing_words folder.
+	files = os.listdir('static/system_3/{}/testing_characters'.format(testing_voice))
+	clip_url = '/static/system_3/{}/testing_characters/'.format(testing_voice) + str(files[0])
+
+	# Preparing the json object
+	response = {
+		'file_url': clip_url,
+	}
+
+	response_json = json.dumps(response)
+
+	return response_json
+
+@app.route('/system_3/reset_backend', methods=['POST'])
+def system_3_reset_backend():
+	voices_list = ['voice_0_0', 'voice_0_1', 'voice_1_0', 'voice_1_1']
+
+	for voice in voices_list:
+		# Removing the audio_take_inst.wav file.
+		inst_file_name = 'audio_take_inst.wav'
+		inst_url = 'static/system_3/{}/{}'.format(voice, inst_file_name)
+		os.remove(inst_url)
+		f = open(inst_url, 'w')
+		f.close()
+
+		# Removing the folder character_sounds and recreate it here there.
+		inst_folder_name = 'inst_sv'
+		inst_url = 'static/system_3/{}/{}'.format(voice, inst_folder_name)
+		shutil.rmtree(inst_url)
+		os.mkdir(inst_url)
+		os.chmod(inst_url, 0o777)
+
+		# Removing the folder final_clip and recreate it here there.
+		inst_folder_name = 'sv'
+		inst_url = 'static/system_3/{}/{}'.format(voice, inst_folder_name)
+		shutil.rmtree(inst_url)
+		os.mkdir(inst_url)
+		os.chmod(inst_url, 0o777)
+
+		# Removing the folder inst_character_chunks and recreate it here there.
+		inst_folder_name = 'testing_characters'
+		inst_url = 'static/system_3/{}/{}'.format(voice, inst_folder_name)
+		shutil.rmtree(inst_url)
+		os.mkdir(inst_url)
+		os.chmod(inst_url, 0o777)
+
+	# Sending a success message to the frontend as json.
+	response = {
+		'processing_status': 'success'
+	}
+
+	response_json = json.dumps(response)
+
+	return response_json
 
 if __name__ == '__main__':
 	# app.run(debug=True, port=8000)
