@@ -175,7 +175,7 @@ def formatter(name):
 	return formatted_ar
 
 if __name__ == '__main__':
-	name = 'ankush'
+	name = 'rajesh'
 	formatted_ar = formatter(name)
-	print('\n', name)
+	print('\n' + name)
 	print(formatted_ar)
