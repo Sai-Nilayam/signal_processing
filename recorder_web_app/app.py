@@ -68,10 +68,10 @@ def get_unique_words():
 	# Now we need to prepare set of data that is needed to be returned.
 	unique_word_count = len(unique_words_list)
 	
-	if unique_word_count%8 == 0:
-		no_of_takes = unique_word_count // 8 - 1
+	if unique_word_count%4 == 0:
+		no_of_takes = unique_word_count // 4 - 1
 	else:
-		no_of_takes = (unique_word_count//8)
+		no_of_takes = (unique_word_count//4)
 
 	estimated_recording_time = no_of_takes * 0.5
 
@@ -92,8 +92,8 @@ def get_take_words():
 	voice = request.form.get('voice')
 	take_no = request.form.get('take_no')
 
-	range_a = int(take_no) * 8 
-	range_b = range_a + 8
+	range_a = int(take_no) * 4 
+	range_b = range_a + 4
 
 	# Now we need to get all the unique words from the unique_words.txt file and
 	# make a list out of that.
