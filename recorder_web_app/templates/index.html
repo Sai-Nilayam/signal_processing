@@ -104,6 +104,14 @@
           <p style="text-align: center">Total Numbar of Unique Words:<b id="unique_word_count"> - - </b>, Number of Takes:<b id="no_of_takes"> - - </b>, Estimated Recording Time:<b id="estimated_recording_time"> - - </b><b> Minute(s)</b></p>
           <br><br><br><br>
           <div class="input-group mb-2" style="width: _">
+            <input id="system_1_demo_clip" name="system_1_demo_clip" onchange="system_1_grab_audio_url(event)" type="file" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+            <button onclick="system_1_play_demo_clip()" type="button" class="btn btn-outline-info mx-2">
+              Play <i class="bi bi-play"></i>
+            </button>
+            <img id="system_1_demo_clip_animation" src="static/sound_play.gif" class="rounded mx-auto" height="36px" width="36px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+          </div>
+          <br>
+          <div class="input-group mb-2" style="width: _">
             <select id="crop_amp_threshold" name="crop_amp_threshold" class="form-select" aria-label="Default select example">
               <option selected>Select a Cropping Amp. Threshold</option>
               <option value="2">2</option>
@@ -276,7 +284,7 @@ Demo Codes
     <!-- For System 2. -->
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: _grey;">
+        <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: #ebebeb;">
           <h3>Name Entity Pronunciation</h3>
           <h5>(Testing Module)</h5>
           <br>
@@ -407,7 +415,7 @@ Demo Codes
           </div>
           <br><br><br><br>
         </div>
-        <div class="col-lg-4 mx-0 my-4 px-4 py-4" style="background-color: _teal;">
+        <div class="col-lg-4 mx-0 my-4 px-4 py-4" style="background-color: #ebebeb;">
           <h5>Watchout Explanation Video</h5>
           <iframe width="100%" height="250dp" src="https://www.youtube.com/embed/_xLgXIhebxA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           <br><br>

@@ -32,6 +32,32 @@ function analyse() {
 	xhttp.send(form_data)
 }
 
+// Playing the demo clip.
+system_1_demo_clip_selected = false;
+
+// The first thing to do here is to grab the file as soon as the file selection event takes place. 
+function system_1_grab_audio_url(event) {
+	system_1_demo_clip_url = URL.createObjectURL(event.target.files[0]);
+	system_1_demo_clip_selected = true;
+	// alert(demo_clip_url);
+}
+
+// For Playing the demo clip.
+function system_1_play_demo_clip() {
+	// Check if the demo clip has been selected or not. 
+	if (system_1_demo_clip_selected == false) {
+		alert("Please select a demo audio clip.");
+		return;
+	}
+
+	document.getElementById("system_1_demo_clip_animation").style.visibility = "visible";
+	audio = new Audio(system_1_demo_clip_url);
+	audio.onended = function() {
+	 		document.getElementById("system_1_demo_clip_animation").style.visibility = "hidden";
+	 	}
+	audio.play();	
+}
+
 // Now we need to write a funciton to get the texts for each takes.
 function get_take_words() {
 	url = '/system_1/get_take_words'
