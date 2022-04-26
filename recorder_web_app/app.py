@@ -620,6 +620,28 @@ def system_2_reset_backend():
 
 	return response_json
 
+# So here we will be writing the functions for systme 2 alternate module.
+@app.route('/system_2_a/process_audio', methods=['POST'])
+def system_2_a_process_audio():
+	vv_set = request.form.get('vv_set')
+	vv_notation = request.form.get('vv_notation')
+	vv_s_audio = request.files['vv_s_audio']
+	vv_e_audio = request.files['vv_e_audio']
+
+	# Creating a url and saving both the files in the inst folder and creating a clip with other sounds for testing. 
+	# Saving the starting sound.
+	url_s = 'static/system_2_a/{}/inst_vv/{}_s.wav'.format(vv_set, vv_notation)
+	vv_s_audio.save(url_s)
+
+	# Sending a success message to the frontend as json.
+	response = {
+		'processing_status': 'success'
+	}
+
+	response_json = json.dumps(response)
+
+	return response_json
+
 # From here we will start writing functions for System 3.
 @app.route('/system_3/process_audio', methods=['POST'])
 def system_3_process_audio():

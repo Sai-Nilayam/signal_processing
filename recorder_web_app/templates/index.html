@@ -16,6 +16,7 @@
     <!-- Attaching the JavaScript file to this html page. -->
     <script src="static/index_system_1.js"></script>
     <script src="static/index_system_2.js"></script>
+    <script src="static/index_system_2_a.js"></script>
     <script src="static/index_system_3.js"></script>
 
     <!-- Attaching a logo -->
@@ -50,8 +51,8 @@
             <li><a href="#" style="color: black;">Word Concatination</a></li>
             <li><a href="#" style="color: black;">Name Entity Pronunciation</a></li>
             <li><a href="#" style="color: black;">Vocal Tone and Style Transfer</a></li>
-            <li><a href="#" style="color: black;">Intended Speech Capture</a></li>
             <li><a href="#" style="color: black;">Conversational Speech</a></li>
+            <li><a href="#" style="color: black;">Intended Speech Capture</a></li>
           </ol>
         </div>
       </div>
@@ -98,7 +99,7 @@
           </div>
           <br>
           <div class="col-md-12 text-center">
-            <button id="analyse" name="analyse" onclick="analyse()" type="button" class="btn btn-outline-dark" style="width: 100%; border-radius: none">Analyse</button>
+            <button id="analyse" name="analyse" onclick="analyse()" type="button" class="btn btn-outline-warning" style="width: 60%;">Analyse</button>
           </div>
           <br>
           <p style="text-align: center">Total Numbar of Unique Words:<b id="unique_word_count"> - - </b>, Number of Takes:<b id="no_of_takes"> - - </b>, Estimated Recording Time:<b id="estimated_recording_time"> - - </b><b> Minute(s)</b></p>
@@ -161,7 +162,7 @@
             </button>
           </div>
           <br>
-          <p id="take_words" name="take_words" class="text-center" style="font-size: 24px">word_0 word_1 word_2 word_3 word_4 word_5 word_6 word_7</p>
+          <p id="take_words" name="take_words" class="text-center" style="font-size: 24px">word_0 word_1 word_2 word_3</p>
           <br>
           <div class="col-md-12 text-center">
             <div id="rec_animation" class="spinner-grow text-danger" role="status" style="visibility: hidden">
@@ -202,7 +203,7 @@
             </button>
             <img id="clip_3_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
             
-            <button id="clip_4" name="clip_4" onclick="clip_4()" type="button" class="btn btn-outline-info mx-2 my-4">
+           <!--  <button id="clip_4" name="clip_4" onclick="clip_4()" type="button" class="btn btn-outline-info mx-2 my-4">
               5 <i class="bi bi-play"></i>
             </button>
             <img id="clip_4_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
@@ -220,7 +221,7 @@
             <button id="clip_7" name="clip_7" onclick="clip_7()" type="button" class="btn btn-outline-info mx-2">
               8 <i class="bi bi-play"></i>
             </button>
-            <img id="clip_7_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            <img id="clip_7_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;"> -->
           </p>
           <br>
           <div id="post_operations" name="post_operations" class="col-md-12 text-center" style="visibility: hidden">
@@ -286,9 +287,9 @@ Demo Codes
       <div class="row">
         <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: #ebebeb;">
           <h3>Name Entity Pronunciation</h3>
-          <h5>(Testing Module)</h5>
+          <h5>(Under Reasearch)</h5>
           <br>
-          <p style="color: purple; font-weight: ;">! The programatically cropping is not reliable. Instead we would be going with minuately fine cropping by hand. This system is going to be developed as a testing module for the fine cropping of Vyanjana Varna.</p>
+          <p style="color: purple; font-weight: ;">- - The programatically cropping is currently not reliable. This module is under research. Insted use the 2nd module for Name Entity Pronunciation. The alternate module requires some manual works. All the usage guides are included in the alternate module.</p>
           <p>Here we will be recording differnt sounds at character level so as to concat them to produce pronunciation of Name Entities. Here the recording part is only focused on recording Vyanjana Varnas. The Swaravarna are predefined here to test out the pronunciation task.</p>
           <br>
           <h5>Procedure For Recording</h5>
@@ -303,6 +304,14 @@ Demo Codes
           <br>
           <button id="system_2_reset_backend" name="system_2_reset_backend" onclick="system_2_reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
           <p class="text-danger">This button deletes all the data stored in the backend for System_2 - Name Entity pronunciation, due to app use. This is for testing purpose. Think twice before using this button.</p>
+          <br>
+          <select id="system_2_vv_set" name="system_2_vv_set" class="form-select" aria-label="Default select example">
+            <option selected>Select a Vyanjana Varna Set</option>
+            <option value="set_0">English Set (set_0)</option>
+            <option value="set_1">Hindi Set (set_1)</option>
+            <option value="set_2">Tamil Set (set_2)</option>
+            <option value="set_3">Hibru Set (set_3)</option>
+          </select>
           <br>
           <div class="input-group mb-2" style="width: _">
             <select id="system_2_crop_amp_threshold" name="system_2_crop_amp_threshold" class="form-select" aria-label="Default select example">
@@ -376,16 +385,16 @@ Demo Codes
           <i id="tik_4" name="tik_4" class="bi bi-circle-fill mx-2" style="font-size: 12px; color: #ededed"></i>
           <span id="metronome_number" name="metronome_number" style="margin-left: 20px; margin-right: 5px">4/--</span>
           <br><br>
-          <p id="system_2_characters" name="system_2_characters" class="_text-center" style="font-size: 18px; line-height: 2; word-spacing: 10px">
-            ka ak kha akh ga ag gha agh
-            <!-- <br> -->
-            cha ach chha achh ja aj jha ajh
-            <!-- <br> -->
-            ta at tha ath da ad dha adh na an
-            <!-- <br> -->
-            pa ap pha aph ba ab bha abh ma am
-            <!-- <br> -->
-            ya ay ra ar la al wa aw sha ash sa as ha ah
+          <p id="system_2_characters" name="system_2_characters" class="text-center" style="font-size: 18px; line-height: 2; word-spacing: 10px">
+            kk khkh gg ghgh
+            <br>
+            chch chhchh jj jhjh
+            <br>
+            tt thth dd dhdh nn
+            <br>
+            pp phph bb bhbh mm
+            <br>
+            yy rr ll ww shsh s hh
           </p>
           <br>
           <div class="col-md-12 text-center">
@@ -420,10 +429,136 @@ Demo Codes
           <iframe width="100%" height="250dp" src="https://www.youtube.com/embed/_xLgXIhebxA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           <br><br>
           <h4>Testing</h4>
+          <select id="system_2_vv_set" name="system_2_vv_set" class="form-select" aria-label="Default select example">
+            <option selected>Select a Vyanjana Varna Set</option>
+            <option value="set_0">English Set (set_0)</option>
+            <option value="set_1">Hindi Set (set_1)</option>
+            <option value="set_2">Tamil Set (set_2)</option>
+            <option value="set_3">Hibru Set (set_3)</option>
+          </select>
           <br>
           <div class="input-group">
             <span class="input-group-text">Put a Name here</span>
-            <textarea id="system_2_testing_characters" name="system_2_testing_characters" class="form-control" aria-label="With textarea" style="height: 150px"></textarea>
+            <textarea id="system_2_testing_characters" name="system_2_testing_characters" class="form-control" aria-label="With textarea" style="height: 100px"></textarea>
+          </div>
+          <br>
+          <button id="system_2_testing_play" name="system_2_testing_play" onclick="system_2_testing_play()" type="button" class="btn btn-outline-info mx-2">
+              Play <i class="bi bi-play"></i>
+          </button>
+          <img id="system_2_testing_play_animation" name="system_2_testing_play_animation" src="static/sound_play.gif" height="40px" width="40px" class="rounded float" alt="sound_play" style="visibility: hidden">
+          <br><br><br><br>
+          <h6>API Usage Guide</h6>
+          <br>
+          <h6>Python</h6>
+          <pre style="background-color: rgb(228, 228, 228); padding: 20px 20px 20px 20px; border-radius: 5px 5px 5px 5px">
+import requests
+
+# End point to the TTS system_2.
+# url = 'http://127.0.0.1:8000/tts_2/'
+
+data = {
+    'name': 'ankush deshpande'   
+}
+
+response = requests.post(url, data=data)
+
+print(response)
+print(response.byte)
+          </pre>
+          <br>
+          <h6>C++</h6>
+          <pre style="background-color: rgb(228, 228, 228); padding: 20px 20px 20px 20px; border-radius: 5px 5px 5px 5px;">
+Demo Codes
+          </pre>
+          <br><br><br><br>
+          <br><br><br><br>
+        </div>
+      </div>
+    </div>
+     </div>
+
+     <!-- For System 2 a. -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: _#ebebeb;">
+          <h3>Name Entity Pronunciation</h3>
+          <h5>(Alternate Module)</h5>
+          <p>Here the main objective is to upload Vyanjana Varna chunks one by one with proper naming manual naming. The Swaravarna sounds would be pre-recorded just to give support to the naming pronunciations. Chanign the Style and Tone of the pronunctiation is not possible here in this module.</p>
+          <br>
+          <h5>Procedure For Uploading</h5>
+          <ol>
+            <li>
+              This is test. 
+            </li>
+            <li>
+              This is test.
+            </li>
+          </ol>
+          <br>
+          <button id="system_2a_reset_backend" name="system_2a_reset_backend" onclick="system_2a_reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
+          <p class="text-danger">This button deletes all the data stored in the backend for System_2 Alternate - Name Entity pronunciation, due to app use. This is for testing purpose. Think twice before using this button.</p>
+          <br>
+          <div class="input-group mb-2" style="width: _">
+            <!-- Options needed. -->
+            <select id="system_2_a_vv_set" name="system_2_a_vv_set" class="form-select" aria-label="Default select example">
+              <option selected>Select a Vyanjana Varna Set</option>
+              <option value="set_0">English_Set (set_0)</option>
+              <option value="set_1">Hindi_Set (set_1)</option>
+              <option value="set_2">Tamil_Set (set_2)</option>
+              <option value="set_3">Hibru_Set (set_3)</option>
+            </select>
+            <input id="system_2_a_vv_notation" name="system_2_a_vv_notation" type="text" class="form-control" placeholder="Put a Vyanja Varna Notation" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <br>
+          <div class="input-group mb-2" style="width: _">
+            <input id="system_2_a_vv_s" name="system_2_a_vv_s" onchange="system_2_a_grab_audio_url_s(event)" type="file" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+            <input id="system_2_a_vv_e" name="system_2_a_vv_e" onchange="system_2_a_grab_audio_url_e(event)" type="file" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-2" style="width: _">
+            <button onclick="system_2_a_play_demo_clip_s()" type="button" class="btn btn-outline-info">
+              Play <i class="bi bi-play"></i>
+            </button>
+            <img id="system_2_a_demo_clip_animation_s" src="static/sound_play.gif" class="rounded mx-auto" height="36px" width="36px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            <button onclick="system_2_a_play_demo_clip_e()" type="button" class="btn btn-outline-info">
+              Play <i class="bi bi-play"></i>
+            </button>
+            <img id="system_2_a_demo_clip_animation_e" src="static/sound_play.gif" class="rounded mx-auto" height="36px" width="36px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+          </div>
+          <br>
+          <div class="col-md-12 text-center">
+            <button id="" name="" onclick="system_2_a_test()" type="button" class="btn btn-outline-warning" style="width: 60%;">Test</button>
+          </div>
+          <br><br>
+          <p style="color: orange; text-align: center;" >Listen to the clip below. If everything sounds perfect then click on Done. Else do a reupload.</p>
+          <br><br>
+          <audio id="system_2_audio_clip" name="system_2_audio_clip" controls style="margin: 0 auto; display: block; visibility: _hidden;">
+            <source src="/static/system_1/voice_0_0/audio_take_inst.wav" type="audio/ogg">
+            Your browser does not support the audio tag.
+          </audio>
+          <br><br>
+          <div id="system_2_post_operations" name="system_2_post_operations" class="col-md-12 text-center" style="visibility: _hidden">
+            <button id="system_2_retake" name="system_2_retake" onclick="system_2_retake()" type="button" class="btn btn-outline-secondary mx-2">Retake</button>
+            <button id="system_2_done" name="system_2_done" onclick="system_2_done()" type="button" class="btn btn-outline-success mx-2">Done</button>
+          </div>
+
+          <br><br><br><br>
+        </div>
+        <div class="col-lg-4 mx-0 my-4 px-4 py-4" style="background-color: _teal;">
+          <h5>Watchout Explanation Video</h5>
+          <iframe width="100%" height="250dp" src="https://www.youtube.com/embed/_xLgXIhebxA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <br><br>
+          <h4>Testing</h4>
+          <select id="system_2_a_vv_set_test" name="" class="form-select" aria-label="Default select example">
+            <option selected>Select a Vyanjana Varna Set</option>
+            <option value="set_0">English_Set (set_0)</option>
+            <option value="set_1">Hindi_Set (set_1)</option>
+            <option value="set_2">Tamil_Set (set_2)</option>
+            <option value="set_3">Hibru_Set (set_3)</option>
+          </select>
+          <br>
+          <div class="input-group">
+            <span class="input-group-text">Put a Name here</span>
+            <textarea id="system_2_testing_characters" name="system_2_testing_characters" class="form-control" aria-label="With textarea" style="height: 100px"></textarea>
           </div>
           <br>
           <button id="system_2_testing_play" name="system_2_testing_play" onclick="system_2_testing_play()" type="button" class="btn btn-outline-info mx-2">
@@ -657,27 +792,6 @@ Demo Codes
   Demo Codes
             </pre>
           </div>
-          <br><br><br><br>
-          <br><br><br><br>
-        </div>
-      </div>
-    </div>
-    <!-- For system 4. -->
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: grey;">
-          <h3>Intended Speech Capture</h3>
-          <p>- - -</p>
-          <br>
-          <h5>Usage Guide</h5>
-          <ol>
-            <li>
-              - - -
-          </ol>
-          <br><br><br><br>
-        </div>
-        <div class="col-lg-4 mx-0 my-4 px-4 py-4" style="background-color: teal;">
-          Column
           <br><br><br><br>
           <br><br><br><br>
         </div>
