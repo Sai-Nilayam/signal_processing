@@ -379,22 +379,24 @@ function system_3_testing_play() {
 		};
 
 		if (response_json.processing_status == "failed") {
-			alert("A few Swaravarna Sounds are not recorded. Please use the Vocal Tone and Style Transfer Recording Section for recording those sounds.")
+			alert("A few Swaravarna or Vyanjana Varna Sounds are not recorded. Please use the Vocal Tone and Style Transfer Recording Section for recording Swara Varna sounds. For Vyanja Varna sounds upload them in the Name Entity Pronunciaiton Alternate module.")
 		};
 	}
 
  	xhttp.open("POST", url);
  	// Preparing the data
+ 	vv_set = document.getElementById("system_3_vv_set_test").value;
  	testing_voice = document.getElementById("system_3_testing_voice").value;
  	testing_characters = document.getElementById("system_3_testing_characters").value;
 
  	// Now here we would be putting promts for vacant fields.
- 	if (testing_voice == "Select a Voice" || testing_characters == "") {
- 		alert("Please select a voice and put some texts in respective fields.");
+ 	if (testing_voice == "Select a Voice" || testing_characters == "" || vv_set == "Select a Vyanjana Varna Set") {
+ 		alert("Please select a Vyanja Varna Set, Voice and put some texts in respective fields.");
  		return;
  	}
  	
  	form_data = new FormData()
+ 	form_data.append('vv_set', vv_set)
  	form_data.append('testing_voice', testing_voice)
  	form_data.append('testing_characters', testing_characters)
 
