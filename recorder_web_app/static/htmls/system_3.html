@@ -1,0 +1,207 @@
+<div class="row">
+        <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: _grey;">
+          <h3>Vocal Tone and Style Transfer</h3>
+          <p>Here we are recording differnt Swara Varna sounds of a particular style of a particular speaker. The idea is to only record out the differnt Swaravarna sounds and put them in right way to create voice of similar kind.</p>
+          <br>
+          <h5>Procedure For Recording</h5>
+          <ol>
+            <li>
+              Choose a particular Voice (A Voice with a perticular Tone and Style i.e a particular style by a particular speaker) with which you would like to match the pronunciation and stick to it thorugh out the entire recording process here.
+            </li>
+            <li>
+              Select the Voice type from which the voice and tone needed to be transfered. Upload and listen to the Sample audio to build up the flow to pronounce the words and then turn on the mic and pronounce the sample words with a gap within each with a highly noise less microphone. Once the recording process is complete stop the recording.
+            </li>
+            <li>
+              If all the Swaravarnas are cropped in 3 segments exactly there would be a success message. Then we need to manually see if the 3 Swaravarna chunks are properly done or not by playing the three Swaravarna Sounds. If everything is done properly then click on done else do a retake. 
+            </li>
+          </ol>
+          <br>
+          <button id="system_3_reset_backend" name="system_3_reset_backend" onclick="system_3_reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
+          <p class="text-danger">This button deletes all the data stored in the backend for System_3 - Name Entity pronunciation, due to app use. This is for testing purpose. Think twice before using this button.</p>
+          <br>
+          <select id="system_3_select_voice" name="system_3_voice" class="form-select" aria-label="Default select example">
+            <option selected>Select a Voice</option>
+            <option value="voice_0_0">Assuring_Male (voice_0_0)</option>
+            <option value="voice_0_1">Assuring_Female (voice_0_1)</option>
+
+            <option value="voice_1_0">Informing_Male (voice_1_1)</option>
+            <option value="voice_1_1">Informing_Female (voice_1_2)</option>
+          </select>
+          <br>
+          <div class="input-group mb-2" style="width: _">
+            <input id="system_3_demo_clip" name="system_3_demo_clip" onchange="grab_audio_url(event)" type="file" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+            <button onclick="system_3_play_demo_clip()" type="button" class="btn btn-outline-info mx-2">
+              Play <i class="bi bi-play"></i>
+            </button>
+            <img id="system_3_demo_clip_animation" src="static/sound_play.gif" class="rounded mx-auto" height="36px" width="36px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+          </div>
+          <br>
+          <p class="text-center" style="font-size: 24px">
+            Example: - - sentence on going -- {kakakak (name entity)} - - sentence on going - - 
+            <br><br>
+            {a a a} {aa aa aa} {i i i} {u u u} {e e e} {o o o}
+          </p>
+          <br>
+          <div class="input-group mb-2" style="width: _">
+            <select id="system_3_crop_amp_threshold" name="system_3_crop_amp_threshold" class="form-select" aria-label="Default select example">
+              <option selected>Select a Cropping Amp. Threshold</option>
+              <option value="2">2</option>
+              <option value="4">4</option>
+              <option value="6">6</option>
+              <option value="8">8</option>
+              <option value="10">10</option>
+              <option value="12">12</option>
+              <option value="14">14</option>
+              <option value="16">16</option>
+              <option value="18">18</option>
+              <option value="20">20</option>
+              <option value="22">22</option>
+              <option value="24">24</option>
+              <option value="26">26</option>
+              <option value="28">28</option>
+              <option value="28">30</option>
+              <option value="28">32</option>
+            </select>
+            <select id="system_3_analysis_time_gap" name="system_3_analysis_time_gap" class="form-select" aria-label="Default select example">
+              <option selected>Select a Sample Analysis Time Gap </option>
+              <option value="32">32</option>
+              <option value="64">64</option>
+              <option value="96">96</option>
+              <option value="128">128</option>
+              <option value="160">160</option>
+              <option value="192">192</option>
+              <option value="224">224</option>
+              <option value="256">256</option>
+              <option value="288">288</option>
+              <option value="320">320</option>
+              <option value="352">352</option>
+              <option value="384">384</option>
+              <option value="416">416</option>
+              <option value="448">448</option>
+              <option value="480">480</option>
+              <option value="512">512</option>
+            </select>
+            <select id="system_3_fine_analysis_time_gap" name="system_3_fine_analysis_time_gap" class="form-select" aria-label="Default select example">
+              <option selected>Select a Fine Sample Analysis Time Gap </option>
+              <option value="32">32</option>
+              <option value="64">64</option>
+              <option value="96">96</option>
+              <option value="128">128</option>
+              <option value="160">160</option>
+              <option value="192">192</option>
+              <option value="224">224</option>
+              <option value="256">256</option>
+            </select>
+          </div>
+          <br>
+          <div class="input-group mb-2" style="width: _">
+            <span class="input-group-text" id="basic-addon1">Take Number</span>
+            <input id="system_3_take_no" name="system_3_take_no" type="text" class="form-control" placeholder="" aria-label="Username" value="" aria-describedby="basic-addon1">
+            <span id="system_3_total_no_of_takes" class="input-group-text" id="basic-addon1"> / 5 </span>
+            <button id="system_3_get_take_sv" name="system_3_get_take_sv" onclick="system_3_get_take_sv()" type="button" class="btn btn-outline-dark">
+              Go <i class="bi bi-arrow-right-short"></i>
+            </button>
+          </div>
+          <br>
+          <p class="text-center" style="font-size: 24px">Say: <span id="system_3_take_characters">- - -</span></p>
+          <br>
+          <div class="col-md-12 text-center">
+            <div id="system_3_rec_animation" name="system_3_rec_animation" class="spinner-grow text-danger" role="status" style="visibility: hidden">
+              <span class="sr-only"></span>
+            </div>
+            <br><br>
+            <button id="system_3_start_rec" name="system_3_start_rec" onclick="system_3_start_rec()" type="button" class="btn btn-outline-primary">
+              <i class="bi bi-mic"></i> Start Recording
+            </button>
+            <button id="system_3_stop_rec" name="system_3_stop_rec" onclick="system_3_stop_rec()" type="button" class="btn btn-outline-danger" style="display: none">
+              <i class="bi bi-stop-btn"></i> Stop Recording
+            </button>
+          </div>
+          <br>
+          <p id="system_3_please_wait" class="text-center" style="visibility: hidden">Please Wait . . </p>
+          <p id="system_3_processing_status" class="text-center" style="visibility: hidden">Success . . !</p>
+          <br>
+          <p id="system_3_word_clips" class="text-center" style="visibility: hidden">
+            <button onclick="system_3_clip_0()" type="button" class="btn btn-outline-info mx-2">
+              1 <i class="bi bi-play"></i>
+            </button>
+            <img id="system_3_clip_0_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+
+            <button onclick="system_3_clip_1()" type="button" class="btn btn-outline-info mx-2">
+              2 <i class="bi bi-play"></i>
+            </button>
+            <img id="system_3_clip_1_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+
+            <button onclick="system_3_clip_2()" type="button" class="btn btn-outline-info mx-2">
+              3 <i class="bi bi-play"></i>
+            </button>
+            <img id="system_3_clip_2_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+          </p>
+          <br>
+          <div id="system_3_post_operations" class="col-md-12 text-center" style="visibility: hidden">
+            <button id="system_3_retake" onclick="system_3_retake()" type="button" class="btn btn-outline-secondary mx-2">Retake</button>
+            <button id="system_3_done" onclick="system_3_done()" type="button" class="btn btn-outline-success mx-2">Done</button>
+          </div>
+          <br><br><br><br>
+        </div>
+        <div class="col-lg-4 mx-0 my-4 px-4 py-4" style="background-color: _teal;">
+            <h5>Watchout Explanation Video</h5>
+            <iframe width="100%" height="250dp" src="https://www.youtube.com/embed/_xLgXIhebxA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <br><br>
+            <h4>Testing</h4>
+            <select id="system_3_vv_set_test" name="" class="form-select" aria-label="Default select example">
+              <option selected>Select a Vyanjana Varna Set</option>
+              <option value="set_0">English_Set (set_0)</option>
+              <option value="set_1">Hindi_Set (set_1)</option>
+              <option value="set_2">Tamil_Set (set_2)</option>
+              <option value="set_3">Hibru_Set (set_3)</option>
+            </select>
+            <br>
+            <select id="system_3_testing_voice" name="system_3_testing_voice" class="form-select" aria-label="Default select example">
+              <option selected>Select a Voice</option>
+              <option value="voice_0_0">Assuring_Male (voice_0_0)</option>
+              <option value="voice_0_1">Assuring_Female (voice_0_1)</option>
+
+              <option value="voice_1_0">Informing_Male (voice_1_0)</option>
+              <option value="voice_1_1">Informing_Female (voice_1_1)</option>
+            </select>
+            <br>
+            <div class="input-group">
+              <span class="input-group-text">Put some Characters<br>here</span>
+              <textarea id="system_3_testing_characters" name="system_3_testing_characters" class="form-control" aria-label="With textarea" style="height: 200px"></textarea>
+            </div>
+            <br>
+            <button id="system_3_testing_play" name="system_3_testing_play" onclick="system_3_testing_play()" type="button" class="btn btn-outline-info mx-2">
+                Play <i class="bi bi-play"></i>
+            </button>
+            <img id="system_3_testing_play_animation" name="system_3_testing_play_animation" src="static/sound_play.gif" height="40px" width="40px" class="rounded float" alt="sound_play" style="visibility: hidden">
+            <br><br><br><br>
+            <h6>API Usage Guide</h6>
+            <br>
+            <h6>Python</h6>
+            <pre style="background-color: rgb(228, 228, 228); padding: 20px 20px 20px 20px; border-radius: 5px 5px 5px 5px">
+  import requests
+
+  # End point to the TTS system_1.
+  # url = 'http://127.0.0.1:8000/tts_1/'
+
+  data = {
+      'voice': 'assuring_male_voice_0_1'
+      'phrase': 'd m i finance me ap ka swagat hai.',   
+  }
+
+  response = requests.post(url, data=data)
+
+  print(response)
+  print(response.byte)
+            </pre>
+            <br>
+            <h6>C++</h6>
+            <pre style="background-color: rgb(228, 228, 228); padding: 20px 20px 20px 20px; border-radius: 5px 5px 5px 5px;">
+  Demo Codes
+            </pre>
+          </div>
+          <br><br><br><br>
+          <br><br><br><br>
+        </div>
+      </div>

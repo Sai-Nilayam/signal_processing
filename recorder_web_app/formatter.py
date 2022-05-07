@@ -1,8 +1,8 @@
-def formatter(name):
+def formatter(name, vv_1, vv_2, vv_3):
 	# Let's do a different approach.
-	vv_1 = ['k', 'g', 'j', 't', 'd', 'n', 'p', 'b', 'm', 'y', 'r', 'l', 'w', 's', 'h']
-	vv_2 = ['kh', 'gh', 'ch', 'jh', 'th', 'dh', 'ph', 'bh', 'sh']
-	vv_3 = ['chh', ] 
+	# vv_1 = ['k', 'g', 'j', 't', 'd', 'n', 'p', 'b', 'm', 'y', 'r', 'l', 'w', 's', 'h']
+	# vv_2 = ['kh', 'gh', 'ch', 'jh', 'th', 'dh', 'ph', 'bh', 'sh', 't2', 'd2']
+	# vv_3 = ['chh', 'th2', 'dh2']
 
 	name_list = list(name)
 	print(name_list)

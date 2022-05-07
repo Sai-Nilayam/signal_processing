@@ -125,8 +125,24 @@ def system_3_testing_play():
 	voice = request.form.get('testing_voice')
 	characters = request.form.get('testing_characters')
 
+	# Making up the Vyanjana Varna lists.
+	vv_1 = []
+	vv_2 = []
+	vv_3 = []
+
+	# Getting all the Vyanjana Varnas form the Vyanja Varna set folder.
+	files = os.listdir('static/system_2_a/{}/vv/'.format(vv_set))
+	for file in files:
+		inst_vv = file.split('_')[0]
+		if len(inst_vv) == 3:
+			vv_3.append(inst_vv)
+		elif len(inst_vv) == 2:
+			vv_2.append(inst_vv)
+		else:
+			vv_1.append(inst_vv)
+
 	# Formatting the characters to pronunciable format. 
-	formatted_ar = formatter(characters)
+	formatted_ar = formatter(characters, vv_1, vv_2, vv_3)
 	print('\n' + characters)
 	print(formatted_ar)
 

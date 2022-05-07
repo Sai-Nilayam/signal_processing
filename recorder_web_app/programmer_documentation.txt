@@ -1,1 +1,68 @@
-We will do it later. 
+How the project is structured
+--------
+1. The frontend and backend of the web app has made separately.
+2. The HTML main index file works in the following way. The system 1, 2, 2a and 3 loads up in to their repective divs by different JavaScript functions. The HTML contnet comes from the the CDN at '/static/htmls/system_i.html'. All the html files could be found in the folder '/static/htmls/' folder.
+3. All the JavaScript files are splitted as per the systems and are joined to the main idex page from CDN. All the files are contained in the folder '/static/jss/'.
+4. All the Python files are splitted to different files as per the systems. Especially all the APIs in the backend are splitted as per different systems and are located in 'apis' folder. The way the Python scripts are connected to the root app.py file is by executing the Python text codes those are grabed from the respective system's .py file form 'api/' folder, by the 'exec()' function of Python. The error could be tracked as per at which line of the module the error is in the respective system's python module.
+5. The major app data is stored at '/static/system_i' folder. That means the app data is stored in the respective folders as the systems. But there could be situations where the app data is being stored in a differnt system than it should be for more some complex works. 
+
+How to track on when which API is called from the frontend.
+--------
+Take a track on differnt events. Different events are triggered from different funcitons. The URL to which the funciton calls as an Ajax request could be found within that 'url' variable defined inside that function.
+
+How to work with a particular componet
+--------
+In order to work with a particular system, edit the HTML file at '/static/htmls/system_i.html', JavaScript file at '/static/jss/system_i.js' and the Python APIs at 'apis/system_i.py'.
+
+Explanation of each and every files and folders in this project
+--------
+The tree Structure.
+
+How to get the root map of how each component is working
+--------
+After you get the ideas of each and every files and folders, take a look on particular file. Before each and every function both for the JavaScript and Python files, what exactly that functions does, has been written as comment. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

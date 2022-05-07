@@ -16,7 +16,7 @@ def system_2_a_process_audio():
 	# Now we need to add some testing thing. Here are the testing words below -
 	# kankak kaankak kinkik kunkuk kenkek konkok
 
-	sv_list = ['a.wav', 'aa.wav', 'i.wav', 'u.wav', 'e.wav', 'o.wav']
+	sv_list = ['a.wav', 'a_f.wav', 'aa.wav', 'aa_f.wav', 'i.wav', 'i_f.wav', 'u.wav', 'u_f.wav', 'e.wav', 'e_f.wav', 'o.wav', 'o_f.wav']
 
 	test_clip = np.array([])
 
@@ -70,8 +70,24 @@ def system_2_a_testing_play():
 
 	print(vv_set, characters)
 
+	# Making up the Vyanjana Varna lists.
+	vv_1 = []
+	vv_2 = []
+	vv_3 = []
+
+	# Getting all the Vyanjana Varnas form the Vyanja Varna set folder.
+	files = os.listdir('static/system_2_a/{}/vv/'.format(vv_set))
+	for file in files:
+		inst_vv = file.split('_')[0]
+		if len(inst_vv) == 3:
+			vv_3.append(inst_vv)
+		elif len(inst_vv) == 2:
+			vv_2.append(inst_vv)
+		else:
+			vv_1.append(inst_vv)
+
 	# Formatting the characters to pronunciable format. 
-	formatted_ar = formatter(characters)
+	formatted_ar = formatter(characters, vv_1, vv_2, vv_3)
 	print('\n' + characters)
 	print(formatted_ar)
 

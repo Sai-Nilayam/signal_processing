@@ -20,3 +20,28 @@ Cons
 1. We need to record each individual word in different styles of voices like assuring voice, informing voice etc.
 2. Requires high quality microphone.
 
+TTS System 2
+--------
+Currently the module is under research and is not working currently. We are trying to fix it in a future version.
+
+TTS System 2 Alternate
+--------
+
+TTS System 3
+--------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

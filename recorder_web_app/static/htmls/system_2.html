@@ -1,0 +1,191 @@
+<div class="row">
+        <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: #ebebeb;">
+          <h3>Name Entity Pronunciation</h3>
+          <h5>(Under Reasearch)</h5>
+          <br>
+          <p style="color: purple; font-weight: ;">- - The programatically cropping is currently not reliable. This module is under research. Insted use the 2nd module for Name Entity Pronunciation. The alternate module requires some manual works. All the usage guides are included in the alternate module.</p>
+          <p>Here we will be recording differnt sounds at character level so as to concat them to produce pronunciation of Name Entities. Here the recording part is only focused on recording Vyanjana Varnas. The Swaravarna are predefined here to test out the pronunciation task.</p>
+          <br>
+          <h5>Procedure For Recording</h5>
+          <ol>
+            <li>
+              Play the Metronome Button.
+            </li>
+            <li>
+              Then read out all the words on Metronome. Then stop recording. That's it. With this step all the Vyanjana Varna chuncks are going to be cropped exaclty as per the Metronome and both the starting Vyanjana Varna sounds and ending Vyanjan Varna sounds would be splitted up.
+            </li>
+          </ol>
+          <br>
+          <button id="system_2_reset_backend" name="system_2_reset_backend" onclick="system_2_reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
+          <p class="text-danger">This button deletes all the data stored in the backend for System_2 - Name Entity pronunciation, due to app use. This is for testing purpose. Think twice before using this button.</p>
+          <br>
+          <select id="system_2_vv_set" name="system_2_vv_set" class="form-select" aria-label="Default select example">
+            <option selected>Select a Vyanjana Varna Set</option>
+            <option value="set_0">English Set (set_0)</option>
+            <option value="set_1">Hindi Set (set_1)</option>
+            <option value="set_2">Tamil Set (set_2)</option>
+            <option value="set_3">Hibru Set (set_3)</option>
+          </select>
+          <br>
+          <div class="input-group mb-2" style="width: _">
+            <select id="system_2_crop_amp_threshold" name="system_2_crop_amp_threshold" class="form-select" aria-label="Default select example">
+              <option selected>Select a Cropping Amp. Threshold</option>
+              <option value="2">2</option>
+              <option value="4">4</option>
+              <option value="6">6</option>
+              <option value="8">8</option>
+              <option value="10">10</option>
+              <option value="12">12</option>
+              <option value="14">14</option>
+              <option value="16">16</option>
+              <option value="18">18</option>
+              <option value="20">20</option>
+              <option value="22">22</option>
+              <option value="24">24</option>
+              <option value="26">26</option>
+              <option value="28">28</option>
+              <option value="28">30</option>
+              <option value="28">32</option>
+            </select>
+            <select id="system_2_analysis_time_gap" name="system_2_analysis_time_gap" class="form-select" aria-label="Default select example">
+              <option selected>Select a Sample Analysis Time Gap</option>
+              <option value="32">32</option>
+              <option value="64">64</option>
+              <option value="96">96</option>
+              <option value="128">128</option>
+              <option value="160">160</option>
+              <option value="192">192</option>
+              <option value="224">224</option>
+              <option value="256">256</option>
+              <option value="288">288</option>
+              <option value="320">320</option>
+              <option value="352">352</option>
+              <option value="384">384</option>
+              <option value="416">416</option>
+              <option value="448">448</option>
+              <option value="480">480</option>
+              <option value="512">512</option>
+            </select>
+            <select id="system_2_fine_analysis_time_gap" name="system_2_fine_analysis_time_gap" class="form-select" aria-label="Default select example">
+              <option selected>Select a Fine Sample Analysis Time Gap</option>
+              <option value="32">32</option>
+              <option value="64">64</option>
+              <option value="96">96</option>
+              <option value="128">128</option>
+              <option value="160">160</option>
+              <option value="192">192</option>
+              <option value="224">224</option>
+              <option value="256">256</option>
+            </select>
+          </div>
+          <br>
+          <button id="system_2_play_metronome" name="system_2_play_metronome" onclick="system_2_play_metronome()" type="button" class="btn btn-outline-success">
+              Play Metronome <i class="bi bi-play"></i>
+          </button>
+          <button id="system_2_stop_metronome" name="system_2_stop_metronome" onclick="system_2_stop_metronome()" type="button" class="btn btn-outline-danger" style="display: none">
+              Stop Metronome <i class="bi bi-stop"></i>
+          </button>
+          <button id="system_2_on_metronome_sound" name="system_2_on_metronome_sound" onclick="system_2_on_metronome_sound()" type="button" class="btn btn-outline-success" style="display: _none; margin-left: 10px; border: none;">
+            <i class="bi bi-speaker"></i>
+          </button>
+          <button id="system_2_off_metronome_sound" name="system_2_off_metronome_sound" onclick="system_2_off_metronome_sound()" type="button" class="btn btn-outline-secondary" style="display: none; margin-left: 10px; border: none">
+            <i class="bi bi-speaker"></i>
+          </button>
+          <br><br>
+          <span id="metronome_number" name="metronome_number" style="margin-left: _20px; margin-right: 5px; font-size: 20px;">0</span>
+          <i id="tik_1" name="tik_1" class="bi bi-circle-fill mx-2" style="font-size: 24px; color: #ededed; border: 1 px solid black;"></i>
+          <i id="tik_2" name="tik_2" class="bi bi-circle-fill mx-2" style="font-size: 12px; color: #ededed"></i>
+          <i id="tik_3" name="tik_3" class="bi bi-circle-fill mx-2" style="font-size: 12px; color: #ededed"></i>
+          <i id="tik_4" name="tik_4" class="bi bi-circle-fill mx-2" style="font-size: 12px; color: #ededed"></i>
+          <span id="metronome_number" name="metronome_number" style="margin-left: 20px; margin-right: 5px">4/--</span>
+          <br><br>
+          <p id="system_2_characters" name="system_2_characters" class="text-center" style="font-size: 18px; line-height: 2; word-spacing: 10px">
+            kk khkh gg ghgh
+            <br>
+            chch chhchh jj jhjh
+            <br>
+            tt thth dd dhdh nn
+            <br>
+            pp phph bb bhbh mm
+            <br>
+            yy rr ll ww shsh s hh
+          </p>
+          <br>
+          <div class="col-md-12 text-center">
+            <div id="system_2_recording_animation" name="system_2_recording_animation" class="spinner-grow text-danger" role="status" style="visibility: hidden">
+              <span class="sr-only"></span>
+            </div>
+            <br><br>
+            <button id="system_2_start_recording" name="system_2_start_recording" onclick="system_2_start_recording()" type="button" class="btn btn-outline-primary">
+              <i class="bi bi-mic"></i> Start Recording
+            </button>
+            <button id="system_2_stop_recording" name="system_2_stop_recording" onclick="system_2_stop_recording()" type="button" class="btn btn-outline-danger" style="display: none">
+              <i class="bi bi-stop-btn"></i> Stop Recording
+            </button>
+          </div>
+          <br>
+          <p id="system_2_please_wait" name="system_2_please_wait" class="text-center" style="visibility: hidden;">Please Wait . . </p>
+          <p id="system_2_processing_status" name="system_2_processing_status" class="text-center" style="visibility: hidden;">Success . . !</p>
+          <br><br>
+          <audio id="system_2_audio_clip" name="system_2_audio_clip" controls style="margin: 0 auto; display: block; visibility: hidden;">
+            <source src="/static/system_1/voice_0_0/audio_take_inst.wav" type="audio/ogg">
+            Your browser does not support the audio tag.
+          </audio>
+          <br><br><br>
+          <div id="system_2_post_operations" name="system_2_post_operations" class="col-md-12 text-center" style="visibility: hidden">
+            <button id="system_2_retake" name="system_2_retake" onclick="system_2_retake()" type="button" class="btn btn-outline-secondary mx-2">Retake</button>
+            <button id="system_2_done" name="system_2_done" onclick="system_2_done()" type="button" class="btn btn-outline-success mx-2">Done</button>
+          </div>
+          <br><br><br><br>
+        </div>
+        <div class="col-lg-4 mx-0 my-4 px-4 py-4" style="background-color: #ebebeb;">
+          <h5>Watchout Explanation Video</h5>
+          <iframe width="100%" height="250dp" src="https://www.youtube.com/embed/_xLgXIhebxA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <br><br>
+          <h4>Testing</h4>
+          <select id="system_2_vv_set" name="system_2_vv_set" class="form-select" aria-label="Default select example">
+            <option selected>Select a Vyanjana Varna Set</option>
+            <option value="set_0">English Set (set_0)</option>
+            <option value="set_1">Hindi Set (set_1)</option>
+            <option value="set_2">Tamil Set (set_2)</option>
+            <option value="set_3">Hibru Set (set_3)</option>
+          </select>
+          <br>
+          <div class="input-group">
+            <span class="input-group-text">Put a Name here</span>
+            <textarea id="system_2_testing_characters" name="system_2_testing_characters" class="form-control" aria-label="With textarea" style="height: 100px"></textarea>
+          </div>
+          <br>
+          <button id="system_2_testing_play" name="system_2_testing_play" onclick="system_2_testing_play()" type="button" class="btn btn-outline-info mx-2">
+              Play <i class="bi bi-play"></i>
+          </button>
+          <img id="system_2_testing_play_animation" name="system_2_testing_play_animation" src="static/sound_play.gif" height="40px" width="40px" class="rounded float" alt="sound_play" style="visibility: hidden">
+          <br><br><br><br>
+          <h6>API Usage Guide</h6>
+          <br>
+          <h6>Python</h6>
+          <pre style="background-color: rgb(228, 228, 228); padding: 20px 20px 20px 20px; border-radius: 5px 5px 5px 5px">
+import requests
+
+# End point to the TTS system_2.
+# url = 'http://127.0.0.1:8000/tts_2/'
+
+data = {
+    'name': 'ankush deshpande'   
+}
+
+response = requests.post(url, data=data)
+
+print(response)
+print(response.byte)
+          </pre>
+          <br>
+          <h6>C++</h6>
+          <pre style="background-color: rgb(228, 228, 228); padding: 20px 20px 20px 20px; border-radius: 5px 5px 5px 5px;">
+Demo Codes
+          </pre>
+          <br><br><br><br>
+          <br><br><br><br>
+        </div>
+      </div>
+    </div>
