@@ -1,0 +1,221 @@
+<div class="row">
+        <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: _coral;">
+          <h3>Word Concatination</h3>
+          <p>Here we will be recording each and every word in a particular Tone and Style , save them all per word, so that we will be concatenating them later to create audio form of any combination of words (sentences).</p>
+          <br>
+          <h5>Procedure For Recording</h5>
+          <ol>
+            <li>
+              Choose a particular Voice (A Voice with a perticular Tone and Style i.e a particular style by a particular speaker) and stick to it thorugh out the entire recording process here.
+            </li>
+            <li>
+              Select a voice. Copy and paste all of your texts in the box (Put all Texts). Click on Analyse. This will just show total number of unique words in the text corpus, number of takes required for the recording and estimated time to record all the takes. 
+            </li>
+            <li>
+              Then Select a Cropping Amp. Threshold and Analysis Time Gap. Put a take number (start with 0) and click on Go. This will show you 8 uniques words. Read all the words in a flow as per the voice first. It's important to keep atleast a 0.5 second gap between each words but preserving the flow while doing recording. Click on Start Recording button to start recording. Keep in mind to use a very good quality microphone with almost 0 noise. After speaking all the words click on Stop Recording button to stop recording.
+            </li>
+            <li>
+              If everything went find you would get a success message else do a retake. The success message is not enough. You should be listening to all the words by playing them from the poped up play buttons verifying that all the words are properly cropped. If done properly, click on Done to submit the take. Else do a retake.  
+            </li>
+          </ol>
+          <br>
+          <button id="reset_backend" name="reset_backend" onclick="reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
+          <p class="text-danger">This button deletes all the data stored in the backend for System_1 - Word Concatenation, due to app use. This is for testing purpose. Think twice before using this button.</p>
+          <br>
+          <select id="select_voice" name="select_voice" class="form-select" aria-label="Default select example">
+            <option selected>Select a Voice</option>
+            <option value="voice_0_0">Assuring_Male (voice_0_0)</option>
+            <option value="voice_0_1">Assuring_Female (voice_0_1)</option>
+
+            <option value="voice_1_0">Informing_Male (voice_1_0)</option>
+            <option value="voice_1_1">Informing_Female (voice_1_1)</option>
+          </select>
+          <br>
+          <div class="input-group">
+            <span class="input-group-text">Put all Texts here</span>
+            <textarea id="all_texts" name="all_texts" class="form-control" aria-label="With textarea" style="height: 200px"></textarea>
+          </div>
+          <br>
+          <div class="col-md-12 text-center">
+            <button id="analyse" name="analyse" onclick="analyse()" type="button" class="btn btn-outline-warning" style="width: 60%;">Analyse</button>
+          </div>
+          <br>
+          <p style="text-align: center">Total Numbar of Unique Words:<b id="unique_word_count"> - - </b>, Number of Takes:<b id="no_of_takes"> - - </b>, Estimated Recording Time:<b id="estimated_recording_time"> - - </b><b> Minute(s)</b></p>
+          <br><br><br><br>
+          <div class="input-group mb-2" style="width: _">
+            <input id="system_1_demo_clip" name="system_1_demo_clip" onchange="system_1_grab_audio_url(event)" type="file" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+            <button onclick="system_1_play_demo_clip()" type="button" class="btn btn-outline-info mx-2">
+              Play <i class="bi bi-play"></i>
+            </button>
+            <img id="system_1_demo_clip_animation" src="static/sound_play.gif" class="rounded mx-auto" height="36px" width="36px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+          </div>
+          <br>
+          <div class="input-group mb-2" style="width: _">
+            <select id="crop_amp_threshold" name="crop_amp_threshold" class="form-select" aria-label="Default select example">
+              <option selected>Select a Cropping Amp. Threshold</option>
+              <option value="2">2</option>
+              <option value="4">4</option>
+              <option value="6">6</option>
+              <option value="8">8</option>
+              <option value="10">10</option>
+              <option value="12">12</option>
+              <option value="14">14</option>
+              <option value="16">16</option>
+              <option value="18">18</option>
+              <option value="20">20</option>
+              <option value="22">22</option>
+              <option value="24">24</option>
+              <option value="26">26</option>
+              <option value="28">28</option>
+              <option value="28">30</option>
+              <option value="28">32</option>
+            </select>
+            <select id="analysis_time_gap" name="analysis_time_gap" class="form-select" aria-label="Default select example">
+              <option selected>Select a Sample Analysis Time Gap </option>
+              <option value="32">32</option>
+              <option value="64">64</option>
+              <option value="96">96</option>
+              <option value="128">128</option>
+              <option value="160">160</option>
+              <option value="192">192</option>
+              <option value="224">224</option>
+              <option value="256">256</option>
+              <option value="288">288</option>
+              <option value="320">320</option>
+              <option value="352">352</option>
+              <option value="384">384</option>
+              <option value="416">416</option>
+              <option value="448">448</option>
+              <option value="480">480</option>
+              <option value="512">512</option>
+            </select>
+          </div>
+          <br>
+          <div class="input-group mb-2" style="width: _">
+            <span class="input-group-text" id="basic-addon1">Take Number</span>
+            <input id="take_no" name="take_no" type="text" class="form-control" placeholder="" aria-label="Username" value="" aria-describedby="basic-addon1">
+            <span id="total_no_of_takes" class="input-group-text" id="basic-addon1">/ - - </span>
+            <button id="get_take_words" name="get_take_words" onclick="get_take_words()" type="button" class="btn btn-outline-dark">
+              Go <i class="bi bi-arrow-right-short"></i>
+            </button>
+          </div>
+          <br>
+          <p id="take_words" name="take_words" class="text-center" style="font-size: 24px">word_0 word_1 word_2 word_3</p>
+          <br>
+          <div class="col-md-12 text-center">
+            <div id="rec_animation" class="spinner-grow text-danger" role="status" style="visibility: hidden">
+              <span class="sr-only"></span>
+            </div>
+            <br><br>
+            <button id="start_rec" name="start_rec" onclick="start_rec()" type="button" class="btn btn-outline-primary" style="display: _;">
+              <i class="bi bi-mic"></i> Start Recording
+            </button>
+            <button id="stop_rec" name="stop_rec" onclick="stop_rec()" type="button" class="btn btn-outline-danger" style="display: none">
+              <i class="bi bi-stop-btn"></i> Stop Recording
+            </button>
+          </div>
+          <!-- Just trying with some different ideas -->
+          <!-- <input id="audio_system_1" type="file" src=""> -->
+          <br>
+          <p id="please_wait" name="please_wait" class="text-center" style="visibility: hidden;">Please Wait . . </p>
+          <p id="processing_status" name="processing_status" class="text-center" style="visibility: hidden;">Success . . !</p>
+          <br>
+          <p id="word_clips" name="word_clips" class="text-center" style="visibility: hidden">
+            <button id="clip_0" name="clip_0" onclick="clip_0()" type="button" class="btn btn-outline-info mx-2 my-2">
+              1 <i class="bi bi-play"></i>
+            </button>
+            <img id="clip_0_animation" name="clip_0_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            
+            <button id="clip_1" name="clip_1" onclick="clip_1()" type="button" class="btn btn-outline-info mx-2">
+              2 <i class="bi bi-play"></i>
+            </button>
+            <img id="clip_1_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            
+            <button id="clip_2" name="clip_2" onclick="clip_2()" type="button" class="btn btn-outline-info mx-2">
+              3 <i class="bi bi-play"></i>
+            </button>
+            <img id="clip_2_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            
+            <button id="clip_3" name="clip_3" onclick="clip_3()" type="button" class="btn btn-outline-info mx-2 my-2">
+              4 <i class="bi bi-play"></i>
+            </button>
+            <img id="clip_3_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            
+           <!--  <button id="clip_4" name="clip_4" onclick="clip_4()" type="button" class="btn btn-outline-info mx-2 my-4">
+              5 <i class="bi bi-play"></i>
+            </button>
+            <img id="clip_4_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            
+            <button id="clip_5" name="clip_5" onclick="clip_5()" type="button" class="btn btn-outline-info mx-2 my-2">
+              6 <i class="bi bi-play"></i>
+            </button>
+            <img id="clip_5_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            
+            <button id="clip_6" name="clip_6" onclick="clip_6()" type="button" class="btn btn-outline-info mx-2 my-2">
+              7 <i class="bi bi-play"></i>
+            </button>
+            <img id="clip_6_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;">
+            
+            <button id="clip_7" name="clip_7" onclick="clip_7()" type="button" class="btn btn-outline-info mx-2">
+              8 <i class="bi bi-play"></i>
+            </button>
+            <img id="clip_7_animation" src="static/sound_play.gif" class="rounded mx-auto" height="20px" width="20px" class="rounded float" alt="sound_play" style="visibility: hidden; display: inline-block;"> -->
+          </p>
+          <br>
+          <div id="post_operations" name="post_operations" class="col-md-12 text-center" style="visibility: hidden">
+            <button id="retake" name="retake" onclick="retake()" type="button" class="btn btn-outline-secondary mx-2">Retake</button>
+            <button id="done" name="done" onclick="done()" type="button" class="btn btn-outline-success mx-2">Done</button>
+          </div>
+          
+          <br><br><br><br>
+        </div>
+        <div class="col-lg-4 mx-0 my-4 px-4 py-4" style="background-color: _green;">
+          <h5>Watchout Explanation Video</h5>
+          <iframe width="100%" height="250dp" src="https://www.youtube.com/embed/_xLgXIhebxA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <br><br>
+          <h4>Testing</h4>
+          <select id="testing_voice" name="testing_voice" class="form-select" aria-label="Default select example">
+            <option selected>Select a Voice</option>
+            <option value="voice_0_0">Assuring_Male (voice_0_0)</option>
+            <option value="voice_0_1">Assuring_Female (voice_0_1)</option>
+
+            <option value="voice_1_0">Informing_Male (voice_1_0)</option>
+            <option value="voice_1_1">Informing_Female (voice_1_1)</option>
+          </select>
+          <br>
+          <div class="input-group">
+            <span class="input-group-text">Put all Texts here</span>
+            <textarea id="testing_words" name="testing_words" class="form-control" aria-label="With textarea" style="height: 200px"></textarea>
+          </div>
+          <br>
+          <button id="testing_play" name="testing_play" onclick="testing_play()" type="button" class="btn btn-outline-info mx-2">
+              Play <i class="bi bi-play"></i>
+          </button>
+          <img id="testing_play_animation" name="testing_play_animation" src="static/sound_play.gif" height="40px" width="40px" class="rounded float" alt="sound_play" style="visibility: hidden">
+          <br><br><br><br>
+          <h6>API Usage Guide</h6>
+          <br>
+          <h6>Python</h6>
+          <pre style="background-color: rgb(228, 228, 228); padding: 20px 20px 20px 20px; border-radius: 5px 5px 5px 5px">
+import requests
+
+# End point to the TTS system_1.
+# url = 'http://127.0.0.1:8000/tts_1/'
+
+data = {
+    'voice': 'assuring_male_voice_0_1'
+    'phrase': 'd m i finance me ap ka swagat hai.',   
+}
+
+response = requests.post(url, data=data)
+
+print(response)
+print(response.byte)
+          </pre>
+          <br>
+          <h6>C++</h6>
+          <pre style="background-color: rgb(228, 228, 228); padding: 20px 20px 20px 20px; border-radius: 5px 5px 5px 5px;">
+Demo Codes
+          </pre>
+        </div>
+      </div>

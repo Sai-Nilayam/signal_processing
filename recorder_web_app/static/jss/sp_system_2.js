@@ -1,10 +1,18 @@
 // Now here we are going to write the logic for System 2.
-// Testing.
-// function test() {
-// 	alert("test");
-// }
+// The first thing to do is to put the html content to a the system_2 div.
+function system_2_put_html() {
+	url = '/static/htmls/sp_system_2.html';
+	xhttp = new XMLHttpRequest();
+	xhttp.onload = function() {
+		html_content = this.responseText;
+		document.getElementById("system_2").innerHTML = html_content; 
+	}
+	xhttp.open("GET", url);
+	xhttp.send()
 
-// test()
+}
+
+system_2_put_html()
 
 is_on_metronome = false;
 

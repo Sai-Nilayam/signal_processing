@@ -1,9 +1,17 @@
-// Testing
-// function test() {
-// 	alert("test")
-// }
+// The first thing to do is to put the html content to a the system_2_a div.
+function system_2_a_put_html() {
+	url = '/static/htmls/sp_system_2_a.html';
+	xhttp = new XMLHttpRequest();
+	xhttp.onload = function() {
+		html_content = this.responseText;
+		document.getElementById("system_2_a").innerHTML = html_content; 
+	}
+	xhttp.open("GET", url);
+	xhttp.send()
 
-// test()
+}
+
+system_2_a_put_html()
 
 demo_clip_selected_s = false;
 demo_clip_selected_e = false;
@@ -143,6 +151,11 @@ function system_2_a_done() {
 function system_2_a_testing_play() {
 	vv_set = document.getElementById("system_2_a_vv_set_test").value;
 	characters = document.getElementById("system_2_a_testing_characters").value;
+
+	if (vv_set == "Select a Vyanjana Varna Set" || characters == "") {
+ 		alert("Please select a voice and put some characters in the respective fields.")
+ 		return;
+ 	}
 
 	url = '/system_2_a/testing_play';
 

@@ -1,4 +1,20 @@
 // Now here we are going to put all the logics
+
+// The first thing to do is to put the html content to a the system_1 div.
+function system_1_put_html() {
+	url = '/static/htmls/sp_system_1.html';
+	xhttp = new XMLHttpRequest();
+	xhttp.onload = function() {
+		html_content = this.responseText;
+		document.getElementById("system_1").innerHTML = html_content; 
+	}
+	xhttp.open("GET", url);
+	xhttp.send()
+
+}
+
+system_1_put_html()
+
 // The first thing to do is to take data from the select_voice and all_texts field and send it to the backend. 
 // In return we are going to get the Number of Unique Words in the text, Number of Takes and Estimated Recording Time.
 function analyse() {

@@ -1,9 +1,17 @@
-// Testing
-// function test() {
-// 	alert("test")
-// }
+// The first thing to do is to put the html content to a the system_3 div.
+function system_3_put_html() {
+	url = '/static/htmls/sp_system_3.html';
+	xhttp = new XMLHttpRequest();
+	xhttp.onload = function() {
+		html_content = this.responseText;
+		document.getElementById("system_3").innerHTML = html_content; 
+	}
+	xhttp.open("GET", url);
+	xhttp.send()
 
-// test()
+}
+
+system_3_put_html()
 
 // We will start our logic from here. 
 // Gobal variables

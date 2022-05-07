@@ -160,7 +160,7 @@ def formatter(name):
 				continue
 
 			if i == len(formatted_ar)-1:
-				formatted_ar[i] = formatted_ar[i] + '_m'
+				formatted_ar[i] = formatted_ar[i] + '_s'
 				continue
 
 			if i == len(formatted_ar)-2:
