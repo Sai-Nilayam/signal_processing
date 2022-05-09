@@ -1,22 +1,19 @@
 <div class="row">
         <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: _grey;">
           <h3>Vocal Tone and Style Transfer</h3>
-          <p>Here we are recording differnt Swara Varna sounds of a particular style of a particular speaker. The idea is to only record out the differnt Swaravarna sounds and put them in right way to create voice of similar kind.</p>
+          <p>Here we are recording differnt Swara Varna sounds of a particular style of a particular speaker. The idea is to only record out the differnt Swaravarna sounds and put them in right way to create voice of same kind (in same Tone and Style).</p>
           <br>
           <h5>Procedure For Recording</h5>
           <ol>
             <li>
-              Choose a particular Voice (A Voice with a perticular Tone and Style i.e a particular style by a particular speaker) with which you would like to match the pronunciation and stick to it thorugh out the entire recording process here.
+              Select a Voice. Then upload a sample voice of the same voice. You need to take referece of your sample voice each time before giving a take for a particular Swara Varna. 
             </li>
             <li>
-              Select the Voice type from which the voice and tone needed to be transfered. Upload and listen to the Sample audio to build up the flow to pronounce the words and then turn on the mic and pronounce the sample words with a gap within each with a highly noise less microphone. Once the recording process is complete stop the recording.
-            </li>
-            <li>
-              If all the Swaravarnas are cropped in 3 segments exactly there would be a success message. Then we need to manually see if the 3 Swaravarna chunks are properly done or not by playing the three Swaravarna Sounds. If everything is done properly then click on done else do a retake. 
+              Select a Cropping Amp. Threshold, Sample Analysis Time Gap and Fine Sample Anaysis Time Gap. Put take numbers from 0 to 5 one by one to get all the six Swaravarnas. Pronounce each Swaravarna 3 times as per like you would pronounce that Swaravarna in the name entity with the 'k' Vyanja Varna Sound. For example in a sentence like 'Welcome to our service "kakakak" in our d m i project.' the way you say 'a', 'a', 'a in 'kakakak', you need to say those three 'a's exactly the same way but just putting a 0.5 second gap between each 'a' sound. It is a little bit difficult to understand  the way to run this system. Please check out the Explanation Video to get a more proper understanding.
             </li>
           </ol>
           <br>
-          <button id="system_3_reset_backend" name="system_3_reset_backend" onclick="system_3_reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
+          <button disabled="true" id="system_3_reset_backend" name="system_3_reset_backend" onclick="system_3_reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
           <p class="text-danger">This button deletes all the data stored in the backend for System_3 - Name Entity pronunciation, due to app use. This is for testing purpose. Think twice before using this button.</p>
           <br>
           <select id="system_3_select_voice" name="system_3_voice" class="form-select" aria-label="Default select example">
@@ -180,20 +177,7 @@
             <br>
             <h6>Python</h6>
             <pre style="background-color: rgb(228, 228, 228); padding: 20px 20px 20px 20px; border-radius: 5px 5px 5px 5px">
-  import requests
-
-  # End point to the TTS system_1.
-  # url = 'http://127.0.0.1:8000/tts_1/'
-
-  data = {
-      'voice': 'assuring_male_voice_0_1'
-      'phrase': 'd m i finance me ap ka swagat hai.',   
-  }
-
-  response = requests.post(url, data=data)
-
-  print(response)
-  print(response.byte)
+  Demo Codes
             </pre>
             <br>
             <h6>C++</h6>

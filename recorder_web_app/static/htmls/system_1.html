@@ -1,25 +1,28 @@
 <div class="row">
         <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: _coral;">
           <h3>Word Concatination</h3>
-          <p>Here we will be recording each and every word in a particular Tone and Style , save them all per word, so that we will be concatenating them later to create audio form of any combination of words (sentences).</p>
+          <p>Here we will be recording each and every word in a particular Tone and Style , save them all per word, so that we will be concatenating them later to create audio form of any combination of words (sentences) in the same Tone and Style.</p>
           <br>
           <h5>Procedure For Recording</h5>
           <ol>
             <li>
-              Choose a particular Voice (A Voice with a perticular Tone and Style i.e a particular style by a particular speaker) and stick to it thorugh out the entire recording process here.
+              Choose a particular Voice (A Voice with a perticular Tone and Style i.e a particular style by a particular speaker) and stick to it thorugh out the entire recording process here. 
             </li>
             <li>
               Select a voice. Copy and paste all of your texts in the box (Put all Texts). Click on Analyse. This will just show total number of unique words in the text corpus, number of takes required for the recording and estimated time to record all the takes. 
             </li>
             <li>
-              Then Select a Cropping Amp. Threshold and Analysis Time Gap. Put a take number (start with 0) and click on Go. This will show you 8 uniques words. Read all the words in a flow as per the voice first. It's important to keep atleast a 0.5 second gap between each words but preserving the flow while doing recording. Click on Start Recording button to start recording. Keep in mind to use a very good quality microphone with almost 0 noise. After speaking all the words click on Stop Recording button to stop recording.
+              Now you need to upload a small chunk of words (a sentence) spoken in the Tone and Sytle by a speaker. Then before giving a take you need to listen to that reference voice first and then mimic the same Tone and Sytle while giving the takes.
+            </li>
+            <li>
+              Then Select a Cropping Amp. Threshold and Analysis Time Gap. Put a take number (start with 0) and click on Go. This will show you 4 uniques words. Read all the words in a flow as per the reference voice first i.e read the word chunks in the same Tone and Style of the reference voice. It's important to keep atleast a 0.5 second gap between each words but preserve the flow while doing recording. Click on Start Recording button to start recording. Keep in mind to use a very good quality microphone with almost 0 noise. After speaking all the words click on Stop Recording button to stop recording.
             </li>
             <li>
               If everything went find you would get a success message else do a retake. The success message is not enough. You should be listening to all the words by playing them from the poped up play buttons verifying that all the words are properly cropped. If done properly, click on Done to submit the take. Else do a retake.  
             </li>
           </ol>
           <br>
-          <button id="reset_backend" name="reset_backend" onclick="reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
+          <button disabled="true" id="reset_backend" name="reset_backend" onclick="reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
           <p class="text-danger">This button deletes all the data stored in the backend for System_1 - Word Concatenation, due to app use. This is for testing purpose. Think twice before using this button.</p>
           <br>
           <select id="select_voice" name="select_voice" class="form-select" aria-label="Default select example">
@@ -197,20 +200,7 @@
           <br>
           <h6>Python</h6>
           <pre style="background-color: rgb(228, 228, 228); padding: 20px 20px 20px 20px; border-radius: 5px 5px 5px 5px">
-import requests
-
-# End point to the TTS system_1.
-# url = 'http://127.0.0.1:8000/tts_1/'
-
-data = {
-    'voice': 'assuring_male_voice_0_1'
-    'phrase': 'd m i finance me ap ka swagat hai.',   
-}
-
-response = requests.post(url, data=data)
-
-print(response)
-print(response.byte)
+Demo Codes
           </pre>
           <br>
           <h6>C++</h6>

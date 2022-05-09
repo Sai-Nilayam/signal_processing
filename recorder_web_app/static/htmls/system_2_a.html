@@ -2,19 +2,25 @@
         <div class="col-lg-8 mx-0 my-4 px-4 py-4" style="background-color: _#ebebeb;">
           <h3>Name Entity Pronunciation</h3>
           <h5>(Alternate Module)</h5>
-          <p>Here the main objective is to upload Vyanjana Varna chunks one by one with proper naming manual naming. The Swaravarna sounds would be pre-recorded just to give support to the naming pronunciations. Chanign the Style and Tone of the pronunctiation is not possible here in this module.</p>
+          <p>Here the main objective is to upload Vyanjana Varna chunks one by one with proper manual naming (Vyanjana Varna Notation). The Swaravarna sounds would be pre-recorded just to give support to the naming pronunciations. Changing the Style and Tone of the pronunctiation is not possible here in this module.</p>
           <br>
           <h5>Procedure For Uploading</h5>
           <ol>
             <li>
-              This is test. 
+              Select a Vyanjana Varna Set. Put a Vyanja Varna Notaiton. Upload the finely cropped Starting sound and Ending sound of the Vyanjana Varna at it's repective fields. Click on Test. This will show an audio player. Play it.
             </li>
             <li>
-              This is test.
+              If the Starting and Ending Vyanjana Varna sounds are properly cropped and good to be used, then the pronunciation of the words taking that Vyanjana Varna as a part will sound very fine. Verify that the 2 Vyanjana Varna crops are proper and ideal. If so, then click on Done to upload the files to the proper path in the backend. If not, do a reupload.
+            </li>
+            <li>
+              For example, for the sound of 'k', there would be two different sounds of 'k' as 'k_s' - for Starging 'k' sound and 'k_e' - for Ending 'k' sound. The the testing clip will play the words - 'kankaktak', 'kaankaaktaak', 'kinkiktik', 'kunkuktuk', 'kenkekted' and 'konkoktok' in both male and female voice. If all whe words sound natural, that will prove that the small chunk of the 'k_s' and 'k_e' are ideal and will perform awesome in Text to Speech.
+            </li>
+            <li>
+              It is important to take note on the constraint that the Notation for any Vyanjana Varna should not be more than 3 characters.
             </li>
           </ol>
           <br>
-          <button id="system_2a_reset_backend" name="system_2a_reset_backend" onclick="system_2_a_reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
+          <button disabled="true" id="system_2a_reset_backend" name="system_2a_reset_backend" onclick="system_2_a_reset_backend()" type="button" class="btn btn-danger">Reset Backend</button>
           <p class="text-danger">This button deletes all the data stored in the backend for System_2 Alternate - Name Entity pronunciation, due to app use. This is for testing purpose. Think twice before using this button.</p>
           <br>
           <div class="input-group mb-2" style="width: _">
@@ -90,19 +96,7 @@
           <br>
           <h6>Python</h6>
           <pre style="background-color: rgb(228, 228, 228); padding: 20px 20px 20px 20px; border-radius: 5px 5px 5px 5px">
-import requests
-
-# End point to the TTS system_2.
-# url = 'http://127.0.0.1:8000/tts_2/'
-
-data = {
-    'name': 'ankush deshpande'   
-}
-
-response = requests.post(url, data=data)
-
-print(response)
-print(response.byte)
+Demo Codes
           </pre>
           <br>
           <h6>C++</h6>
