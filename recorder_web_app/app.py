@@ -18,15 +18,21 @@ from formatter import formatter
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-	html_content = open('static/htmls/index.html', 'r').read()
-	return html_content
-
 # For testing only.
 @app.route('/test')
 def test():
 	html_content = '<h1>This is test</h1>'
+	return html_content
+
+@app.route('/')
+def index():
+	# html_content = open('static/htmls/index.html', 'r').read()
+	return "Try out the URL 'https://prefix.domain_name.extension/signal_processing'"
+
+# For testing only.
+@app.route('/signal_processing')
+def signal_processing():
+	html_content = open('static/htmls/signal_processing.html', 'r').read()
 	return html_content
 
 # For system_1.
