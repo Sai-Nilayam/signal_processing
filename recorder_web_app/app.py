@@ -63,6 +63,12 @@ text_code = f.read()
 exec(text_code)
 f.close()
 
+# For TTS public service.
+f = open('apis/system_5.py', 'r')
+text_code = f.read()
+exec(text_code)
+f.close()
+
 if __name__ == '__main__':
 	# app.run(debug=True, port=8000)
 	app.run(debug=True, host='0.0.0.0')

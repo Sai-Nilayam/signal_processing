@@ -3,6 +3,11 @@ def get_unique_words():
 	voice = request.form.get("voice")
 	all_texts = request.form.get("all_texts")
 
+	# Checking if the folder exists. If not recreate it.
+	folder_names = os.listdir('static/system_1/')
+	if voice not in folder_names:
+		shutil.copytree('static/system_1/base_structure', 'static/system_1/{}'.format(voice))
+
 	# Now we have the voice and the all_texts.
 	# Now here we need to do the processigs.
 

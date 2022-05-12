@@ -6,6 +6,17 @@ How the project is structured
 4. All the Python files are splitted to different files as per the systems. Especially all the APIs in the backend are splitted as per different systems and are located in 'apis' folder. The way the Python scripts are connected to the root app.py file is by executing the Python text codes those are grabed from the respective system's .py file form 'api/' folder, by the 'exec()' function of Python. The error could be tracked as per at which line of the module the error is in the respective system's python module.
 5. The major app data is stored at '/static/system_i' folder. That means the app data is stored in the respective folders as the systems. But there could be situations where the app data is being stored in a differnt system than it should be for more some complex works. 
 
+Systems
+--------
+All the small differnt componets are devided in to different systems. Here is a list that says which system does what kind of work. 
+1. system_1 -> Word Concatenation
+2. system_2 -> Name Entity Pronunciation
+2. system_2_a -> Name Entity Pronunciation Alternate
+3. system_3 -> Vocal Tone and Style Transfer
+4. system_4 -> Conversational Voice
+5. system_5 -> Public TTS API
+6. system_6 -> Intented Speech Capture
+
 How to track on when which API is called from the frontend.
 --------
 Take a track on differnt events. Different events are triggered from different funcitons. The URL to which the funciton calls as an Ajax request could be found within that 'url' variable defined inside that function.

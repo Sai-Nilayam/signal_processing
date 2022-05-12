@@ -5,7 +5,7 @@ def formatter(name, vv_1, vv_2, vv_3):
 	# vv_3 = ['chh', 'th2', 'dh2']
 
 	name_list = list(name)
-	print(name_list)
+	# print(name_list)
 
 	vvs = []
 
@@ -50,7 +50,7 @@ def formatter(name, vv_1, vv_2, vv_3):
 					vvs.append(inst_1_char)
 					vvs.append(i)
 
-	print(vvs)
+	# print(vvs)
 
 	# Using the same technique to findout all the swaravarna sounds.
 	sv_2 = ['aa']
@@ -81,7 +81,7 @@ def formatter(name, vv_1, vv_2, vv_3):
 				svs.append(inst_1_char)
 				svs.append(i)
 
-	print(svs)
+	# print(svs)
 
 	# combining both the arrays with proper indexing.
 	combined_arr = []
@@ -92,7 +92,7 @@ def formatter(name, vv_1, vv_2, vv_3):
 	for ele in svs:
 		combined_arr.append(ele)
 
-	print(combined_arr)
+	# print(combined_arr)
 
 	acc_dict = {}
 	sorting_arr = []
@@ -105,17 +105,17 @@ def formatter(name, vv_1, vv_2, vv_3):
 		sorting_arr.append(combined_arr[i+1])
 
 
-	print(acc_dict)
+	# print(acc_dict)
 
 	sorting_arr.sort()
-	print(sorting_arr)
+	# print(sorting_arr)
 
 	formatted_ar = []
 	# Sorting the values.
 	for ele in sorting_arr:
 		formatted_ar.append(acc_dict[ele])
 
-	print(formatted_ar)
+	# print(formatted_ar)
 
 	# Now once we have this formatted array. Now the job is to write the funciton for detecting the starting end vv and 
 	# starting middle and ending sv.
@@ -141,7 +141,7 @@ def formatter(name, vv_1, vv_2, vv_3):
 
 			formatted_ar[i] = formatted_ar[i] + '_s'
 
-	print(formatted_ar)
+	# print(formatted_ar)
 
 	# So far the funciton of Name entinty pronunctiation is over.
 
@@ -160,7 +160,7 @@ def formatter(name, vv_1, vv_2, vv_3):
 				continue
 
 			if i == len(formatted_ar)-1:
-				formatted_ar[i] = formatted_ar[i] + '_s'
+				formatted_ar[i] = formatted_ar[i] + '_m'
 				continue
 
 			if i == len(formatted_ar)-2:
@@ -169,13 +169,28 @@ def formatter(name, vv_1, vv_2, vv_3):
 
 			formatted_ar[i] = formatted_ar[i] + '_m'
 
-	print(formatted_ar)
+	# print(formatted_ar)
 
 	# Finally returning the formatted ar.
 	return formatted_ar
 
 if __name__ == '__main__':
+	# Testing for time consuption.
+	import time
+
 	name = 'rajesh'
-	formatted_ar = formatter(name)
-	print('\n' + name)
+
+	vv_1 = ['k', 'g', 'j', 't', 'd', 'n', 'p', 'b', 'm', 'y', 'r', 'l', 'w', 's', 'h']
+	vv_2 = ['kh', 'gh', 'ch', 'jh', 'th', 'dh', 'ph', 'bh', 'sh', 't2', 'd2']
+	vv_3 = ['chh', 'th2', 'dh2']
+
+	tik = time.time()
+
+	for i in range(32):
+		formatted_ar = formatter(name, vv_1, vv_2, vv_3)
+
+	tok = time.time()
+
+	print(tok-tik)
+	print(name)
 	print(formatted_ar)

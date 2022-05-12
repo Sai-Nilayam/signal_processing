@@ -5,6 +5,11 @@ def system_2_a_process_audio():
 	vv_s_audio = request.files['vv_s_audio']
 	vv_e_audio = request.files['vv_e_audio']
 
+	# Checking if the folder exists. If not recreate it.
+	folder_names = os.listdir('static/system_2_a/')
+	if vv_set not in folder_names:
+		shutil.copytree('static/system_2_a/base_structure', 'static/system_2_a/{}'.format(vv_set))
+
 	# Creating a url and saving both the files in the inst folder and creating a clip with other sounds for testing. 
 	# Saving the starting sound.
 	url_s = 'static/system_2_a/{}/inst_vv/{}_s.wav'.format(vv_set, vv_notation)

@@ -8,6 +8,11 @@ def system_3_process_audio():
 	fine_analysis_time_gap = request.form.get('fine_analysis_time_gap')
 	audio = request.files['audio']
 
+	# Checking if the folder exists. If not recreate it.
+	folder_names = os.listdir('static/system_3/')
+	if voice not in folder_names:
+		shutil.copytree('static/system_3/base_structure', 'static/system_3/{}'.format(voice))
+
 	# Now the next thing to do is to save the file at the right location.
 	audio.save('static/system_3/{}/audio_take_inst.wav'.format(voice))	
 
