@@ -204,7 +204,6 @@ def system_3_testing_play():
 
 @app.route('/system_3/get_final_output_url', methods=['POST'])
 def system_3_get_final_output():
-	print('test')
 	testing_voice = request.form.get('testing_voice')
 
 	# List all the files in the testing_words folder.
@@ -260,4 +259,10 @@ def system_3_reset_backend():
 
 	response_json = json.dumps(response)
 
-	return response_json
+# For updating the dict.
+@app.route('/system_3/update_dict', methods=['POST'])
+def system_3_update_dict():
+	dict_ = request.files['dict']
+	dict_.save('static/system_5/dict.py')	
+
+	return 'done'

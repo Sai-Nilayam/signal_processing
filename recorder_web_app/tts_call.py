@@ -13,17 +13,19 @@ host_name = localhost_name
 # Getting the path to the generated wav file from the words. 
 url = host_name + '/system_5/tts'
 
+words = 'rajesh ap ka swagat he ap ka naam bataen'
+
 data = {
     # The API Key.
     'key': 'test_key',
     # The sentence to be converted from Text to Speech.
-    'words': 'ankush this call may be recorded for quality and training purpose',
+    'words': words,
+    # The Tone and Style in which we need the Speech to be in. 
+    'voice': 'test_2_sai',
     # Vyanjana Varna Set.
     'vv_set': 'test',
-    # The Tone and Style in which we need the Speech to be in. 
-    'voice': 'test',
     # Gap between each words, to make the voice clip sound faster or slower. 
-    'gap_between_words': '0.1'
+    'gap_between_words': '0.05'
 }
 
 response = requests.post(url, data=data)

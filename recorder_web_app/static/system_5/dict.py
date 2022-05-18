@@ -1,4 +1,4 @@
-word_dict = {
+map_dict = {
 	'this': 'dis',
 	'call': 'kal',
 	'may': 'me',
@@ -10,7 +10,16 @@ word_dict = {
 	'training': 'trening',
 	'purpose': 'parpas',
 
+	# Hindi Testing
+	'ap': 'aap',
+	'ki': 'ki',
+	'awaj': 'awaaj',
+	'record': 'rekad',
+	'karni': 'karni',
+	'he': 'he',
+
 	# Name Entities
 	'ankush': 'ankush',
-	'rajesh': 'raajesh'
+	'rajesh': 'raajesh',
+	'mahesh': 'mahesh',
 }

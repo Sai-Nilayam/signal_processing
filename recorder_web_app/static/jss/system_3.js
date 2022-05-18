@@ -431,3 +431,32 @@ function system_3_reset_backend() {
 
 	xhttp.send()
 }
+
+// For updating the dictionary.
+function system_3_update_dict() {
+	url = '/system_3/update_dict'
+
+ 	xhttp = new XMLHttpRequest();
+ 	xhttp.onload = function() {
+		// response_text = this.responseText;
+		// response_json = JSON.parse(response_text);
+		alert("Dictionary updated successfully.")
+		document.getElementById("system_3_dictionary").value = "";
+	}
+
+ 	xhttp.open("POST", url);
+
+ 	// Preparing the data
+ 	dict = document.getElementById("system_3_dictionary").files[0];
+
+ 	// Check if the upload field is not empty.
+ 	if (dict == null) {
+ 		alert("Please select a dictionary first.");
+ 		return;
+ 	}
+ 	
+ 	form_data = new FormData()
+ 	form_data.append('dict', dict)
+
+	xhttp.send(form_data)
+}

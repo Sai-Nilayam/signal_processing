@@ -1,11 +1,6 @@
 # For testing.
 # print('test')
 
-# Different things needed to be cached during the TTS processing.
-# 1. The Mapping Dict.
-# 2. All the Swaravarna sounds and Vyanjana Varna sounds of all voices and vv_sets. 
-
-# Caching the Mapping dict.
 # Importing the mapping dict and executing it, so that it could be used anytime.
 # Getting all the text codes from the python file.
 f = open('static/system_5/dict.py', 'r')
@@ -14,6 +9,17 @@ exec(text_code)
 f.close()
 
 # ----------------------------------------------------------------
+# Caching all the Words
+# Demo dict
+# word_dict = {
+# 	'test': {
+# 		'this': [],
+# 	},
+# 	'test_2': {
+# 		'this': [],
+# 	}
+# }
+
 # Caching all the Swaravarna and Vyanjanavarna sounds.
 # Demo dicts.
 # sv_dict = {
@@ -33,6 +39,25 @@ f.close()
 # 		'k_s': [],
 # 	}
 # }
+
+# Creating Word dicts.
+word_dict = {}
+folders = os.listdir('static/system_1/')
+folders.remove('base_structure')
+
+for folder in folders:
+	word_dict[folder] = {}
+
+for key in word_dict:
+	files = os.listdir('static/system_1/{}/words/'.format(key))
+	for file in files:
+		ar, sr = librosa.load('static/system_1/{}/words/{}'.format(key, file), sr=48000)
+		word_dict[key][file] = ar
+
+# With this the Word dict is ready.
+# print(word_dict)
+# print(len(word_dict['test']))
+# print(word_dict['test']['this.wav'])
 
 # Creating Swaravarna dicts.
 sv_dict = {}
@@ -93,30 +118,23 @@ def system_5_tts():
 
 	key = request.form.get('key')
 	words = request.form.get('words')
-	vv_set = request.form.get('vv_set')
+	# use_word_concatenation = request.form.get('use_word_concatenation')
+	# use_dict = request.form.get('use_dict')
 	voice = request.form.get('voice')
+	vv_set = request.form.get('vv_set')
 	gap_between_words = request.form.get('gap_between_words')
 
-	print(words, voice, gap_between_words)
+	print(key, words, voice, vv_set, gap_between_words)
 
+	# Test the key first.
 	if key != 'test_key':
 		return 'You have entered a wrong API key.'
 
-	# Now we need to split the words by ' ' space.
-	words_arr = words.split(' ')
-	# Converting each words to it's dict form.
-	words_dict_arr = []
+	# Making the gap between words arr ready.
+	gap_between_words = float(gap_between_words)
+	gap_ar = np.array([0 for i in range(int(48000*gap_between_words))])
 
-	for word in words_arr:
-		inst_dict_word = word_dict[word]
-		words_dict_arr.append(inst_dict_word)
-
-	print(words_dict_arr)
-
-	# ----------------------------------------------------------------
-	# Now it's time to create the np word arr
-	words_np_arr = np.array([])
-	
+	# A few things to use the formatter script.
 	# Making up the Vyanjana Varna lists.
 	vv_1 = []
 	vv_2 = []
@@ -138,35 +156,48 @@ def system_5_tts():
 		'u_s', 'u_m', 'u_e', 'e_s', 'e_m', 'e_e', 'o_s', 'o_m', 'o_e'
 	]
 
-	for word in words_dict_arr:
-		final_pronunciation = np.array([])
+	# Now we need to split the words by ' ' space.
+	words_ar = words.split(' ')
 
-		formatted_ar = formatter(word, vv_1, vv_2, vv_3)
+	# Creating an empty numpy array.
+	final_speech = np.array([])
 
-		# Create the sound array of the word
-		for i in range(len(formatted_ar)):
-			inst_character = formatted_ar[i]
+	print(list(word_dict[voice].keys()))
 
-			# check if it's SV or VV.
-			if inst_character in all_sv_sounds:
-				# inst_ar, inst_sr = librosa.load('static/system_3/{}/sv/{}.wav'.format(voice, inst_character), sr=48000)
-				# Accessing the chached array insted.
-				inst_ar = sv_dict[voice][inst_character + '.wav']
-				final_pronunciation = np.concatenate([final_pronunciation, inst_ar])
-			else:
-				# inst_ar, inst_sr = librosa.load('static/system_2_a/{}/vv/{}.wav'.format(vv_set, inst_character), sr=48000)
-				inst_ar = vv_dict[vv_set][inst_character + '.wav']
-				final_pronunciation = np.concatenate([final_pronunciation, inst_ar])
+	for word in words_ar:
+		if word+'.wav' in list(word_dict[voice].keys()):
+			# Getting the word from Word Concatenation system.
+			inst_word_ar = word_dict[voice][word+'.wav']
+			final_speech = np.concatenate([final_speech, inst_word_ar])
+			final_speech = np.concatenate([final_speech, gap_ar])
+		else: 
+			if word in list(map_dict.keys()):
+				word = map_dict[word]
+			
+			# Now using the Vocal Tone and Style Transfer module to make the work.
+			formatted_ar = formatter(word, vv_1, vv_2, vv_3)
 
-		gap_between_words = float(gap_between_words)
-		gap_arr = [0 for i in range(int(48000*gap_between_words))]
-		words_np_arr = np.concatenate([words_np_arr, final_pronunciation, gap_arr])
+			for character in formatted_ar:
+				# check if it's SV or VV.
+				if character in all_sv_sounds:
+					# inst_ar, inst_sr = librosa.load('static/system_3/{}/sv/{}.wav'.format(voice, inst_character), sr=48000)
+					# Accessing the chached array insted.
+					inst_character_ar = sv_dict[voice][character + '.wav']
+					final_speech = np.concatenate([final_speech, inst_character_ar])
+				else:
+					# inst_ar, inst_sr = librosa.load('static/system_2_a/{}/vv/{}.wav'.format(vv_set, inst_character), sr=48000)
+					# Accessing the chached array insted.
+					inst_character_ar = vv_dict[vv_set][character + '.wav']
+					final_speech = np.concatenate([final_speech, inst_character_ar])
+
+			# Putting the gap at the end of the word. 
+			final_speech = np.concatenate([final_speech, gap_ar])
 
 	# Saving the words_np_arr in wav form.
 	# Creating the time attached name.
-	file_name = 'testing_characters' + '_' + str(datetime.datetime.now()) + '.wav'
+	file_name = 'final_speech' + '_' + str(datetime.datetime.now()) + '.wav'
 	# Saving the final pronuciation.
-	sf.write('static/system_5/wavs/{}'.format(file_name), words_np_arr, 48000, 'PCM_24')
+	sf.write('static/system_5/wavs/{}'.format(file_name), final_speech, 48000, 'PCM_24')
 
 	tok = time.time()
 
