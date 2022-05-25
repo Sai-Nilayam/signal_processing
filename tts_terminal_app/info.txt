@@ -1,0 +1,52 @@
+
+sv_set
+--------
+a a2 i u e o - 6
+
+aa2 ai au ae ao - 5
+a2a a2i a2u a2e a2o - 5
+ia ia2 iu ie io - 5
+ua ua2 ui ie uo - 5
+ea ea2 ei eu eo - 5
+oa oa2 oi ou oe - 5
+
+30 + 6 = 36
+
+vv_set
+--------
+k kh g gh n2 - 5
+ch chh j jh - 4
+t th d dh - 4
+t2 th2 d2 dh2 n - 5
+p ph b bh m - 5
+r l sh s - 4
+f v - 2
+
+5 + 4 + 4 + 5 + 5 + 4 + 2 = 29
+
+total 36 + 29 = 65
+
+goal
+--------
+d m i finance me apka swagat he. apka naam ankush he. hamare grahak seva pratinidhi se baat karne ke liye ek dabaen.
+
+di em a2e faina2ns me a2pka2 swa2gat hae. a2pka2 na2m ankush hae. hama2re gra2hak seva2 pratinidh2i se ba2t karne ke liye ek daba2en.
+
+   
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

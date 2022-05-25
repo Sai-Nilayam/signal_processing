@@ -7,13 +7,13 @@ import json
 localhost_name = 'http://127.0.0.1:5000'
 remotehost_name = 'https://dev.simpragma.com'
 
-host_name = localhost_name
+host_name = remotehost_name
 
 # ----------------------------------------------------------------
 # Getting the path to the generated wav file from the words. 
 url = host_name + '/system_5/tts'
 
-words = 'rajesh ap ka swagat he ap ka naam bataen'
+words = 'di em aae phainans me apka swaagat he'
 
 data = {
     # The API Key.
@@ -21,11 +21,11 @@ data = {
     # The sentence to be converted from Text to Speech.
     'words': words,
     # The Tone and Style in which we need the Speech to be in. 
-    'voice': 'test_2_sai',
+    'voice': 'test_2',
     # Vyanjana Varna Set.
     'vv_set': 'test',
     # Gap between each words, to make the voice clip sound faster or slower. 
-    'gap_between_words': '0.05'
+    'gap_between_words': '0.2'
 }
 
 response = requests.post(url, data=data)
